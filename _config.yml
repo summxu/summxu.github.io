@@ -4,8 +4,8 @@
 
 # Site
 title: BoomXu Blog
-subtitle: 在前端中不能自拔的小小白...
-description: BoomXu的个人博客
+subtitle: 前端小小白..
+description: BoomXu的技术博客
 keywords: BoomXu,Vue,React,Angular,Web前端,Linux,Game,HTML,JavaScript
 author: BoomXu
 language: zh-CN
@@ -15,7 +15,7 @@ timezone: Asia/Shanghai
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://boomxu.com
 root: /
-permalink: :year/:title/
+permalink: :title
 permalink_defaults:
 
 # Directory
