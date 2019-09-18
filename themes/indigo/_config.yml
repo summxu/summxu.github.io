@@ -20,14 +20,14 @@ menu:
   info-circle:
     text: 关于
     url: /about
-  rss:
-    url: /atom.xml
-    target: _blank
   github:
     url: https://github.com/yuyu147
     target: _blank
   weibo:
     url: http://www.weibo.com
+    target: _blank
+  rss:
+    url: /atom.xml
     target: _blank
 
 # 你的头像url
