@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: BoomXu Blog
-subtitle: 资深前端小小白..
-description: BoomXu的技术博客
-keywords: BoomXu,Vue,React,Angular,Web前端,Linux,Game,HTML,JavaScript
-author: BoomXu
+title: 小兵旭旭的博客
+subtitle: Reality's more solid worth,Appearance studied to set forth.
+description: 小兵旭旭
+keywords: Vue,React,Angular,Web前端,Linux,Game,HTML,JavaScript
+author: summxu
 language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://www.boomxu.com
+url: https://summxu.github.io/
 root: /
 permalink: :title/
 permalink_defaults:
@@ -50,7 +50,7 @@ highlight:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 10
+  per_page: 30
   order_by: -date
   
 # Category & Tag
@@ -67,7 +67,7 @@ time_format: HH:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 10
+per_page: 30
 pagination_dir: page
 
 # Extensions

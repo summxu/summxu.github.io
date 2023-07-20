@@ -1,3 +1,9 @@
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
 <%- partial('post/toc', { post: post}) %>
 <article id="<%= post.layout %>-<%= post.slug %>"
   class="post-article article-type-<%= post.layout %> fade" itemprop="blogPost">
@@ -13,7 +19,7 @@
             <%- post.content %>
         </div>
 
-        <%- partial('post/copyright') %>
+        <!-- <%- partial('post/copyright') %> -->
         <%- partial('post/reward-btn') %>
 
         <div class="post-footer">

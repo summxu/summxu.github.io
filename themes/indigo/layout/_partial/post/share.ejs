@@ -1,3 +1,9 @@
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
 <%
     // 使用 sns 直接分享接口
     // 微信使用 qrcode helper 或 http://goqr.me/api/ 生成二维码
@@ -47,7 +53,7 @@
 <% if(scope === 'global') { %>
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
+    <p>扫一扫分享到微信</p>
     <img src="<%- 'qrcode' in locals ? qrcode(sUrl) : '//api.qrserver.com/v1/create-qr-code/?data=' + sUrl  %>" alt="微信分享二维码">
 </div>
 <% } %>

@@ -21,10 +21,10 @@ menu:
     text: 关于
     url: /about
   github:
-    url: https://github.com/yuyu147
+    url: https://github.com/summxu
     target: _blank
   weibo:
-    url: http://www.weibo.com
+    url: https://weibo.com/u/1938786603
     target: _blank
   rss:
     url: /atom.xml
