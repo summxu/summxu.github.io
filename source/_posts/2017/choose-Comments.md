@@ -1,13 +1,12 @@
 ---
 layout:     post
-title:      "评论系统-从选择到妥协"
+title:      "无需后台的集成式评论系统"
 subtitle:   "介绍下国内外几个常见的评论系统,有发展也有落败"
 date:       2017-6-02
 author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/06/02/593188be04f4a.jpg"
 tags:
-    - Js插件
-    - 博客
+    - JavaScript
 ---
 
 

@@ -1,12 +1,12 @@
 ---
 layout:     post
-title:      "老古董 - Email和Rss订阅"
+title:      "优雅的使用Email和Rss以便让生活井井有序"
 subtitle:   "优雅的使用Email和Rss以便让生活井井有序"
 date:       2017-06-28
 author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/06/28/595382144fe36.jpg"
 tags:
-    - 分享
+    - 技术分享
 ---
 
 

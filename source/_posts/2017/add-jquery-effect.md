@@ -7,7 +7,6 @@ author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/06/15/5942a94c2114a.jpg"
 tags:
     - jQuery
-    - 博客
 ---
 
 

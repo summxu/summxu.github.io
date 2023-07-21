@@ -2,8 +2,7 @@
 title: Webpack按需打包Lodash的几种方式
 date: 2019-04-16 13:23:06
 tags:
-    - WebPack
-    - Lodash
+    - JavaScript
 ---
 在数据操作时，Lodash 就是我的弹药库，不管遇到多复杂的数据结构都能用一些函数轻松拆解。
 

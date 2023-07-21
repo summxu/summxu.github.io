@@ -6,9 +6,8 @@ date:       2017-5-27
 author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/05/27/59294345ceb07.jpg"
 tags:
-    - Jekyll
+    - 技术分享
     - Git
-    - 博客
 ---
 
 

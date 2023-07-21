@@ -6,7 +6,7 @@ date:       2017-06-14
 author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/06/14/59414d0871f46.jpg"
 tags:
-    - Jekyll
+    - 技术分享
 ---
 
 

@@ -8,7 +8,6 @@ header-img: "https://ooo.0o0.ooo/2017/06/25/594f9bfd1c1f8.jpg"
 tags:
     - Linux
     - C语言
-    - Socket
 ---
 
 

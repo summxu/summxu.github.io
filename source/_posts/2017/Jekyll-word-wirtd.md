@@ -6,9 +6,7 @@ date:       2017-5-24
 author:     "BoomXu"
 header-img: ""
 tags:
-    - Jekyll
-    - Markdown
-    - 博客
+    - 技术分享
 ---
 
 

@@ -6,9 +6,7 @@ date:       2018-08-25
 author:     "BoomXu"
 tags:
     - JavaScript
-    - 移动Web
     - Bootstrap
-    - 模板引擎
 ---
 
 > bootstrap 原生轮播图，因为轮播图是图片，所以为了做响应式就要麻烦一些，因为要涉及到图片的大小还有小屏幕的显示比例，把这次遇到的问题重新捋一下 。

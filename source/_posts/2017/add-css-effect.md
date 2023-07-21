@@ -7,7 +7,6 @@ author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/06/16/59439d8b17cf3.jpg"
 tags:
     - CSS
-    - 博客
 ---
 
 

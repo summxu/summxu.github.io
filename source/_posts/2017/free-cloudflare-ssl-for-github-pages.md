@@ -6,9 +6,7 @@ date:       2017-5-24
 author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/05/26/592836b3d58e3.jpg"
 tags:
-    - Jekyll
-    - SSL
-    - 博客
+    - 技术分享
 ---
 
 

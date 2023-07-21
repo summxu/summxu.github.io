@@ -2,7 +2,6 @@
 title: 如何为Canvas中特定图形绑定事件？
 date: 2019-02-14 18:47:15
 tags:
-    - Canvas
     - JavaScript
 ---
 

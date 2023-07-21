@@ -6,7 +6,6 @@ date:       2017-06-11
 author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/06/11/593cec37f048b.jpg"
 tags:
-    - SEO
     - JavaScript
 ---
 

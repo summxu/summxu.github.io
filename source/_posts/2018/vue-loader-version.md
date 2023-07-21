@@ -6,7 +6,6 @@ date:       2018-07-22
 author:     "BoomXu"
 tags:
     - Vue
-    - WebPack
 ---
 
 > 在学习Vue.js和Webpack的路上遇到了不少问题,也找到了相对的解决办法, 这次记录下在vue-loader版本遇到的问题.

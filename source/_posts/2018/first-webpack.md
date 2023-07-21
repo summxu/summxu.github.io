@@ -6,7 +6,7 @@ date:       2018-04-21
 author:     "BoomXu"
 header-img: "http://p5oqx8gut.bkt.clouddn.com/18-4-21/19914311.jpg"
 tags:
-    - Webpack
+    - JavaScript
     - Node.js
 ---
 

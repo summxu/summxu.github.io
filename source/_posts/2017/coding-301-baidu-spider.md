@@ -6,7 +6,6 @@ date:       2017-06-11
 author:     "BoomXu"
 header-img: ""
 tags:
-    - SEO
     - JavaScript
 ---
 

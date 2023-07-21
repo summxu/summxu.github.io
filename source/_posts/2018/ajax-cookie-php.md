@@ -7,7 +7,6 @@ author:     "BoomXu"
 header-img: "http://p5oqx8gut.bkt.clouddn.com/18-3-26/8618257.jpg"
 tags:
     - JavaScript
-    - PHP
 ---
 
 > 最近一个星期内，我一直在修改我的博客，直到今天，才算是基本完型。中间修改了很多地方，也学到了很多东西，在这篇博客里就一起回顾下这次博客修改遇到的各种问题吧！

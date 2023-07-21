@@ -7,7 +7,7 @@ author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/06/08/5939609956425.jpg"
 tags:
     - Linux
-    - Game
+    - 游戏
 ---
 
 

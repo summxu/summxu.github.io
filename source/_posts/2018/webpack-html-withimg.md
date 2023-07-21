@@ -5,7 +5,7 @@ subtitle:   "Webpack"
 date:       2018-08-24
 author:     "BoomXu"
 tags:
-    - WebPack
+    - JavaScript
 ---
 
 > 介绍两个webpack插件的使用

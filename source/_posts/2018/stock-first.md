@@ -6,7 +6,7 @@ date:       2018-3-15
 author:     "BoomXu"
 header-img: "https://i.loli.net/2018/03/15/5aaa2b0985983.jpg"
 tags:
-    - 分享
+    - 生活分享
 ---
 
 

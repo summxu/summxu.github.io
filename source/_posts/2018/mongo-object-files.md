@@ -5,8 +5,7 @@ subtitle:   "对象格式化"
 date:       2018-09-10
 author:     "BoomXu"
 tags:
-    - MongoDB
-    - 模板引擎
+    - Node.js
 ---
 
 > 项目匿名评论系统的MongoDB操作

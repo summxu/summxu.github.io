@@ -6,8 +6,7 @@ date:       2017-06-08
 author:     "BoomXu"
 header-img: "https://ooo.0o0.ooo/2017/06/08/5939158e0d98e.jpg"
 tags:
-    - VScode
-    - Js插件
+    - 技术分享
 ---
 
 

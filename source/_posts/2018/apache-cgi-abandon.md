@@ -7,7 +7,6 @@ author:     "BoomXu"
 header-img: "http://p5oqx8gut.bkt.clouddn.com/18-4-13/13824140.jpg"
 tags:
     - Linux
-    - Apache
     - Python
 ---
 
