@@ -43,9 +43,9 @@ jobs:
       - name: Look Dir List
         run: tree -L 3 -a
       - name: Clean
-        run: npm run clean
+        run: npx hexo clean
       - name: Build
-        run: npm run build
+        run: npx hexo generate
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
