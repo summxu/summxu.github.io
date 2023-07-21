@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>ReactNative踩坑记</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ReactNative">
+    <meta name="description" content="最近在使用react-native的时候遇到了很多坑,这里记录一下样式react-native 虽然支持flex布局，但是所有的样式均是css样式的一个很小的集合，尤其是在安卓机下问题尤为凸显：  View内部的元素千万不要超出父级的范围，iso上问题倒是不大，安卓上就什么超出的都看不到了  lineHeight 可以用，不过千万不要写成小数，否则安卓上会直接崩溃  rn的样式不存在继承的情况，所">
+<meta name="keywords" content="ReactNative">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReactNative踩坑记">
+<meta property="og:url" content="https://summxu.github.io/2020/ReactNative踩坑记/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="最近在使用react-native的时候遇到了很多坑,这里记录一下样式react-native 虽然支持flex布局，但是所有的样式均是css样式的一个很小的集合，尤其是在安卓机下问题尤为凸显：  View内部的元素千万不要超出父级的范围，iso上问题倒是不大，安卓上就什么超出的都看不到了  lineHeight 可以用，不过千万不要写成小数，否则安卓上会直接崩溃  rn的样式不存在继承的情况，所">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-21T12:35:55.259Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ReactNative踩坑记">
+<meta name="twitter:description" content="最近在使用react-native的时候遇到了很多坑,这里记录一下样式react-native 虽然支持flex布局，但是所有的样式均是css样式的一个很小的集合，尤其是在安卓机下问题尤为凸显：  View内部的元素千万不要超出父级的范围，iso上问题倒是不大，安卓上就什么超出的都看不到了  lineHeight 可以用，不过千万不要写成小数，否则安卓上会直接崩溃  rn的样式不存在继承的情况，所">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-align-right"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-star"></i>
+                分类标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-grav"></i>
+                这是我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss-square"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ReactNative踩坑记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">ReactNative踩坑记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-07-21T04:16:24.000Z" itemprop="datePublished" class="page-time">
+  2020-07-21
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最近在使用react-native的时候遇到了很多坑-这里记录一下"><span class="post-toc-number">1.</span> <span class="post-toc-text">最近在使用react-native的时候遇到了很多坑,这里记录一下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#样式"><span class="post-toc-number">2.</span> <span class="post-toc-text">样式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#异常"><span class="post-toc-number">3.</span> <span class="post-toc-text">异常</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#fetch"><span class="post-toc-number">4.</span> <span class="post-toc-text">fetch</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Modal"><span class="post-toc-number">5.</span> <span class="post-toc-text">Modal</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#点击屏幕其他位置关闭的菜单"><span class="post-toc-number">6.</span> <span class="post-toc-text">点击屏幕其他位置关闭的菜单</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#接口请求"><span class="post-toc-number">7.</span> <span class="post-toc-text">接口请求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#键盘"><span class="post-toc-number">8.</span> <span class="post-toc-text">键盘</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#https"><span class="post-toc-number">9.</span> <span class="post-toc-text">https</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#BackAndroid"><span class="post-toc-number">10.</span> <span class="post-toc-text">BackAndroid</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2020/ReactNative踩坑记"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ReactNative踩坑记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-07-21 12:16:24" datetime="2020-07-21T04:16:24.000Z"  itemprop="datePublished">2020-07-21</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="最近在使用react-native的时候遇到了很多坑-这里记录一下"><a href="#最近在使用react-native的时候遇到了很多坑-这里记录一下" class="headerlink" title="最近在使用react-native的时候遇到了很多坑,这里记录一下"></a>最近在使用react-native的时候遇到了很多坑,这里记录一下</h2><h2 id="样式"><a href="#样式" class="headerlink" title="样式"></a>样式</h2><p>react-native 虽然支持flex布局，但是所有的样式均是css样式的一个很小的集合，尤其是在安卓机下问题尤为凸显：</p>
+<ol>
+<li><p>View内部的元素千万不要超出父级的范围，iso上问题倒是不大，安卓上就什么超出的都看不到了</p>
+</li>
+<li><p>lineHeight 可以用，不过千万不要写成小数，否则安卓上会直接崩溃</p>
+</li>
+<li><p>rn的样式不存在继承的情况，所以基本上每个节点都要写style，真的是体力活</p>
+</li>
+<li><p>如果Text的父级元素设置了背景颜色，那么ios下Text的背景颜色也是父级的背景颜色，要么自己写个Text重置下样式，要么就遇到了再改</p>
+</li>
+<li><p>react-native的字号是没有设置单位的，所以会随着系统设置的字体大小而变化，我也不知道这是不是坑，不过貌似有的app也没有管这个，如果硬要去设置Text的文字不随系统改变，安卓是可以统一设置的，ios上Text设置allowFontScaling ={false}就可以解决</p>
+</li>
+</ol>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>react-native 在发生js异常的时候，debug的时候会直接红屏幕，但是再release的时候直接会崩溃退出，解决办法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ErrorUtils <span class="keyword">from</span> <span class="string">"ErrorUtils"</span> &lt;br&gt;<span class="comment">//这里应该做个判断，如果不是debug的才做这样的异常全局处理</span></span><br><span class="line">ErrorUtils.setGlobalHandler(<span class="function">(<span class="params">e</span>)=&gt;</span>&#123;&lt;br&gt;　　<span class="comment">//发生异常的处理方法,当然如果是打包好的话可能你找都找不到是哪段代码出问题了</span></span><br><span class="line">　　Alert.alert(<span class="string">"异常"</span>,<span class="built_in">JSON</span>.stringify(e))</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h2><p>react-native虽然自带有fetch，不过在使用的时候发现了一个问题，如果需要获取http的header头的时候问题就来了，可能得到的是一些千奇百怪的样式，这并不是react-native的错，而是第三方的 whatwg-fetch 留下的坑，当然也有人再github上跟react-native反映过这个问题，不过得到的解决方案都很坑，唯有一个办法，就是拷贝自己修改，修改如下:</p>
+<ol>
+<li><p>注释该注释的</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">self</span>) </span>&#123;</span><br><span class="line"><span class="meta">    'use strict'</span>;</span><br><span class="line">　　 <span class="comment">//注释这里，不然总是用的是全局的fetch</span></span><br><span class="line">    <span class="comment">// if (self.fetch) &#123;</span></span><br><span class="line">    <span class="comment">//     return</span></span><br><span class="line">    <span class="comment">// &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改该修改的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">parseHeaders</span>(<span class="params">rawHeaders</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> headers = <span class="keyword">new</span> Headers()&lt;br&gt;　　　　　<span class="comment">//把\t\n改成\t，因为一般header都是用\n来分割的</span></span><br><span class="line">    rawHeaders.split(<span class="string">'\n'</span>).forEach(<span class="function"><span class="keyword">function</span>(<span class="params">line</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//rawHeaders.split('\t\n').forEach(function(line) &#123;</span></span><br><span class="line">            <span class="keyword">var</span> parts = line.split(<span class="string">':'</span>)</span><br><span class="line">            <span class="keyword">var</span> key = parts.shift().trim()</span><br><span class="line">            <span class="keyword">if</span> (key) &#123;</span><br><span class="line">                <span class="keyword">var</span> value = parts.join(<span class="string">':'</span>).trim()</span><br><span class="line">                headers.append(key, value)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> headers</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>直接import你改好的文件，fetch就可以用了</p>
+</li>
+</ol>
+<h2 id="Modal"><a href="#Modal" class="headerlink" title="Modal"></a>Modal</h2><p>Mode控件在使用的时候要注意了，因为这个是rn提供的，并且也写的很清楚是最高层级的一个弹出层，所以你想要又打开Model又要跳转基本是无望的了，所以建议不要使用这个，最好是使用第三方的控件，我们用的是 react-native-modalbox + 高阶控件 实现的全遮盖的弹出层</p>
+<h2 id="点击屏幕其他位置关闭的菜单"><a href="#点击屏幕其他位置关闭的菜单" class="headerlink" title="点击屏幕其他位置关闭的菜单"></a>点击屏幕其他位置关闭的菜单</h2><p>这类菜单有个共同的特点就是点击屏幕其他地方然后菜单就关闭，我们的解决办法就是用自己写的 react-native-modalbox + 高阶控件 也就是说放在一个弹出层里面，当然可以试试把当前页面套进一个大的 TouchableWithoutFeedback 里面</p>
+<h2 id="接口请求"><a href="#接口请求" class="headerlink" title="接口请求"></a>接口请求</h2><p>非特殊情况下都应该这样做</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;InteractionManager&#125; <span class="keyword">from</span> <span class="string">"react-native"</span></span><br><span class="line">componentDidMount()&#123;</span><br><span class="line">  InteractionManager.runAfterInteractions(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      fetch(<span class="string">"xxx.xxx.xxx"</span>,&#123;&#125;)</span><br><span class="line">    &#125;);     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="键盘"><a href="#键盘" class="headerlink" title="键盘"></a>键盘</h2><p>官方提供的自定义隐藏键盘的方法是</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Keyboard &#125; <span class="keyword">from</span> <span class="string">'react-native'</span></span><br><span class="line">Keyboard.dismiss()</span><br></pre></td></tr></table></figure>
+
+<p>但是我试了很多次之后发现根本不能，而且还报错，楼主的react-native版本是0.35.0</p>
+<p>看了官方的issue才知道这个不行，推荐下面方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> dismissKeyboard <span class="keyword">from</span> <span class="string">'dismissKeyboard'</span>dismissKeyboard()</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以隐藏了，太坑了</p>
+<p>还有个很坑的地方，官方提供的移除键盘事件的方法不可用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount () &#123;　　Keyboard.addListener(<span class="string">'keyboardDidShow'</span>, <span class="keyword">this</span>.keyboardDidShow.bind(<span class="keyword">this</span>))　　Keyboard.addListener(<span class="string">'keyboardDidHide'</span>, <span class="keyword">this</span>.keyboardDidHide.bind(<span class="keyword">this</span>))&#125;componentWillUnmount () &#123;</span><br><span class="line">    Keyboard.removeAllListeners(<span class="string">'keyboardDidShow'</span>)</span><br><span class="line">    Keyboard.removeAllListeners(<span class="string">'keyboardDidHide'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的方式特么的如果操作快了，或者有时候莫名其妙的就会出错,下面的才是正确的打开方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount () &#123;</span><br><span class="line">　　<span class="keyword">this</span>.keyboardDidShowListener = Keyboard.addListener(<span class="string">'keyboardDidShow'</span>, <span class="keyword">this</span>.keyboardDidShow.bind(<span class="keyword">this</span>))</span><br><span class="line">　　<span class="keyword">this</span>.keyboardDidHideListener = Keyboard.addListener(<span class="string">'keyboardDidHide'</span>, <span class="keyword">this</span>.keyboardDidHide.bind(<span class="keyword">this</span>))</span><br><span class="line">&#125;</span><br><span class="line">componentWillUnmount () &#123;</span><br><span class="line">    <span class="keyword">this</span>.keyboardDidShowListener.remove()</span><br><span class="line">    <span class="keyword">this</span>.keyboardDidHideListener.remove()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="https"><a href="#https" class="headerlink" title="https"></a>https</h2><p>https这个问题上ios还好，安卓问题就来了，前期我们准备将ajax请求的库丢给原生安卓和ios来做我们直接调用就是了，但是后来发现问题这样那样的问题太多了，</p>
+<p>所以在热更新服务器启动或者打包的时候就把源代码先改了在进行打包或者启动服务器</p>
+<p>文件位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node_modules/react-native/ReactAndroid/src/main/java/com/facebook/react/modules/network/OkHttpClientProvider.java</span><br></pre></td></tr></table></figure>
+
+<p>这个文件的最后一个方法修改如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">private <span class="keyword">static</span> OkHttpClient createClient() &#123;</span><br><span class="line">  <span class="comment">// No timeouts by default</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">  .sslSocketFactory(sslContext.getSocketFactory())</span><br><span class="line">  .hostnameVerifier(<span class="keyword">new</span> HostnameVerifier() &#123;</span><br><span class="line">      @Override</span><br><span class="line">      public boolean verify(<span class="built_in">String</span> hostname, SSLSession session) &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">//忽略所有的认证，直接返回了true</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    .connectTimeout(<span class="number">0</span>, TimeUnit.MILLISECONDS)</span><br><span class="line">    .readTimeout(<span class="number">0</span>, TimeUnit.MILLISECONDS)</span><br><span class="line">    .writeTimeout(<span class="number">0</span>, TimeUnit.MILLISECONDS)</span><br><span class="line">    .cookieJar(<span class="keyword">new</span> ReactCookieJarContainer())</span><br><span class="line">    .build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改源代码的方式有点略坑，不过可以解决很多问题，还节约时间！！！</p>
+<h2 id="BackAndroid"><a href="#BackAndroid" class="headerlink" title="BackAndroid"></a>BackAndroid</h2><p>安卓机有独特的点击按键返回，所以在最外层会注册一个监听方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">bindHardwareBackPress()&#123;</span><br><span class="line">    <span class="keyword">if</span> (Platform.OS === <span class="string">'android'</span>) &#123;</span><br><span class="line">        BackAndroid.addEventListener(<span class="string">'hardwareBackPress'</span>, <span class="keyword">this</span>._onHomeBackPress);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">onHomeBackPress()&#123;</span><br><span class="line">    <span class="keyword">let</span> routeList = <span class="keyword">this</span>.getRouteList();</span><br><span class="line">    <span class="keyword">if</span> (routeList.length !== <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.navigator.pop();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">this</span>.handleHomeBackPress();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">handleHomeBackPress()&#123;</span><br><span class="line">    <span class="keyword">if</span> (Platform.OS === <span class="string">"android"</span>) &#123;</span><br><span class="line">        ToastAndroid.show(<span class="string">"再按一次退出应用"</span>, ToastAndroid.SHORT);</span><br><span class="line">        BackAndroid.removeEventListener(<span class="string">"hardwareBackPress"</span>, <span class="keyword">this</span>._onHomeBackPress);</span><br><span class="line">        BackAndroid.addEventListener(<span class="string">"hardwareBackPress"</span>, <span class="keyword">this</span>._onExitApp);</span><br><span class="line">        <span class="keyword">this</span>.timer = TimerMixin.setInterval(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">            TimerMixin.clearInterval(<span class="keyword">this</span>.timer);</span><br><span class="line">            BackAndroid.removeEventListener(<span class="string">"hardwareBackPress"</span>, <span class="keyword">this</span>._onExitApp);</span><br><span class="line">            BackAndroid.addEventListener(<span class="string">"hardwareBackPress"</span>, <span class="keyword">this</span>._onHomeBackPress);</span><br><span class="line">        &#125;, <span class="number">2000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">exitApp()&#123;</span><br><span class="line">    BackAndroid.exitApp();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码是监听返回键，如果不是在最外层的路由就返回上一个,如果在最外层就直接关闭app，但是有很多这样那样的需求要去对安卓的返回键进行操作，坑就来了，你以为提供的removeEventListener方法是没问题的？no ！！！ 他会移除所有的监听，这是不是很坑！！！！</p>
+<p>所以：<strong>在需要对安卓返回键进行特殊处理的时候记得其他地方做了监听的再重新监听一次！！！！</strong></p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactNative/">ReactNative</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2020/ReactNative踩坑记/&title=《ReactNative踩坑记》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2020/ReactNative踩坑记/&title=《ReactNative踩坑记》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2020/ReactNative踩坑记/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ReactNative踩坑记》 — 小兵旭旭的博客&url=https://summxu.github.io/2020/ReactNative踩坑记/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2020/ReactNative踩坑记/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/http-cache-etag/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">HTTP缓存-ETag</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2020/ReactNative踩坑记/&title=《ReactNative踩坑记》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2020/ReactNative踩坑记/&title=《ReactNative踩坑记》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2020/ReactNative踩坑记/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ReactNative踩坑记》 — 小兵旭旭的博客&url=https://summxu.github.io/2020/ReactNative踩坑记/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2020/ReactNative踩坑记/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aQW7DMAwEwP7/0+4DCjtLUilgaXQK0MTV+LAgRf38xOv6s+7+evfb52cmz1mwMDAwXsu4HtfdVpJNJ59z2POrxMDAOIGRbCj599UYfX5lhRDHwMDAeA67QeBWgx4DAwMj2VC1mKsWoBgYGBiTJnYtJo/pxb04BgbGCxn5qfv/f/7KfAMDA+NVjGuw8gDNx5PNnWBgYGzN6B2K5RutxuioxcXAwDiYMWlE821Vg7hcvWJgYLyWUY22PGSfv7mqAMXAwDiB0WsjV/02GTMkIY6BgbE3o3coNj8m67W1tzvEwMA4gFG9KpE0rpPSs1ykYmBgHMZYdfTfPNwPoj86bsPAwNiIkQwJeiOBJKB7kR0VlxgYGBsx8lDrjTPzaO41sRgYGKcxkmyuFn9zcPOyBQYGxkaMyfWsebxWkR/aVwwMjE0Zk6a0Ojb43qAUAwPjBMaqSO1dqsiHBB/mGxgYGFszquVa3tBOLmQkLwgDA+MExqpR5aQcrBaUs7uuGBgY72NMDvqrR3Jz6u1OMDAwtmbkG51fF6vG66iVxcDA2IhxFVcef9Xn5K+1fGcEAwPj5Yze+DBJ8d71r3yAioGBcRqjF47VOM6DtRrQGBgY5zCqwZccqFVJvejHwMDAqA418/DtNc8fOnIMDIzjGWtb1jyyowEGBgbGAYzqMKA3L61e10gCHQMD4wRG9aJDPmhcG+XJS8TAwNiO8Qv5c5mvLdF7QQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>
