@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>css3 transform对普通元素的n多渲染影响 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CSS">
+    <meta name="description" content="问题原因：项目中用到了vant框架，在dilog中想要弹出Actionsheet发现绝对定位是跟着dilog外层元素定位，此时的 position:fixed 无效，问题是因为dilog定位时用了transform，深究下问题原因，发现事情并不是这么简单！  一个普普通通的元素，如果应用了CSS3 transform变换，即便这个transform属性值不会改变其任何表面的变化（如scale(1">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css3 transform对普通元素的n多渲染影响">
+<meta property="og:url" content="https://summxu.github.io/2019/transform-element-impact/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="问题原因：项目中用到了vant框架，在dilog中想要弹出Actionsheet发现绝对定位是跟着dilog外层元素定位，此时的 position:fixed 无效，问题是因为dilog定位时用了transform，深究下问题原因，发现事情并不是这么简单！  一个普普通通的元素，如果应用了CSS3 transform变换，即便这个transform属性值不会改变其任何表面的变化（如scale(1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.773Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css3 transform对普通元素的n多渲染影响">
+<meta name="twitter:description" content="问题原因：项目中用到了vant框架，在dilog中想要弹出Actionsheet发现绝对定位是跟着dilog外层元素定位，此时的 position:fixed 无效，问题是因为dilog定位时用了transform，深究下问题原因，发现事情并不是这么简单！  一个普普通通的元素，如果应用了CSS3 transform变换，即便这个transform属性值不会改变其任何表面的变化（如scale(1">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">css3 transform对普通元素的n多渲染影响</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">css3 transform对普通元素的n多渲染影响</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-18T15:15:18.000Z" itemprop="datePublished" class="page-time">
+  2019-05-18
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#transform提升元素的垂直地位"><span class="post-toc-number">1.</span> <span class="post-toc-text">transform提升元素的垂直地位</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#transform限制position-fixed的跟随效果"><span class="post-toc-number">2.</span> <span class="post-toc-text">transform限制position:fixed的跟随效果</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#transform改变overflow对absolute元素的限制"><span class="post-toc-number">3.</span> <span class="post-toc-text">transform改变overflow对absolute元素的限制</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#transform限制absolute的100-宽度大小"><span class="post-toc-number">4.</span> <span class="post-toc-text">transform限制absolute的100%宽度大小</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019/transform-element-impact"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">css3 transform对普通元素的n多渲染影响</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-18 23:15:18" datetime="2019-05-18T15:15:18.000Z"  itemprop="datePublished">2019-05-18</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>问题原因：项目中用到了vant框架，在dilog中想要弹出Actionsheet发现绝对定位是跟着dilog外层元素定位，此时的 <code>position:fixed</code> 无效，问题是因为dilog定位时用了transform，深究下问题原因，发现事情并不是这么简单！</p>
+</blockquote>
+<p>一个普普通通的元素，如果应用了CSS3 transform变换，即便这个transform属性值不会改变其任何表面的变化（如scale(1), translate(0,0)），但是，实际上，对这些元素还是造成了很深远的影响。</p>
+<h1 id="transform提升元素的垂直地位"><a href="#transform提升元素的垂直地位" class="headerlink" title="transform提升元素的垂直地位"></a>transform提升元素的垂直地位</h1><p>当遭遇元素margin负值重叠的时候，如果没有static以外的position属性值的话，后面的元素是会覆盖前面的元素的。<br><code>img src=&quot;mm1&quot;&gt;&lt;img src=&quot;mm2&quot; style=&quot;margin-left:-60px;&quot;&gt;</code><br>在transform出现之前，这个规则一直很稳健；但是，自从transform降临，这个规则就变了。元素应用了transform属性之后，就会变得应用了position:relative一个尿性，原本应该被覆盖的元素会雄起，变成覆盖其他元素，修改为如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"mm1"</span> <span class="attr">style</span>=<span class="string">"-ms-transform:scale(1);transform:scale(1);"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"mm2"</span> <span class="attr">style</span>=<span class="string">"margin-left:-60px;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>只要是支持transform元素的浏览器，包括IE9(-ms-), 都会提高普通元素的垂直地位，使其覆盖其他元素而不是被覆盖。</p>
+<p>这种特性底层原理是层叠上下文，具体可参见“<a href="www.baidu.com">深入理解CSS中的层叠上下文和层叠顺序</a>”一文。</p>
+<h1 id="transform限制position-fixed的跟随效果"><a href="#transform限制position-fixed的跟随效果" class="headerlink" title="transform限制position:fixed的跟随效果"></a>transform限制position:fixed的跟随效果</h1><p>我们应该都知道，<code>position:fixed</code>可以让元素不跟随浏览器的滚动条滚动，而且这种跟随效果连它的兄弟们<code>position:relative/absolute</code>都限制不了。但是，真是一物降一物，<code>position:fixed</code>固定效果却被小小的<code>transform</code>给干掉了，直接降级变成<code>position:absolute</code>的蛋疼表现。</p>
+<p>例如下面示意代码：</p>
+<p><code>&lt;p style=&quot;transform:scale(1);&quot;&gt;&lt;img src=&quot;mm1.jpg&quot;style=&quot;position:fixed;&quot; /&gt;&lt;/p&gt;</code><br>结果，本来应该不跟着滚动条滚动的傲娇<code>fixed</code>元素，变成<code>absolute</code>一样的行为表现，归根结底就是父元素加了个小小的<code>transform</code>属性值。</p>
+<p>注意，这个特性表现，目前只在Chrome浏览器/FireFox浏览器下有，IE浏览器，包括IE11, <code>fixed</code>还是<code>fixed</code>的表现。</p>
+<h1 id="transform改变overflow对absolute元素的限制"><a href="#transform改变overflow对absolute元素的限制" class="headerlink" title="transform改变overflow对absolute元素的限制"></a>transform改变overflow对absolute元素的限制</h1><p>在以前，<code>overflow</code>与<code>absolute</code>之间的限制规范内容大致是这样的：</p>
+<p><code>absolute</code>绝对定位元素，如果含有<code>overflow</code>不为<code>visible</code>的父级元素，同时，该父级元素以及到该绝对定位元素之间任何嵌套元素都没有<code>position</code>为非<code>static</code>属性的声明，则<code>overflow</code>对该<code>absolute</code>元素不起作用。</p>
+<p>比方说如下示意代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"width:96px; height:96px; border:2px solid #beceeb; overflow:hidden;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"mm1.jpg"</span><span class="attr">style</span>=<span class="string">"position:absolute;"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但是，一旦我们给<code>overflow</code>容器或者与图片有嵌套关系的子元素使用<code>transform</code>声明，估计<code>absolute</code>元素就要去领便当了！</p>
+<p>无论是<code>overflow</code>容器还是嵌套子元素，只要有<code>transform</code>属性，就会<code>hidden</code>溢出的<code>absolute</code>元素。</p>
+<h1 id="transform限制absolute的100-宽度大小"><a href="#transform限制absolute的100-宽度大小" class="headerlink" title="transform限制absolute的100%宽度大小"></a>transform限制absolute的100%宽度大小</h1><p>以前，我们设置<code>absolute</code>元素宽度100%, 则都会参照第一个非<code>static</code>值的<code>position</code>祖先元素计算，没有就<code>window</code>. 现在，需要把<code>transform</code>也考虑在内了。</p>
+<p>结果，无论是IE9+，还是Chrome还是FireFox浏览器，所有绝对定位图片100%宽度，都是相对设置了<code>transform</code>的容器计算了，于是，上面的图片拉长到了西伯利亚；下面的图片被限制成了小胖墩。</p>
+<p><code>transform</code>对<code>absolute</code>宽度100%限制~</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2019/transform-element-impact/&title=《css3 transform对普通元素的n多渲染影响》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2019/transform-element-impact/&title=《css3 transform对普通元素的n多渲染影响》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2019/transform-element-impact/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《css3 transform对普通元素的n多渲染影响》 — 小兵旭旭的博客&url=https://summxu.github.io/2019/transform-element-impact/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2019/transform-element-impact/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/fixed-stacking-context/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">fixed 定位失效 与 CSS 层叠上下文</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/rich-text-editor-by-execCommand/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于 document.execCommand 的富文本</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2019/transform-element-impact/&title=《css3 transform对普通元素的n多渲染影响》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2019/transform-element-impact/&title=《css3 transform对普通元素的n多渲染影响》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2019/transform-element-impact/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《css3 transform对普通元素的n多渲染影响》 — 小兵旭旭的博客&url=https://summxu.github.io/2019/transform-element-impact/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2019/transform-element-impact/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aQY7CMAwFUO5/aWY7EkP5tsNITV5XCGiT14Vlx3484uv5cv3+/t1/Xv//ete7VR7fuDAwMG7LSJZPNpRsIn9O9dVgYGCcwHi35DywXofpZK3rvWFgYGDkgTUP2dehGQMDA+MbjKTszFfBwMDAmBSxSWJ3vaHkoO3rtTgGBsYNGfmp+/9//kp/AwMD41aMZ/FKjt7WFsDRrjAwMLZmVEvQSZE5aZRGrVAMDIwDGEkYzY/v8ydURzqi4zYMDIztGJMitldjVlPGZRgMDIwbMqo3V1uV+UBYL03EwMA4h5Evv7b4zFPGD0/AwMA4gJEEtTzs9v6Zl7VRFY6BgXEAo5rAVQvRSSL4x+oYGBiHMapjE5MRil4T4o8VMTAwtmb0kr9eczF/QdXnYGBgnMBIjrR6R2+9RsLkZWFgYOzHyEvK+UzHNa/QsLzuxGJgYGzHyJfvjUdMitgqCQMD4wTGqvZAb2wi//Vt4MbAwNia0Tv07w1YJPeOwjEGBsamjOvUbVKOTpqj5bIZAwPjGEZULgYFam+cotnHwMDAOIaRf7/q114S+SHgYmBgbMd4Fq/qAvldC+pvDAyMTRm9YJdvtzculhS6TRgGBsZtGXkhOjnKz99fs+jFwMA4gNFrTFZHLuZp36gWx8DAOIwx39xkaKzZGMDAwDiMsSCZGySLi1NDDAyMmzDygYl8W3mboXeQh4GBcQ6jVzrmB/3zcY1lTU0MDIz7MX4Am30D8c7sDs4AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

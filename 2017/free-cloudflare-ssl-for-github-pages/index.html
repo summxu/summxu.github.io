@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>为自定义的域名添加免费SSL | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Jekyll,博客,SSL">
+    <meta name="description" content="原文连接 为自定义域名的GitHub Pages添加SSL 完整方案  简单总结一下这个过程：   在 github page 的设置中填入 custom domain  去你的域名注册商更改 dns server 成 cloudflare 所提供的  在 cloudflare 设置 A record ，参照  在 cloudflare 配置 crypto ，选择 flexiable （这一步要">
+<meta name="keywords" content="Jekyll,博客,SSL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为自定义的域名添加免费SSL">
+<meta property="og:url" content="https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="原文连接 为自定义域名的GitHub Pages添加SSL 完整方案  简单总结一下这个过程：   在 github page 的设置中填入 custom domain  去你的域名注册商更改 dns server 成 cloudflare 所提供的  在 cloudflare 设置 A record ，参照  在 cloudflare 配置 crypto ，选择 flexiable （这一步要">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/github-page-ssl-1.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/dnsrecord.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/plan.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/updata-nameservers.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/updata-nameservers1.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/updata-nameservers2.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/status.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/flexiblessl.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/add301.png">
+<meta property="og:image" content="https://www.yicodes.com/img/gpssl/forcessl.png">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="为自定义的域名添加免费SSL">
+<meta name="twitter:description" content="原文连接 为自定义域名的GitHub Pages添加SSL 完整方案  简单总结一下这个过程：   在 github page 的设置中填入 custom domain  去你的域名注册商更改 dns server 成 cloudflare 所提供的  在 cloudflare 设置 A record ，参照  在 cloudflare 配置 crypto ，选择 flexiable （这一步要">
+<meta name="twitter:image" content="https://www.yicodes.com/img/gpssl/github-page-ssl-1.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">为自定义的域名添加免费SSL</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">为自定义的域名添加免费SSL</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-05-23T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-05-24
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么使用Cloudflare提供的免费SSL"><span class="post-toc-number">1.</span> <span class="post-toc-text">为什么使用Cloudflare提供的免费SSL</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建CloudFlare帐户，并添加网站"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建CloudFlare帐户，并添加网站</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设置SSL"><span class="post-toc-number">3.</span> <span class="post-toc-text">设置SSL</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/free-cloudflare-ssl-for-github-pages"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">为自定义的域名添加免费SSL</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-05-24 00:00:00" datetime="2017-05-23T16:00:00.000Z"  itemprop="datePublished">2017-05-24</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p> 原文连接 <a href="https://www.yicodes.com/2016/12/04/free-cloudflare-ssl-for-custom-domain/" target="_blank" rel="noopener">为自定义域名的GitHub Pages添加SSL 完整方案</a></p>
+<ul>
+<li>简单总结一下这个过程：</li>
+</ul>
+<ol>
+<li><p>在 github page 的设置中填入 custom domain</p>
+</li>
+<li><p>去你的域名注册商更改 dns server 成 cloudflare 所提供的</p>
+</li>
+<li><p>在 cloudflare 设置 A record ，参照</p>
+</li>
+<li><p>在 cloudflare 配置 crypto ，选择 flexiable （这一步要一段时间才能起效）</p>
+</li>
+<li><p>在 cloudflare 配置 page rule ，一个是 always use https ，一个是 redirect http 到 https 每一步的操作可能需要 5-30 分钟才能起效</p>
+</li>
+</ol>
+<h3 id="为什么使用Cloudflare提供的免费SSL"><a href="#为什么使用Cloudflare提供的免费SSL" class="headerlink" title="为什么使用Cloudflare提供的免费SSL"></a>为什么使用Cloudflare提供的免费SSL</h3><p>收费的SSL服务总是比免费的更加周到，一般收费的SSL都会提供端到端的加密。但是价格不菲，对于个人博客来说，这是一笔不必要的开销。我只是需要看到网站地址栏有绿色的锁头，那就证明我们的网站相对安全了。</p>
+<p>此外，使用https之后，谷歌、百度等搜索排名权值（PR等）也会有相对提升。<br>还有其他的一些，例如Cloudflare还提供免费的CDN和缓存技术，让浏览者有更好的体验~~</p>
+<blockquote>
+<p>好了，说了那么多，直接看教程~~</p>
+</blockquote>
+<h3 id="创建CloudFlare帐户，并添加网站"><a href="#创建CloudFlare帐户，并添加网站" class="headerlink" title="创建CloudFlare帐户，并添加网站"></a>创建CloudFlare帐户，并添加网站</h3><p><strong>首先你已经有自己的自定义域名的GitHub Pages</strong> ，我的 GitHub Pages cname文件写的是 yicodes.com</p>
+<blockquote>
+<p>实现目标： 当访客输入 yicodes.com 强制跳转使用https，访问wwww 也会跳转到<a href="https://www.yicodes.com" target="_blank" rel="noopener">https://www.yicodes.com</a></p>
+</blockquote>
+<ul>
+<li><p>如果你还没有Cloudflare账号，<a href="https://www.cloudflare.com/a/sign-up" target="_blank" rel="noopener">点击注册</a></p>
+</li>
+<li><p>登陆后，点击<a href="https://www.cloudflare.com/a/login" target="_blank" rel="noopener">这里</a> 增加你的域名，如下图，输入你的域名，例如 <strong>yicodes.com *<em>并点击 *</em>Begin Scan</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>注意不要写WWW前缀，大约60秒即可完成域名解析扫描。完成后点击 <strong>Continue Setup</strong> 继续下一步</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/github-page-ssl-1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>你看到DNS记录（包括子域）列表之后，按照下图提示设置后，其中cname是为了重定向www准备的，点击 <strong>Continue</strong> 下一步</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/dnsrecord.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>选择免费计划，然后下一步~</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/plan.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>到你域名控制面板修改cloudflare给出的域名服务器，我这里以 Godaddy 为例</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/updata-nameservers.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/updata-nameservers1.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/updata-nameservers2.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>注：官方说明，<strong>域名服务器修改最长需要72小时生效</strong> ，用了两个域名测试，大约需要 5~30 分钟，看到 Status: Active 即可</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/status.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<h3 id="设置SSL"><a href="#设置SSL" class="headerlink" title="设置SSL"></a>设置SSL</h3><ul>
+<li>点击 crypto 菜单 , 然后设置 Flexible SSL ，如下图</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/flexiblessl.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>添加www重定向到<a href="https://www.yicodes.com" target="_blank" rel="noopener">https://www.yicodes.com</a></li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/add301.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<ul>
+<li>添加自动重定向到 SSL页面</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://www.yicodes.com/img/gpssl/forcessl.png" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>添加SSL的教程就此完成，<strong>一般需要5~30分钟生效！！！</strong> 如果你有疑问，欢迎到我博客留言</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jekyll/">Jekyll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSL/">SSL</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/博客/">博客</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/&title=《为自定义的域名添加免费SSL》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/&title=《为自定义的域名添加免费SSL》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《为自定义的域名添加免费SSL》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/abuot/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">关于本博客</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/how-links-blank/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何在网页里插入全局新窗口打开超链接</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/&title=《为自定义的域名添加免费SSL》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/&title=《为自定义的域名添加免费SSL》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《为自定义的域名添加免费SSL》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/free-cloudflare-ssl-for-github-pages/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvUlEQVR42u3aQW7jMAwF0Nz/0h6gqymmcT5JMekAT6vAUWw9LySG5OMRj+trJN9ef437+fmcZP5o4OHh4bWWfn+7f299P/PZlWdLvOKRrxkPDw9vm5ds972D5P7x+VOSmXh4eHi/jZds7ntBPB4eHt7/yKtikgD6/lnJZzw8PLxP8eZ//vPkbJ4Cvv98ONeCh4eHF/N6yYXPfl6s7+Hh4eENqur5tnt2u89Lbi/WiYeHh7fAy0PhBNNL71bTtUlbwyNfHB4eHl6Rl5S48hRA3npVDZGr6YZv5x4eHh7eUd7ZsLjatJongqvh9Ur+GA8PD2+c86wGxPl9qr+KDhg8PDy8o7w82E2uT7b7fH6BioeHh7fMS9ITk2TB/czqURHdGQ8PD+8tvAN//uO2rV7AnT8XDw8P7yyvtxFPUhV5rFtt2PphPh4eHt4Crzd6Ny2Hwq0eqgMDDw8PL66n94pYeVB+qoWrsDY8PDy8NV5e6MqD2mpprRfWv1gPHh4e3gKvWsLPg9prMKqBeNQ6gIeHh3eIV00NVK9XX1av3PX0NeHh4eGt8SbtAnmprFrT7zUWfLuCh4eHt8DLk6TVklieqqgeIXniAw8PD2+blzdF9X41b8CqJoLx8PDwtnnztqe8wysPxHsvBQ8PD+9TvEkjVLKhV2HVpAkeHh7eHi8pNeVl/nkRq1cee3Eg4eHh4R3l5Rvuqa1/UjArX8fDw8Nb41WLUr0kRX5gzMtveHh4eBu8qzgmyYV5qexATxkeHh7eVv092nyTRMDZdq4DGRc8PDy8Q7w8/M0LV71GroRabjXAw8PDW+NNNuV5Y1bv2EiSxXh4eHi/gZeXzaotCPmBUQjW8fDw8D7Ky1uj8heR4/N2BDw8PLz38PItu5cUqB4t1aC8cIbg4eHhjXm9QlSv2L/XInCsvoeHh4d3t6o/tJy7YJ9c1xkAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

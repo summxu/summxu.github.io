@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>通过JS代码提交连接到百度 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="SEO,JavaScript">
+    <meta name="description" content="为了加快百度对博客文章的收录，站长们最好提交网站文章的连接到百度，百度提供了四种方式： 主动推送(实时)百度官方说这是最好的推送方式，但是这种静态博客不支持，像PHP的博客wordprass可以只用这种方式，百度也给出了几个提交例子：">
+<meta name="keywords" content="SEO,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过JS代码提交连接到百度">
+<meta property="og:url" content="https://summxu.github.io/2017/atao-up-link-baidu/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="为了加快百度对博客文章的收录，站长们最好提交网站文章的连接到百度，百度提供了四种方式： 主动推送(实时)百度官方说这是最好的推送方式，但是这种静态博客不支持，像PHP的博客wordprass可以只用这种方式，百度也给出了几个提交例子：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/11/593ceec783f4e.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/11/593ceec78e57a.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/11/593ceec79dd59.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/11/593ceec79f0c8.png">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="通过JS代码提交连接到百度">
+<meta name="twitter:description" content="为了加快百度对博客文章的收录，站长们最好提交网站文章的连接到百度，百度提供了四种方式： 主动推送(实时)百度官方说这是最好的推送方式，但是这种静态博客不支持，像PHP的博客wordprass可以只用这种方式，百度也给出了几个提交例子：">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/11/593ceec783f4e.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">通过JS代码提交连接到百度</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">通过JS代码提交连接到百度</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-10T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-11
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#主动推送-实时"><span class="post-toc-number">1.</span> <span class="post-toc-text">主动推送(实时)</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#sitemap"><span class="post-toc-number">2.</span> <span class="post-toc-text">sitemap</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#手动提交"><span class="post-toc-number">3.</span> <span class="post-toc-text">手动提交</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#自动推送"><span class="post-toc-number">4.</span> <span class="post-toc-text">自动推送</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/atao-up-link-baidu"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">通过JS代码提交连接到百度</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-11 00:00:00" datetime="2017-06-10T16:00:00.000Z"  itemprop="datePublished">2017-06-11</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>为了加快百度对博客文章的收录，站长们最好提交网站文章的连接到百度，百度提供了四种方式：</p>
+<h1 id="主动推送-实时"><a href="#主动推送-实时" class="headerlink" title="主动推送(实时)"></a>主动推送(实时)</h1><p>百度官方说这是最好的推送方式，但是这种静态博客不支持，像PHP的博客wordprass可以只用这种方式，百度也给出了几个提交例子：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/11/593ceec783f4e.png" alt="initiative" title>
+                </div>
+                <div class="image-caption">initiative</div>
+            </figure>
+
+<h1 id="sitemap"><a href="#sitemap" class="headerlink" title="sitemap"></a>sitemap</h1><p>以站点地图的形式来提交网站，站点地图中可以填入你网站所有的连接，我认为这适用与一些比较大的网站且是第一次提交连接。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/11/593ceec78e57a.png" alt="sitmao" title>
+                </div>
+                <div class="image-caption">sitmao</div>
+            </figure>
+
+<h1 id="手动提交"><a href="#手动提交" class="headerlink" title="手动提交"></a>手动提交</h1><p>把连接逐条填写到网站中提交，如果连接过多的情况下挺麻烦的。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/11/593ceec79dd59.png" alt="manual" title>
+                </div>
+                <div class="image-caption">manual</div>
+            </figure>
+
+<h1 id="自动推送"><a href="#自动推送" class="headerlink" title="自动推送"></a>自动推送</h1><p>自动推送是百度站长平台为提高站点新增网页发现速度推出的工具，安装自动推送JS代码的网页，在页面被访问时，页面URL将立即被推送给百度。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/11/593ceec79f0c8.png" alt="aoto" title>
+                </div>
+                <div class="image-caption">aoto</div>
+            </figure>
+
+<p>其代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 百度实时网页推送 --&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">(<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> bp = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> curProtocol = <span class="built_in">window</span>.location.protocol.split(<span class="string">':'</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">if</span> (curProtocol === <span class="string">'https'</span>)&#123;</span></span><br><span class="line"><span class="actionscript">   bp.src = <span class="string">'https://zz.bdstatic.com/linksubmit/push.js'</span>;</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="actionscript">  <span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="actionscript">  bp.src = <span class="string">'http://push.zhanzhang.baidu.com/push.js'</span>;</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> s = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"script"</span>)[<span class="number">0</span>];</span></span><br><span class="line">    s.parentNode.insertBefore(bp, s);</span><br><span class="line">&#125;)();</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 百度实时网页推送 END--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>本站是采用自动提交的JavaScript代码来提交网站连接。</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SEO/">SEO</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/atao-up-link-baidu/&title=《通过JS代码提交连接到百度》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/atao-up-link-baidu/&title=《通过JS代码提交连接到百度》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/atao-up-link-baidu/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通过JS代码提交连接到百度》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/atao-up-link-baidu/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/atao-up-link-baidu/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/bootsrp-form-demo/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">初学BootStrap --Form Demo</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/coding-301-baidu-spider/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">HTTPS自动跳转JS代码</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/atao-up-link-baidu/&title=《通过JS代码提交连接到百度》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/atao-up-link-baidu/&title=《通过JS代码提交连接到百度》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/atao-up-link-baidu/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《通过JS代码提交连接到百度》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/atao-up-link-baidu/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/atao-up-link-baidu/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJElEQVR42u3aS3LCMBAFQO5/aXKABHhPY1Jlqb1KBbDUWqjm93jEz/PX8+r/r57fb3u/yuMbDwYGxm0ZyfLJAsmmkzfnx4SBgXEa49W2Xn0nYScbfb9WsjcMDAyM9tJc+2Z+fBgYGBhrF26bY7aBIwYGBkaexE4S2kloeHEujoGBcUNGfl3+/99f6W9gYGDcivEsnzn1K7vCwMDYmpEvMx+naEc06pQYAwPjYEZexM9L//ngRXIoGBgYezMmTcprGwN52+CPTzEwMA5g5IC1sn7eLm2PCQMD4xxGGyAWAxBvfxttMXkbBgbGkYz3C+eYJBCcX/cYGBh7M9oFklevBY5Jihs1RzEwMLZmJO3GdngiSU3Xym1RsQ8DA2MjRjs8sQabJ7EfAlMMDIxNGUk6+o2hsTzpLYYtMDAwtma0Rfx5urs2TBbNjGBgYGzHuDaAWxsmmzQ4MTAwzmG05bM8cMzL/e2wRRQgYmBgHMBoS2/XpsT18WFgYBzAuHY8a5Lc5mt9qB1iYGBsx2iL/skwRHvVTsJEDAyMExhrIxdtM3IOi0YuMDAwNmI8y2dt5CL/1WKrAAMDY2vG2jU3CRwng2LFsAUGBsZ2jHwkIi+9JcFlHcPOk1gMDIybM+YXX9K8nISeUS6OgYGBURbr21ByVJLDwMDASJqIwTcnweKHt2FgYBzASJLYtpTWpqOjQ8HAwNia0cZdV/Uc1i7xUVMTAwPjfowf0J6dO1Qg5W8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

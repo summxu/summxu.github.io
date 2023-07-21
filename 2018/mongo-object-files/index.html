@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>MongoDB的查找find方法取出不正经对象 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="模板引擎,MongoDB">
+    <meta name="description" content="项目匿名评论系统的MongoDB操作  起因：用art-template来渲染前端页面的时候，数组里又包含了数组，这是模板引擎报了一个递归错误，貌似 模板引擎不支持递归？ 想到的解决办法是对象的 数组属性 分离渲染，在删除对象属性时遇到了问题。 delete 方法原生 js 中支持 delete 方法，即删除对象里的某个属性，并且带有一个布尔类型的返回值，本事一个很简单的事情，放到普通代码中也很">
+<meta name="keywords" content="模板引擎,MongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB的查找find方法取出不正经对象">
+<meta property="og:url" content="https://summxu.github.io/2018/mongo-object-files/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="项目匿名评论系统的MongoDB操作  起因：用art-template来渲染前端页面的时候，数组里又包含了数组，这是模板引擎报了一个递归错误，貌似 模板引擎不支持递归？ 想到的解决办法是对象的 数组属性 分离渲染，在删除对象属性时遇到了问题。 delete 方法原生 js 中支持 delete 方法，即删除对象里的某个属性，并且带有一个布尔类型的返回值，本事一个很简单的事情，放到普通代码中也很">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p5oqx8gut.bkt.clouddn.com/18-9-10/77300539.jpg">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB的查找find方法取出不正经对象">
+<meta name="twitter:description" content="项目匿名评论系统的MongoDB操作  起因：用art-template来渲染前端页面的时候，数组里又包含了数组，这是模板引擎报了一个递归错误，貌似 模板引擎不支持递归？ 想到的解决办法是对象的 数组属性 分离渲染，在删除对象属性时遇到了问题。 delete 方法原生 js 中支持 delete 方法，即删除对象里的某个属性，并且带有一个布尔类型的返回值，本事一个很简单的事情，放到普通代码中也很">
+<meta name="twitter:image" content="http://p5oqx8gut.bkt.clouddn.com/18-9-10/77300539.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MongoDB的查找find方法取出不正经对象</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">MongoDB的查找find方法取出不正经对象</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-09-10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#delete-方法"><span class="post-toc-number">1.</span> <span class="post-toc-text">delete 方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#循环嵌套的异步"><span class="post-toc-number">2.</span> <span class="post-toc-text">循环嵌套的异步</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2018/mongo-object-files"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MongoDB的查找find方法取出不正经对象</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-10 00:00:00" datetime="2018-09-09T16:00:00.000Z"  itemprop="datePublished">2018-09-10</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>项目匿名评论系统的MongoDB操作</p>
+</blockquote>
+<p>起因：用art-template来渲染前端页面的时候，数组里又包含了数组，这是模板引擎报了一个递归错误，貌似 <strong>模板引擎不支持递归？</strong> 想到的解决办法是对象的 <strong>数组属性</strong> 分离渲染，在删除对象属性时遇到了问题。</p>
+<h2 id="delete-方法"><a href="#delete-方法" class="headerlink" title="delete 方法"></a>delete 方法</h2><p>原生 js 中支持 delete 方法，即删除对象里的某个属性，并且带有一个布尔类型的返回值，本事一个很简单的事情，放到普通代码中也很好实现，但是和MongoDB集合起来的时候，就出了问题。</p>
+<p>原因就是 mongoDB find 出来的对象 <strong>不正经</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://p5oqx8gut.bkt.clouddn.com/18-9-10/77300539.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+
+<p>这里的id没有引号，原本js代码是不能执行，更不能直接删除对象的属性值，但是这里很奇怪的是，<strong>js居然不会报错？？</strong>而把这个对象格式直接复制到正常程序里却报错。</p>
+<p>正确的解决办法就是转换一下 对象的类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/* 对象属性抽离，解决template陷入递归 */</span><br><span class="line">/* mogon取出的对象不正常，转换一下 */</span><br><span class="line">var data = JSON.stringify(postdata)</span><br><span class="line">data = JSON.parse(data)</span><br></pre></td></tr></table></figure>
+
+<h2 id="循环嵌套的异步"><a href="#循环嵌套的异步" class="headerlink" title="循环嵌套的异步"></a>循环嵌套的异步</h2><p>还遇到就是循环图片的时候，等循环结束要res。send（）图片数组，但是 fs.rename 是一个异步操作，要等到循环结束，可以这么操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">if (req.files.pic.length &gt; 1) &#123;</span><br><span class="line">  var c = req.files.pic.length</span><br><span class="line">  req.files.pic.forEach(item =&gt; &#123;</span><br><span class="line">    var target_path = &apos;./upload/&apos; + item.name</span><br><span class="line">    fs.rename(&apos;./&apos; + item.path, target_path, function (err) &#123;</span><br><span class="line">      if (err) throw err;</span><br><span class="line">      postObj.images.push(target_path.replace(&apos;.&apos;,&apos;&apos;))</span><br><span class="line">      </span><br><span class="line">      c--;</span><br><span class="line">      if (c === 0 )&#123;</span><br><span class="line">        console.log(postObj.images)</span><br><span class="line">        postObj.save((err, result) =&gt; &#123;</span><br><span class="line">        if (err) throw err</span><br><span class="line">          res.send(&apos;success&apos;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      // 删除临时文件夹文件, </span><br><span class="line">      fs.unlink(&apos;./&apos; + item.path, function () &#123;</span><br><span class="line">        if (err) throw err;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>用计数器判断循环的次数，为 0 时执行代码。</p>
+<p>听说用递归也可以</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/">MongoDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模板引擎/">模板引擎</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/mongo-object-files/&title=《MongoDB的查找find方法取出不正经对象》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/mongo-object-files/&title=《MongoDB的查找find方法取出不正经对象》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/mongo-object-files/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MongoDB的查找find方法取出不正经对象》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/mongo-object-files/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/mongo-object-files/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/express-jqueryload/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Express + 模板引擎 + jQuery load 实现局部页面的异步加载</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/upload-files/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Web文件上传实现</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/mongo-object-files/&title=《MongoDB的查找find方法取出不正经对象》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/mongo-object-files/&title=《MongoDB的查找find方法取出不正经对象》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/mongo-object-files/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MongoDB的查找find方法取出不正经对象》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/mongo-object-files/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/mongo-object-files/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aSw7CMAxFUfa/6bIA1HKfHZDi3I4QrdqcDCx/8nrh67q5nu9+Pvn5PPl/2SVDhoxtGeTzd/88L6LzD1+bDBkyzmHcRbDnZ57f87wp5FtkbTJkyJCR/k6TyNr2yZAhQwZ5HVkQL1x5AipDhoyTGSRQ9gvaWmq4uBaXIUPGhgzedf//75/MN2TIkLEV4wqvdKiZLusqXTJkyJjNSJv+ZADJk79O2idDhowzGfywF2mEkQWt2hQZMmTMZqQjRrQr4WCAH8u4/boMGTJGM3jo5EsPPtwO68EkVoYMGdsyeDHJm261YIr2u3bMQoYMGZszeA2YDgk64ZVsnwwZMk5j8HSQN+NqBzX4SCAOvjJkyBjB6CRwPClMG3wkcMuQIWM2I03p0qMYJGTzIvbLgTAZMmQcwEjbZP0wyjPW+LCFDBkyxjHSgjMtU9MBQzr+lCFDxgmMtc2yNDTXEsdiZipDhowNGbWh5i8miQsOW8iQIWM0o99o65DIetCGypAh4xgGeR0ZJ6y6y8tsGTJknMDgx0n53TQRDBYtQ4aMgxn9Vldt0TxlDI5cyJAhYwTjCi8yUOTHLEiZikaqMmTIGM1Y1eInqVttgzqtQBkyZExidFppZKHp/tUOv8qQIeMERnp6oRasediNh6YyZMiQUco0O4VuHLJlyJAhAxeonTKYB9nb+YYMGTJGM0gRi15XKkcXhGMZMmSMZqSlY9pii8tRvB0yZMg4gPEGH4B0ckehiEIAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

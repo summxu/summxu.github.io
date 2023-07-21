@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>精简实用的VScode前端扩展 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Js插件,VScode">
+    <meta name="description" content="前言vscode是一款跨平台的代码编辑器，她轻量、美观、一致、功能完整，自带完美git支持，非常适合前端同学使用。下面总结下我对于这个软件的使用技巧，希望对大家有帮助。 快捷键注意：当下列快捷键不起作用时，请考虑是否是其他软件已经占用了快捷键，如输入法、聊天软件等 vscode内置了emmet，使用tab键可快速编写html/css等，具体请查询emmet语法说明      快捷键 备注    C">
+<meta name="keywords" content="Js插件,VScode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="精简实用的VScode前端扩展">
+<meta property="og:url" content="https://summxu.github.io/2017/vscode-extended-html/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="前言vscode是一款跨平台的代码编辑器，她轻量、美观、一致、功能完整，自带完美git支持，非常适合前端同学使用。下面总结下我对于这个软件的使用技巧，希望对大家有帮助。 快捷键注意：当下列快捷键不起作用时，请考虑是否是其他软件已经占用了快捷键，如输入法、聊天软件等 vscode内置了emmet，使用tab键可快速编写html/css等，具体请查询emmet语法说明      快捷键 备注    C">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="精简实用的VScode前端扩展">
+<meta name="twitter:description" content="前言vscode是一款跨平台的代码编辑器，她轻量、美观、一致、功能完整，自带完美git支持，非常适合前端同学使用。下面总结下我对于这个软件的使用技巧，希望对大家有帮助。 快捷键注意：当下列快捷键不起作用时，请考虑是否是其他软件已经占用了快捷键，如输入法、聊天软件等 vscode内置了emmet，使用tab键可快速编写html/css等，具体请查询emmet语法说明      快捷键 备注    C">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">精简实用的VScode前端扩展</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">精简实用的VScode前端扩展</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-07T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-08
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#快捷键"><span class="post-toc-number">2.</span> <span class="post-toc-text">快捷键</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#扩展-插件"><span class="post-toc-number">3.</span> <span class="post-toc-text">扩展/插件</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/vscode-extended-html"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">精简实用的VScode前端扩展</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-08 00:00:00" datetime="2017-06-07T16:00:00.000Z"  itemprop="datePublished">2017-06-08</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>vscode是一款跨平台的代码编辑器，她轻量、美观、一致、功能完整，自带完美git支持，非常适合前端同学使用。下面总结下我对于这个软件的使用技巧，希望对大家有帮助。</p>
+<h1 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h1><p>注意：当下列快捷键不起作用时，请考虑是否是其他软件已经占用了快捷键，如输入法、聊天软件等</p>
+<p>vscode内置了emmet，使用tab键可快速编写html/css等，具体请查询emmet语法说明  </p>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ctrl + N</td>
+<td>新建文件</td>
+</tr>
+<tr>
+<td>Ctrl + S</td>
+<td>保存文件</td>
+</tr>
+<tr>
+<td>Ctrl + F</td>
+<td>在当前文件内查找</td>
+</tr>
+<tr>
+<td>Ctrl + H</td>
+<td>在当前文件内替换</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + F</td>
+<td>在文件内查找</td>
+</tr>
+<tr>
+<td>Ctrl + Shift + H</td>
+<td>在文件内替换</td>
+</tr>
+<tr>
+<td>Ctrl + Tab</td>
+<td>切换文档</td>
+</tr>
+<tr>
+<td>Ctrl + PgUp/PgDn</td>
+<td>向前/向后切换文档</td>
+</tr>
+<tr>
+<td>Ctrl + 1/2/3</td>
+<td>切换分栏</td>
+</tr>
+<tr>
+<td>Ctrl + P</td>
+<td>转到文件</td>
+</tr>
+<tr>
+<td>Ctrl + P</td>
+<td>转到文件</td>
+</tr>
+<tr>
+<td>Ctrl + G</td>
+<td>转到行，输入行号，转到该行号处</td>
+</tr>
+<tr>
+<td>Ctrl + 鼠标滚轮</td>
+<td>缩放编辑器显示比例</td>
+</tr>
+<tr>
+<td>Ctrl + F1</td>
+<td>在浏览器中打开当前正在编辑的html文件，这个功能需要插件支持，安装插件：View In Browser</td>
+</tr>
+<tr>
+<td>F12</td>
+<td>转到定义，可跳转到变量定义处，定义较为复杂时，会找不到</td>
+</tr>
+<tr>
+<td>F1</td>
+<td>打开命令输入框</td>
+</tr>
+<tr>
+<td>Shift + Alt + F</td>
+<td>格式化代码</td>
+</tr>
+<tr>
+<td>Ctrl + Alt + Up/Down/Left/Right</td>
+<td>按区域选中代码，并编辑</td>
+</tr>
+<tr>
+<td>Alt + Up/Down</td>
+<td>移动光标所在行或者光标选中代码的位置</td>
+</tr>
+<tr>
+<td>Alt + Left/Right</td>
+<td>前进或后退操作历史，这个历史不是编辑历史（Ctrl + Z/Y操作的是编辑历史），它包含如：第一步，光标在12行6列处；第二步，光标在20行10列处；第三步，打开另外一个文件。</td>
+</tr>
+<tr>
+<td>Shift + Alt + Up/Down</td>
+<td>复制光标所在行至上一行或下一行</td>
+</tr>
+<tr>
+<td>Alt + 光标选中</td>
+<td>光标多选，同时编辑</td>
+</tr>
+</tbody></table>
+<h1 id="扩展-插件"><a href="#扩展-插件" class="headerlink" title="扩展/插件"></a>扩展/插件</h1><p>vscode支持扩展，官方商店里有很多扩展，网址：<a href="https://marketplace.visualstu" target="_blank" rel="noopener">https://marketplace.visualstu</a>…<br>安装方式：点击编辑器左侧的【扩展】按钮，在搜索框中输入你想要安装的插件，点击安装即可。</p>
+<p>推荐插件</p>
+<table>
+<thead>
+<tr>
+<th>链接</th>
+<th>名称</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense" target="_blank" rel="noopener">查看</a></td>
+<td>Path Intellisense</td>
+<td>在编辑器中输入路径时，自动补全</td>
+</tr>
+<tr>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense" target="_blank" rel="noopener">查看</a></td>
+<td>Auto Close Tag</td>
+<td>自动补全html标签，如输入<a>将自动补全</a></td>
+</tr>
+<tr>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag" target="_blank" rel="noopener">查看</a></td>
+<td>Auto Rename Tag</td>
+<td>自动重命名html标签，如修改为，将自动修改结尾标签为</td>
+</tr>
+<tr>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client" target="_blank" rel="noopener">查看</a></td>
+<td>REST Client</td>
+<td>在编辑器中发送http请求，可直接得到结果，测试接口时很有用处，用法请看插件详情</td>
+</tr>
+<tr>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=mrcrowl.easy-less" target="_blank" rel="noopener">查看</a></td>
+<td>Easy LESS</td>
+<td>自动编译less文件（文件保存后自动变为为同名.css文件），如果你只是想用less，而又不想配置grunt等工具来使用它时，请使用这个插件，他绝对是更效率的</td>
+</tr>
+<tr>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=qinjia.view-in-browser" target="_blank" rel="noopener">查看</a></td>
+<td>View In Browser</td>
+<td>按Ctrl + F1在浏览器中打开正在编辑的html文件</td>
+</tr>
+<tr>
+<td><a href="https://marketplace.visualstudio.com/items?itemName=robertohuertasm.vscode-icons" target="_blank" rel="noopener">查看</a></td>
+<td>vscode-icons</td>
+<td>为文件添加炫酷的图标，图标种类很全，包括各种配置文件、常见语言、常见js框架等，你值得拥有；安装后，需要使用管理员权限启动vscode，并打开命令输入框(F1或者Ctrl+Shift+P)执行Icons Enable</td>
+</tr>
+</tbody></table>
+<p>如有任何问题可以在下方留言或者给我邮件。</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Js插件/">Js插件</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VScode/">VScode</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/vscode-extended-html/&title=《精简实用的VScode前端扩展》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/vscode-extended-html/&title=《精简实用的VScode前端扩展》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/vscode-extended-html/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《精简实用的VScode前端扩展》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/vscode-extended-html/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/vscode-extended-html/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/linux-oom-kill/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">关闭Linux强行杀掉进程服务</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/choose-Comments/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">评论系统-从选择到妥协</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/vscode-extended-html/&title=《精简实用的VScode前端扩展》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/vscode-extended-html/&title=《精简实用的VScode前端扩展》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/vscode-extended-html/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《精简实用的VScode前端扩展》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/vscode-extended-html/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/vscode-extended-html/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKElEQVR42u3aMW7EMAwEwPz/0xcgVYDA9i7lFJZH1SG+szQqGJHU11c8Pj/j719+j6Nf/X569Pno+zcPDAyMxzI+p2M2wflyz79zNO/FxmFgYLyAkUxz9IqWPQvQF2/AwMDAiF+dPD1nY2BgYNzFaNPafNEYGBgYK0lsXoBL8C3stlwcAwPjgYyV8tl/f/7H/gYGBsZDGJ9y3BVe2+boxaowMDC2ZqyXutpmwOzSRlTUw8DA2JTRXu1auQSWh+l2bRgYGG9gJIlrS2phSQvhkI2BgbE1o61ltY3PtrWZJ7HDeiEGBsZjGe0SZyEy38X23wAGBsYbGLMiWovJ551dy8DAwNibkQfcu6afpbgX68TAwNiaMWsGrB8B22NinZdjYGBswVi/ZpGfPfOiW33VDAMD4wWMpYsOQaLbtiTb6x0YGBh7M9q6+qxtkG/NXSvBwMDYlXF+TMzD7uzqRh6m6/wbAwNjC0ZbcM8PfHl6fEMzAAMD4wWMlYNg3oycNSyjJBYDA2NTxuzKV1IaawtqbesUAwMDIw+RbbKaBOL22gcGBsbejFk5vjh1lk/XS3UYGBj7MT7lOD/q5fj2gHgxLwYGxtaMNtjNWoz5b9tAj4GB8R7GehBsS2z5NhXvwcDAeAGjTWjbsHhXcouBgYExW0py4JttQYHBwMDAiFuJbWhug/LhGjAwMF7AyJPYZIL8CNi+EwMD452MlcbAyjWv2VxDAAYGxlMZ37DVJ80HdEwSAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

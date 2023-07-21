@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Linux下C语言实现Socket通信 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,C语言,Socket">
+    <meta name="description" content="网络协议与分析让做一个利用Socket(套接字)来实现双方的即时通信功能，参考网络的源代码和介绍并实现Linux下的C语言编程。   1、网络中进程之间如何通信？ 2、Socket是什么？ 3、socket的基本操作 3.1、socket()函数 3.2、bind()函数 3.3、listen()、connect()函数 3.4、accept()函数 3.5、read()、write()函数等">
+<meta name="keywords" content="Linux,C语言,Socket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下C语言实现Socket通信">
+<meta property="og:url" content="https://summxu.github.io/2017/linux-socket-c/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="网络协议与分析让做一个利用Socket(套接字)来实现双方的即时通信功能，参考网络的源代码和介绍并实现Linux下的C语言编程。   1、网络中进程之间如何通信？ 2、Socket是什么？ 3、socket的基本操作 3.1、socket()函数 3.2、bind()函数 3.3、listen()、connect()函数 3.4、accept()函数 3.5、read()、write()函数等">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/25/594f9e58a077e.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/25/594f9e58b47ea.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/25/594f9b2b010e4.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/25/594f9b2b00d1a.png">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux下C语言实现Socket通信">
+<meta name="twitter:description" content="网络协议与分析让做一个利用Socket(套接字)来实现双方的即时通信功能，参考网络的源代码和介绍并实现Linux下的C语言编程。   1、网络中进程之间如何通信？ 2、Socket是什么？ 3、socket的基本操作 3.1、socket()函数 3.2、bind()函数 3.3、listen()、connect()函数 3.4、accept()函数 3.5、read()、write()函数等">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/25/594f9e58a077e.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Linux下C语言实现Socket通信</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Linux下C语言实现Socket通信</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-24T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-25
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1、网络中进程之间如何通信？"><span class="post-toc-number">1.</span> <span class="post-toc-text">1、网络中进程之间如何通信？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#2、Socket是什么？"><span class="post-toc-number">2.</span> <span class="post-toc-text">2、Socket是什么？</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#3、socket的基本操作"><span class="post-toc-number">3.</span> <span class="post-toc-text">3、socket的基本操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-1、socket-函数"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">3.1、socket()函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-2、bind-函数"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">3.2、bind()函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-3、listen-、connect-函数"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">3.3、listen()、connect()函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-4、accept-函数"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">3.4、accept()函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-5、read-、write-函数等"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">3.5、read()、write()函数等</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-6、close-函数"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">3.6、close()函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4、socket中TCP的三次握手建立连接详解"><span class="post-toc-number">3.7.</span> <span class="post-toc-text">4、socket中TCP的三次握手建立连接详解</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5、socket中TCP的四次握手释放连接详解"><span class="post-toc-number">3.8.</span> <span class="post-toc-text">5、socket中TCP的四次握手释放连接详解</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#6、代码实现"><span class="post-toc-number">3.9.</span> <span class="post-toc-text">6、代码实现</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行结果"><span class="post-toc-number">4.</span> <span class="post-toc-text">运行结果</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/linux-socket-c"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Linux下C语言实现Socket通信</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-25 00:00:00" datetime="2017-06-24T16:00:00.000Z"  itemprop="datePublished">2017-06-25</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>网络协议与分析让做一个利用Socket(套接字)来实现双方的即时通信功能，参考网络的源代码和介绍并实现Linux下的C语言编程。</p>
+</blockquote>
+<ul>
+<li>1、网络中进程之间如何通信？</li>
+<li>2、Socket是什么？</li>
+<li>3、socket的基本操作<ul>
+<li>3.1、socket()函数</li>
+<li>3.2、bind()函数</li>
+<li>3.3、listen()、connect()函数</li>
+<li>3.4、accept()函数</li>
+<li>3.5、read()、write()函数等</li>
+<li>3.6、close()函数</li>
+</ul>
+</li>
+<li>4、socket中TCP的三次握手建立连接详解</li>
+<li>5、socket中TCP的四次握手释放连接详解</li>
+<li>6、代码实现</li>
+<li>7、运行结果</li>
+</ul>
+<h1 id="1、网络中进程之间如何通信？"><a href="#1、网络中进程之间如何通信？" class="headerlink" title="1、网络中进程之间如何通信？"></a>1、网络中进程之间如何通信？</h1><p>本地的进程间通信（IPC）有很多种方式，但可以总结为下面4类：</p>
+<ul>
+<li>消息传递（管道、FIFO、消息队列）</li>
+<li>同步（互斥量、条件变量、读写锁、文件和写记录锁、信号量）</li>
+<li>共享内存（匿名的和具名的）</li>
+<li>远程过程调用（Solaris门和Sun RPC）</li>
+<li>但这些都不是本文的主题！我们要讨论的是网络中进程之间如何通信？首要解决的问题是如何唯一标识一个进程，否则通信无从谈起！在本地可以通过进程PID来唯一标识一个进程，但是在网络中这是行不通的。其实TCP/IP协议族已经帮我们解决了这个问题，网络层的“ip地址”可以唯一标识网络中的主机，而传输层的“协议+端口”可以唯一标识主机中的应用程序（进程）。这样利用三元组（ip地址，协议，端口）就可以标识网络的进程了，网络中的进程通信就可以利用这个标志与其它进程进行交互。</li>
+</ul>
+<p>使用TCP/IP协议的应用程序通常采用应用编程接口：UNIX  BSD的套接字（socket）和UNIX System V的TLI（已经被淘汰），来实现网络进程之间的通信。就目前而言，几乎所有的应用程序都是采用socket，而现在又是网络时代，网络中进程通信是无处不在，这就是我为什么说“一切皆socket”。</p>
+<h1 id="2、Socket是什么？"><a href="#2、Socket是什么？" class="headerlink" title="2、Socket是什么？"></a>2、Socket是什么？</h1><p>上面我们已经知道网络中的进程是通过socket来通信的，那什么是socket呢？socket起源于Unix，而Unix/Linux基本哲学之一就是“一切皆文件”，都可以用“打开open –&gt; 读写write/read –&gt; 关闭close”模式来操作。我的理解就是Socket就是该模式的一个实现，socket即是一种特殊的文件，一些socket函数就是对其进行的操作（读/写IO、打开、关闭），这些函数我们在后面进行介绍。</p>
+<blockquote>
+<p>在组网领域的首次使用是在1970年2月12日发布的文献IETF RFC33中发现的，撰写者为Stephen Carr、Steve Crocker和Vint Cerf。根据美国计算机历史博物馆的记载，Croker写道：“命名空间的元素都可称为套接字接口。一个套接字接口构成一个连接的一端，而一个连接可完全由一对套接字接口规定。”计算机历史博物馆补充道：“这比BSD的套接字接口定义早了大约12年。”</p>
+</blockquote>
+<h1 id="3、socket的基本操作"><a href="#3、socket的基本操作" class="headerlink" title="3、socket的基本操作"></a>3、socket的基本操作</h1><p>既然socket是“open—write/read—close”模式的一种实现，那么socket就提供了这些操作对应的函数接口。下面以TCP为例，介绍几个基本的socket接口函数。</p>
+<h2 id="3-1、socket-函数"><a href="#3-1、socket-函数" class="headerlink" title="3.1、socket()函数"></a>3.1、socket()函数</h2><blockquote>
+<p>int socket(int domain, int type, int protocol);<br>socket函数对应于普通文件的打开操作。普通文件的打开操作返回一个文件描述字，而socket()用于创建一个socket描述符（socket descriptor），它唯一标识一个socket。这个socket描述字跟文件描述字一样，后续的操作都有用到它，把它作为参数，通过它来进行一些读写操作。</p>
+</blockquote>
+<p>正如可以给fopen的传入不同参数值，以打开不同的文件。创建socket的时候，也可以指定不同的参数创建不同的socket描述符，socket函数的三个参数分别为：</p>
+<ul>
+<li>domain：即协议域，又称为协议族（family）。常用的协议族有，AF_INET、AF_INET6、AF_LOCAL（或称AF_UNIX，Unix域socket）、AF_ROUTE等等。协议族决定了socket的地址类型，在通信中必须采用对应的地址，如AF_INET决定了要用ipv4地址（32位的）与端口号（16位的）的组合、AF_UNIX决定了要用一个绝对路径名作为地址。</li>
+<li>type：指定socket类型。常用的socket类型有，SOCK_STREAM、SOCK_DGRAM、SOCK_RAW、SOCK_PACKET、SOCK_SEQPACKET等等（socket的类型有哪些？）。</li>
+<li>protocol：故名思意，就是指定协议。常用的协议有，IPPROTO_TCP、IPPTOTO_UDP、IPPROTO_SCTP、IPPROTO_TIPC等，它们分别对应TCP传输协议、UDP传输协议、STCP传输协议、TIPC传输协议（这个协议我将会单独开篇讨论！）。</li>
+</ul>
+<p>注意：并不是上面的type和protocol可以随意组合的，如SOCK_STREAM不可以跟IPPROTO_UDP组合。当protocol为0时，会自动选择type类型对应的默认协议。</p>
+<p>当我们调用socket创建一个socket时，返回的socket描述字它存在于协议族（address family，AF_XXX）空间中，但没有一个具体的地址。如果想要给它赋值一个地址，就必须调用bind()函数，否则就当调用connect()、listen()时系统会自动随机分配一个端口。</p>
+<h2 id="3-2、bind-函数"><a href="#3-2、bind-函数" class="headerlink" title="3.2、bind()函数"></a>3.2、bind()函数</h2><p>正如上面所说bind()函数把一个地址族中的特定地址赋给socket。例如对应AF_INET、AF_INET6就是把一个ipv4或ipv6地址和端口号组合赋给socket。</p>
+<blockquote>
+<p>int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);</p>
+</blockquote>
+<p>函数的三个参数分别为：</p>
+<ul>
+<li>sockfd：即socket描述字，它是通过socket()函数创建了，唯一标识一个socket。bind()函数就是将给这个描述字绑定一个名字。</li>
+<li>addr：一个const struct sockaddr *指针，指向要绑定给sockfd的协议地址。</li>
+<li>addrlen：对应的是地址的长度。</li>
+</ul>
+<p>通常服务器在启动的时候都会绑定一个众所周知的地址（如ip地址+端口号），用于提供服务，客户就可以通过它来接连服务器；而客户端就不用指定，有系统自动分配一个端口号和自身的ip地址组合。这就是为什么通常服务器端在listen之前会调用bind()，而客户端就不会调用，而是在connect()时由系统随机生成一个。</p>
+<blockquote>
+<p><strong>主机字节序</strong>就是我们平常说的大端和小端模式：不同的CPU有不同的字节序类型，这些字节序是指整数在内存中保存的顺序，这个叫做主机序。引用标准的Big-Endian和Little-Endian的定义如下：</p>
+</blockquote>
+<blockquote>
+<p>　　a) Little-Endian就是低位字节排放在内存的低地址端，高位字节排放在内存的高地址端。</p>
+</blockquote>
+<blockquote>
+<p>　　b) Big-Endian就是高位字节排放在内存的低地址端，低位字节排放在内存的高地址端。</p>
+</blockquote>
+<blockquote>
+<p><strong>网络字节序</strong>：4个字节的32 bit值以下面的次序传输：首先是0～7bit，其次8～15bit，然后16～23bit，最后是24~31bit。这种传输次序称作大端字节序。由于TCP/IP首部中所有的二进制整数在网络中传输时都要求以这种次序，因此它又称作网络字节序。字节序，顾名思义字节的顺序，就是大于一个字节类型的数据在内存中的存放顺序，一个字节的数据没有顺序的问题了。</p>
+</blockquote>
+<blockquote>
+<p><strong>所以</strong>：在将一个地址绑定到socket的时候，请先将主机字节序转换成为网络字节序，而不要假定主机字节序跟网络字节序一样使用的是Big-Endian。由于这个问题曾引发过血案！公司项目代码中由于存在这个问题，导致了很多莫名其妙的问题，所以请谨记对主机字节序不要做任何假定，务必将其转化为网络字节序再赋给socket。</p>
+</blockquote>
+<h2 id="3-3、listen-、connect-函数"><a href="#3-3、listen-、connect-函数" class="headerlink" title="3.3、listen()、connect()函数"></a>3.3、listen()、connect()函数</h2><p>如果作为一个服务器，在调用socket()、bind()之后就会调用listen()来监听这个socket，如果客户端这时调用connect()发出连接请求，服务器端就会接收到这个请求。</p>
+<blockquote>
+<p>int listen(int sockfd, int backlog);</p>
+</blockquote>
+<blockquote>
+<p>int connect(int sockfd, const struct sockaddr *addr, socklen_t addrlen);</p>
+</blockquote>
+<p>listen函数的第一个参数即为要监听的socket描述字，第二个参数为相应socket可以排队的最大连接个数。socket()函数创建的socket默认是一个主动类型的，listen函数将socket变为被动类型的，等待客户的连接请求。</p>
+<p>connect函数的第一个参数即为客户端的socket描述字，第二参数为服务器的socket地址，第三个参数为socket地址的长度。客户端通过调用connect函数来建立与TCP服务器的连接。</p>
+<h2 id="3-4、accept-函数"><a href="#3-4、accept-函数" class="headerlink" title="3.4、accept()函数"></a>3.4、accept()函数</h2><p>TCP服务器端依次调用socket()、bind()、listen()之后，就会监听指定的socket地址了。TCP客户端依次调用socket()、connect()之后就想TCP服务器发送了一个连接请求。TCP服务器监听到这个请求之后，就会调用accept()函数取接收请求，这样连接就建立好了。之后就可以开始网络I/O操作了，即类同于普通文件的读写I/O操作。</p>
+<blockquote>
+<p>int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);</p>
+</blockquote>
+<p>accept函数的第一个参数为服务器的socket描述字，第二个参数为指向struct sockaddr *的指针，用于返回客户端的协议地址，第三个参数为协议地址的长度。如果accpet成功，那么其返回值是由内核自动生成的一个全新的描述字，代表与返回客户的TCP连接。</p>
+<p><strong><em>注意</em></strong>：accept的第一个参数为服务器的socket描述字，是服务器开始调用socket()函数生成的，称为监听socket描述字；而accept函数返回的是已连接的socket描述字。一个服务器通常通常仅仅只创建一个监听socket描述字，它在该服务器的生命周期内一直存在。内核为每个由服务器进程接受的客户连接创建了一个已连接socket描述字，当服务器完成了对某个客户的服务，相应的已连接socket描述字就被关闭。</p>
+<h2 id="3-5、read-、write-函数等"><a href="#3-5、read-、write-函数等" class="headerlink" title="3.5、read()、write()函数等"></a>3.5、read()、write()函数等</h2><p>万事具备只欠东风，至此服务器与客户已经建立好连接了。可以调用网络I/O进行读写操作了，即实现了网咯中不同进程之间的通信！网络I/O操作有下面几组：</p>
+<ul>
+<li>read()/write()</li>
+<li>recv()/send()</li>
+<li>readv()/writev()</li>
+<li>recvmsg()/sendmsg()</li>
+<li>recvfrom()/sendto()</li>
+</ul>
+<p>read函数是负责从fd中读取内容.当读成功时，read返回实际所读的字节数，如果返回的值是0表示已经读到文件的结束了，小于0表示出现了错误。如果错误为EINTR说明读是由中断引起的，如果是ECONNREST表示网络连接出了问题。</p>
+<p>write函数将buf中的nbytes字节内容写入文件描述符fd.成功时返回写的字节数。失败时返回-1，并设置errno变量。 在网络程序中，当我们向套接字文件描述符写时有俩种可能。1)write的返回值大于0，表示写了部分或者是全部的数据。2)返回的值小于0，此时出现了错误。我们要根据错误类型来处理。如果错误为EINTR表示在写的时候出现了中断错误。如果为EPIPE表示网络连接出现了问题(对方已经关闭了连接)。</p>
+<p>其它的我就不一一介绍这几对I/O函数了，具体参见man文档或者baidu、Google，下面的例子中将使用到send/recv。</p>
+<h2 id="3-6、close-函数"><a href="#3-6、close-函数" class="headerlink" title="3.6、close()函数"></a>3.6、close()函数</h2><p>在服务器与客户端建立连接之后，会进行一些读写操作，完成了读写操作就要关闭相应的socket描述字，好比操作完打开的文件要调用fclose关闭打开的文件。</p>
+<blockquote>
+<p>#include &lt;unistd.h&gt;</p>
+</blockquote>
+<blockquote>
+<p>int close(int fd);</p>
+</blockquote>
+<p>close一个TCP socket的缺省行为时把该socket标记为以关闭，然后立即返回到调用进程。该描述字不能再由调用进程使用，也就是说不能再作为read或write的第一个参数。</p>
+<p>注意：close操作只是使相应socket描述字的引用计数-1，只有当引用计数为0的时候，才会触发TCP客户端向服务器发送终止连接请求。</p>
+<h2 id="4、socket中TCP的三次握手建立连接详解"><a href="#4、socket中TCP的三次握手建立连接详解" class="headerlink" title="4、socket中TCP的三次握手建立连接详解"></a>4、socket中TCP的三次握手建立连接详解</h2><p>我们知道tcp建立连接要进行“三次握手”，即交换三个分组。大致流程如下：</p>
+<ul>
+<li>客户端向服务器发送一个SYN J</li>
+<li>服务器向客户端响应一个SYN K，并对SYN J进行确认ACK J+1</li>
+<li>客户端再想服务器发一个确认ACK K+1</li>
+</ul>
+<p>只有就完了三次握手，但是这个三次握手发生在socket的那几个函数中呢？请看下图：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/25/594f9e58a077e.png" alt="1" title>
+                </div>
+                <div class="image-caption">1</div>
+            </figure>
+
+<p>从图中可以看出，当客户端调用connect时，触发了连接请求，向服务器发送了SYN J包，这时connect进入阻塞状态；服务器监听到连接请求，即收到SYN J包，调用accept函数接收请求向客户端发送SYN K ，ACK J+1，这时accept进入阻塞状态；客户端收到服务器的SYN K ，ACK J+1之后，这时connect返回，并对SYN K进行确认；服务器收到ACK K+1时，accept返回，至此三次握手完毕，连接建立。</p>
+<blockquote>
+<p>总结：客户端的connect在三次握手的第二个次返回，而服务器端的accept在三次握手的第三次返回。</p>
+</blockquote>
+<h2 id="5、socket中TCP的四次握手释放连接详解"><a href="#5、socket中TCP的四次握手释放连接详解" class="headerlink" title="5、socket中TCP的四次握手释放连接详解"></a>5、socket中TCP的四次握手释放连接详解</h2><p>上面介绍了socket中TCP的三次握手建立过程，及其涉及的socket函数。现在我们介绍socket中的四次握手释放连接的过程，请看下图：</p>
+<p>图示过程如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/25/594f9e58b47ea.png" alt="2" title>
+                </div>
+                <div class="image-caption">2</div>
+            </figure>
+
+<ul>
+<li>某个应用进程首先调用close主动关闭连接，这时TCP发送一个FIN M；</li>
+<li>另一端接收到FIN M之后，执行被动关闭，对这个FIN进行确认。它的接收也作为文件结束符传递给应用进程，因为FIN的接收意味着应用进程在相应的连接上再也接收不到额外数据；</li>
+<li>一段时间之后，接收到文件结束符的应用进程调用close关闭它的socket。这导致它的TCP也发送一个FIN N；</li>
+<li>接收到这个FIN的源发送端TCP对它进行确认。</li>
+</ul>
+<p>这样每个方向上都有一个FIN和ACK。</p>
+<h2 id="6、代码实现"><a href="#6、代码实现" class="headerlink" title="6、代码实现"></a>6、代码实现</h2><p>服务器端代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;strings.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;memory.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">//#include &lt;linux/in.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line"></span><br><span class="line">//#include &lt;linux/inet_diag.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#include &lt;signal.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PORT    11910   //定义通信端口</span><br><span class="line"></span><br><span class="line">#define BACKLOG 5       //定义侦听队列长度</span><br><span class="line"></span><br><span class="line">#define buflen  1024</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void process_conn_server(int s);</span><br><span class="line"></span><br><span class="line">void sig_pipe(int signo);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int ss,sc;  //ss为服务器socket描述符，sc为某一客户端通信socket描述符</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main(int argc,char *argv[])</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    struct sockaddr_in server_addr; //存储服务器端socket地址结构</span><br><span class="line"></span><br><span class="line">    struct sockaddr_in client_addr; //存储客户端 socket地址结构</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    int err;    //返回值</span><br><span class="line"></span><br><span class="line">    pid_t pid;  //分叉进行的ID</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*****************socket()***************/</span><br><span class="line"></span><br><span class="line">    ss = socket(AF_INET,SOCK_STREAM,0); //建立一个序列化的，可靠的，双向连接的的字节流</span><br><span class="line"></span><br><span class="line">    if(ss&lt;0)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;server : server socket create error\n&quot;);</span><br><span class="line"></span><br><span class="line">        return -1;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //注册信号</span><br><span class="line"></span><br><span class="line">    sighandler_t ret;</span><br><span class="line"></span><br><span class="line">    ret = signal(SIGTSTP,sig_pipe);</span><br><span class="line"></span><br><span class="line">    if(SIG_ERR == ret)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;信号挂接失败\n&quot;);</span><br><span class="line"></span><br><span class="line">        return -1;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    else</span><br><span class="line"></span><br><span class="line">        printf(&quot;信号挂接成功\n&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /******************bind()****************/</span><br><span class="line"></span><br><span class="line">    //初始化地址结构</span><br><span class="line"></span><br><span class="line">    memset(&amp;server_addr,0,sizeof(server_addr));</span><br><span class="line"></span><br><span class="line">    server_addr.sin_family = AF_INET;           //协议族</span><br><span class="line"></span><br><span class="line">    server_addr.sin_addr.s_addr = htonl(INADDR_ANY);   //本地地址</span><br><span class="line"></span><br><span class="line">    server_addr.sin_port = htons(PORT);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    err = bind(ss,(struct sockaddr *)&amp;server_addr,sizeof(sockaddr));</span><br><span class="line"></span><br><span class="line">    if(err&lt;0)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;server : bind error\n&quot;);</span><br><span class="line"></span><br><span class="line">        return -1;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*****************listen()***************/</span><br><span class="line"></span><br><span class="line">    err = listen(ss,BACKLOG);   //设置监听的队列大小</span><br><span class="line"></span><br><span class="line">    if(err &lt; 0)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;server : listen error\n&quot;);</span><br><span class="line"></span><br><span class="line">        return -1;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /****************accept()***************/</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line"></span><br><span class="line">    为类方便处理，我们使用两个进程分别管理两个处理：</span><br><span class="line"></span><br><span class="line">    1，服务器监听新的连接请求;2,以建立连接的C/S实现通信</span><br><span class="line"></span><br><span class="line">    这两个任务分别放在两个进程中处理，为了防止失误操作</span><br><span class="line"></span><br><span class="line">    在一个进程中关闭 侦听套接字描述符 另一进程中关闭</span><br><span class="line"></span><br><span class="line">    客户端连接套接字描述符。注只有当所有套接字全都关闭时</span><br><span class="line"></span><br><span class="line">    当前连接才能关闭，fork调用的时候父进程与子进程有相同的</span><br><span class="line"></span><br><span class="line">    套接字，总共两套，两套都关闭掉才能关闭这个套接字</span><br><span class="line"></span><br><span class="line">    */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    for(;;)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        socklen_t addrlen = sizeof(client_addr);</span><br><span class="line"></span><br><span class="line">        //accept返回客户端套接字描述符</span><br><span class="line"></span><br><span class="line">        sc = accept(ss,(struct sockaddr *)&amp;client_addr,&amp;addrlen);  //注，此处为了获取返回值使用 指针做参数</span><br><span class="line"></span><br><span class="line">        if(sc &lt; 0)  //出错</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            continue;   //结束此次循环</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        else</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            printf(&quot;server : connected\n&quot;);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //创建一个子线程，用于与客户端通信</span><br><span class="line"></span><br><span class="line">        pid = fork();</span><br><span class="line"></span><br><span class="line">        //fork 调用说明：子进程返回 0 ；父进程返回子进程 ID</span><br><span class="line"></span><br><span class="line">        if(pid == 0)        //子进程，与客户端通信</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            close(ss);</span><br><span class="line"></span><br><span class="line">            process_conn_server(sc);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        else</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            close(sc);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"></span><br><span class="line">  服务器对客户端连接处理过程；先读取从客户端发送来的数据，</span><br><span class="line"></span><br><span class="line">  然后将接收到的数据的字节的个数发送到客户端</span><br><span class="line"></span><br><span class="line">  */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//通过套接字 s 与客户端进行通信</span><br><span class="line"></span><br><span class="line">void process_conn_server(int s)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    ssize_t size = 0;</span><br><span class="line"></span><br><span class="line">    char buffer[buflen];  //定义数据缓冲区</span><br><span class="line"></span><br><span class="line">    for(;;)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        //等待读</span><br><span class="line"></span><br><span class="line">        for(size = 0;size == 0 ;size = read(s,buffer,buflen));</span><br><span class="line"></span><br><span class="line">        //输出从客户端接收到的数据</span><br><span class="line"></span><br><span class="line">        printf(&quot;%s&quot;,buffer);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        //结束处理</span><br><span class="line"></span><br><span class="line">        if(strcmp(buffer,&quot;quit&quot;) == 0)</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            close(s);   //成功返回0，失败返回-1</span><br><span class="line"></span><br><span class="line">            return ;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        sprintf(buffer,&quot;%d bytes altogether\n&quot;,size);</span><br><span class="line"></span><br><span class="line">        write(s,buffer,strlen(buffer)+1);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void sig_pipe(int signo)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    printf(&quot;catch a signal\n&quot;);</span><br><span class="line"></span><br><span class="line">    if(signo == SIGTSTP)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;接收到 SIGTSTP 信号\n&quot;);</span><br><span class="line"></span><br><span class="line">        int ret1 = close(ss);</span><br><span class="line"></span><br><span class="line">        int ret2 = close(sc);</span><br><span class="line"></span><br><span class="line">        int ret = ret1&gt;ret2?ret1:ret2;</span><br><span class="line"></span><br><span class="line">        if(ret == 0)</span><br><span class="line"></span><br><span class="line">            printf(&quot;成功 : 关闭套接字\n&quot;);</span><br><span class="line"></span><br><span class="line">        else if(ret ==-1 )</span><br><span class="line"></span><br><span class="line">            printf(&quot;失败 : 未关闭套接字\n&quot;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        exit(1);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;strings.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;sys/types.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;sys/socket.h&gt;</span><br><span class="line"></span><br><span class="line">//#include &lt;linux/in.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;memory.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line"></span><br><span class="line">#include &lt;netinet/in.h&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#include &lt;signal.h&gt; //添加信号处理  防止向已断开的连接通信</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"></span><br><span class="line">  信号处理顺序说明：在Linux操作系统中某些状况发生时，系统会向相关进程发送信号，</span><br><span class="line"></span><br><span class="line">  信号处理方式是：1，系统首先调用用户在进程中注册的函数，2，然后调用系统的默认</span><br><span class="line"></span><br><span class="line">  响应方式,此处我们可以注册自己的信号处理函数，在连接断开时执行</span><br><span class="line"></span><br><span class="line">  */</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#define PORT    11910</span><br><span class="line"></span><br><span class="line">#define Buflen  1024</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void process_conn_client(int s);</span><br><span class="line"></span><br><span class="line">void sig_pipe(int signo);    //用户注册的信号函数,接收的是信号值</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int s;  //全局变量 ， 存储套接字描述符</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main(int argc,char *argv[])</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    sockaddr_in server_addr;</span><br><span class="line"></span><br><span class="line">    int err;</span><br><span class="line"></span><br><span class="line">    sighandler_t ret;</span><br><span class="line"></span><br><span class="line">    char server_ip[50] = &quot;&quot;;</span><br><span class="line"></span><br><span class="line">    /********************socket()*********************/</span><br><span class="line"></span><br><span class="line">    s= socket(AF_INET,SOCK_STREAM,0);</span><br><span class="line"></span><br><span class="line">    if(s&lt;0)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;client : create socket error\n&quot;);</span><br><span class="line"></span><br><span class="line">        return 1;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    //信号处理函数  SIGINT 是当用户按一个 Ctrl-C 建时发送的信号</span><br><span class="line"></span><br><span class="line">    ret = signal(SIGTSTP,sig_pipe);</span><br><span class="line"></span><br><span class="line">    if(SIG_ERR == ret)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;信号挂接失败\n&quot;);</span><br><span class="line"></span><br><span class="line">        return -1;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    else</span><br><span class="line"></span><br><span class="line">        printf(&quot;信号挂接成功\n&quot;) ;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*******************connect()*********************/</span><br><span class="line"></span><br><span class="line">    //设置服务器地址结构，准备连接到服务器</span><br><span class="line"></span><br><span class="line">    memset(&amp;server_addr,0,sizeof(server_addr));</span><br><span class="line"></span><br><span class="line">    server_addr.sin_family = AF_INET;</span><br><span class="line"></span><br><span class="line">    server_addr.sin_port = htons(PORT);</span><br><span class="line"></span><br><span class="line">    server_addr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    /*将用户数入对额字符串类型的IP格式转化为整型数据*/</span><br><span class="line"></span><br><span class="line">    //inet_pton(AF_INET,argv[1],&amp;server_addr.sin_addr.s_addr);</span><br><span class="line"></span><br><span class="line">    printf(&quot;please input server ip address : \n&quot;);</span><br><span class="line"></span><br><span class="line">    read(0,server_ip,50);</span><br><span class="line"></span><br><span class="line">    //err = inet_pton(AF_INET,server_ip,&amp;server_addr.sin_addr.s_addr);</span><br><span class="line"></span><br><span class="line">    server_addr.sin_addr.s_addr = inet_addr(server_ip);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    err = connect(s,(struct sockaddr *)&amp;server_addr,sizeof(sockaddr));</span><br><span class="line"></span><br><span class="line">    if(err == 0)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;client : connect to server\n&quot;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    else</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        printf(&quot;client : connect error\n&quot;);</span><br><span class="line"></span><br><span class="line">        return -1;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //与服务器端进行通信</span><br><span class="line"></span><br><span class="line">    process_conn_client(s);</span><br><span class="line"></span><br><span class="line">    close(s);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void process_conn_client(int s)</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    ssize_t size = 0;</span><br><span class="line"></span><br><span class="line">    char buffer[Buflen];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    for(;;)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">        memset(buffer,&apos;\0&apos;,Buflen);</span><br><span class="line"></span><br><span class="line">        /*从标准输入中读取数据放到缓冲区buffer中*/</span><br><span class="line"></span><br><span class="line">        size = read(0,buffer,Buflen);   // 0，被默认的分配到标准输入  1，标准输出  2，error</span><br><span class="line"></span><br><span class="line">        if(size &gt;  0)</span><br><span class="line"></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">            //当向服务器发送 “quit” 命令时，服务器首先断开连接</span><br><span class="line"></span><br><span class="line">            write(s,buffer,strlen(buffer)+1);   //向服务器端写</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            //等待读取到数据</span><br><span class="line"></span><br><span class="line">            for(size = 0 ; size == 0 ; size = read(s,buffer,Buflen) );</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">            write(1,buffer,strlen(buffer)+1);   //向标准输出写</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">void sig_pipe(int signo)    //传入套接字描述符</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    printf(&quot;Catch a signal\n&quot;);</span><br><span class="line"></span><br><span class="line">    if(signo == SIGTSTP)</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        printf(&quot;接收到 SIGTSTP 信号\n&quot;);</span><br><span class="line"></span><br><span class="line">        int ret = close(s);</span><br><span class="line"></span><br><span class="line">        if(ret == 0)</span><br><span class="line"></span><br><span class="line">            printf(&quot;成功 : 关闭套接字\n&quot;);</span><br><span class="line"></span><br><span class="line">        else if(ret ==-1 )</span><br><span class="line"></span><br><span class="line">            printf(&quot;失败 : 未关闭套接字\n&quot;);</span><br><span class="line"></span><br><span class="line">        exit(1);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/25/594f9b2b010e4.png" alt="21" title>
+                </div>
+                <div class="image-caption">21</div>
+            </figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/25/594f9b2b00d1a.png" alt="22" title>
+                </div>
+                <div class="image-caption">22</div>
+            </figure>
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C语言/">C语言</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Socket/">Socket</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/linux-socket-c/&title=《Linux下C语言实现Socket通信》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/linux-socket-c/&title=《Linux下C语言实现Socket通信》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/linux-socket-c/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux下C语言实现Socket通信》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/linux-socket-c/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/linux-socket-c/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/nodejs-install-linux/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Linxu下安装Node.js</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/add-css-effect/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">通过CSS添加网页的动画效果</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/linux-socket-c/&title=《Linux下C语言实现Socket通信》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/linux-socket-c/&title=《Linux下C语言实现Socket通信》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/linux-socket-c/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linux下C语言实现Socket通信》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/linux-socket-c/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/linux-socket-c/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACHklEQVR42u3aQW7jQAwEwPz/095rFgsb3aS8gDQ1J8MZS6ocGkORPz/xev1a777/vNqr/XxjYWBg3JaR3L7d8+/1313n3Z78vhgYGOcw3iXY50vP9re//fxsGBgYGMmePII3JAwMDIw2cK8tgzEwMDASRhKdbWjm/4hN8YyBgXECI4/L///5K/0NDAyMWzFe5drzvvJUGBgYj2bkt5mNU+SNzPbYh4GBcQ4jCdPNDT7vn41rFG/yMDAwHsGYtS03ZfBm/KvgYWBgPJQxGzOdNQDyQC9amBgYGIcxrj2DzVqPNQADA+MARnKAawvdZKiiHXi94ByKgYFxK8Yq1OJIzduc7Yu2vxoDGBgYD2XkpWZboLYv0WZFLAYGxjmMvNTcROTs0Nm2XTEwMJ7KmDUAEkw+ctFWoxgYGKcx8nBsA7e9Th73Ra8DAwPj5oz2UTbHwVlwR21ODAyMAxhXtQRmhW7bnKjfF2JgYNycMTsUJm2A4e3juMfAwDiNsTm65VE7+2vRNMXAwDiAsQ/f9oC4D2sMDIwzGZvAzYvhdvCimBbBwMB4HONVru+FbHs0jM62GBgYj2DMGgCz8YjNr65qY2BgYNyXkTzcVY3G9hha92MxMDAezZgFX9vanBW90U4MDAyM+NGTncNITV66YWBgYJRjE5vWQh7iGBgY5zCSInY2yLV/PXdxLY6BgXFDxqp0HI1ZbHauGpkYGBj3Y/wBUKo2lP8TdRoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>如何在Windows下安装Jekyll | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Jekyll">
+    <meta name="description" content="windows环境下安装1. 安装 Ruby官网：http://rubyinstaller.org/downloads/ 测试： Ruby是否安装成功，执行命令ruby -v 注意：勾选 “Add Ruby executables to your PATH”，安装路径不能包含空格 2. 安装 DevKit官网：http://rubyinstaller.org/downloads/ 步骤： 在命令窗">
+<meta name="keywords" content="Jekyll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何在Windows下安装Jekyll">
+<meta property="og:url" content="https://summxu.github.io/2017/windows-install-jekyll/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="windows环境下安装1. 安装 Ruby官网：http://rubyinstaller.org/downloads/ 测试： Ruby是否安装成功，执行命令ruby -v 注意：勾选 “Add Ruby executables to your PATH”，安装路径不能包含空格 2. 安装 DevKit官网：http://rubyinstaller.org/downloads/ 步骤： 在命令窗">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何在Windows下安装Jekyll">
+<meta name="twitter:description" content="windows环境下安装1. 安装 Ruby官网：http://rubyinstaller.org/downloads/ 测试： Ruby是否安装成功，执行命令ruby -v 注意：勾选 “Add Ruby executables to your PATH”，安装路径不能包含空格 2. 安装 DevKit官网：http://rubyinstaller.org/downloads/ 步骤： 在命令窗">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">如何在Windows下安装Jekyll</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">如何在Windows下安装Jekyll</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-13T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-14
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#windows环境下安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">windows环境下安装</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#1-安装-Ruby"><span class="post-toc-number">2.</span> <span class="post-toc-text">1. 安装 Ruby</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#2-安装-DevKit"><span class="post-toc-number">3.</span> <span class="post-toc-text">2. 安装 DevKit</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#3-安装-Jekyll"><span class="post-toc-number">4.</span> <span class="post-toc-text">3. 安装 Jekyll</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#4-安装-Python-相关环境"><span class="post-toc-number">5.</span> <span class="post-toc-text">4. 安装 Python 相关环境</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#a-安装-Python"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">a. 安装 Python</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#b-安装-Easy-Install"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">b. 安装 Easy Install</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#c-安装-Pygments"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">c. 安装 Pygments</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#5-Jekyll启动与调试"><span class="post-toc-number">6.</span> <span class="post-toc-text">5. Jekyll启动与调试</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#最后：附件"><span class="post-toc-number">7.</span> <span class="post-toc-text">最后：附件</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/windows-install-jekyll"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">如何在Windows下安装Jekyll</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-14 00:00:00" datetime="2017-06-13T16:00:00.000Z"  itemprop="datePublished">2017-06-14</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="windows环境下安装"><a href="#windows环境下安装" class="headerlink" title="windows环境下安装"></a>windows环境下安装</h1><h1 id="1-安装-Ruby"><a href="#1-安装-Ruby" class="headerlink" title="1. 安装 Ruby"></a>1. 安装 Ruby</h1><p><strong>官网：</strong><a href="http://rubyinstaller.org/downloads/" target="_blank" rel="noopener">http://rubyinstaller.org/downloads/</a></p>
+<p><strong>测试：</strong> Ruby是否安装成功，执行命令ruby -v</p>
+<p>注意：勾选 “Add Ruby executables to your PATH”，安装路径不能包含空格</p>
+<h1 id="2-安装-DevKit"><a href="#2-安装-DevKit" class="headerlink" title="2. 安装 DevKit"></a>2. 安装 DevKit</h1><p><strong>官网：</strong><a href="http://rubyinstaller.org/downloads/" target="_blank" rel="noopener">http://rubyinstaller.org/downloads/</a></p>
+<p><strong>步骤：</strong> 在命令窗口下切换到安装目录，并执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ruby dk.rb init</span><br><span class="line">ruby dk.rb install</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong> gem是否安装成功，执行命令gem -v</p>
+<p>注意：Ruby与DevKit版本要对应</p>
+<h1 id="3-安装-Jekyll"><a href="#3-安装-Jekyll" class="headerlink" title="3. 安装 Jekyll"></a>3. 安装 Jekyll</h1><p><strong>步骤：</strong> 在命令窗口下执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//更换gem源</span><br><span class="line">gem sources --remove https://rubygems.org/</span><br><span class="line">gem sources -a https://ruby.taobao.org/</span><br><span class="line"></span><br><span class="line">//查看gem源</span><br><span class="line">gem sources -l</span><br><span class="line"></span><br><span class="line">//更新gem</span><br><span class="line">gem update --system</span><br><span class="line"></span><br><span class="line">//安装jekyll</span><br><span class="line">gem install jekyll</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-安装-Python-相关环境"><a href="#4-安装-Python-相关环境" class="headerlink" title="4. 安装 Python 相关环境"></a>4. 安装 Python 相关环境</h1><h2 id="a-安装-Python"><a href="#a-安装-Python" class="headerlink" title="a. 安装 Python"></a>a. 安装 Python</h2><p><strong>官网：</strong><a href="http://www.python.org/download/" target="_blank" rel="noopener">http://www.python.org/download/</a></p>
+<p><strong>测试：</strong> python是否安装成功，执行命令python -V</p>
+<p>注意：下载Python 2安装，如果安装Python 3 可能不会正常工作。安装后添加环境变量。</p>
+<h2 id="b-安装-Easy-Install"><a href="#b-安装-Easy-Install" class="headerlink" title="b. 安装 Easy Install"></a>b. 安装 Easy Install</h2><blockquote>
+<p>提示：*需要下载ez_setup.py)</p>
+</blockquote>
+<p><strong>步骤：</strong> 执行cmd命令 python “D:\software\Jekyll\ez_setup.py”(这里要改为你自己的目录）</p>
+<p><strong>测试：</strong> Easy Install 是否安装成功，执行命令easy_install –version</p>
+<p>注意：添加 Python Scripts 路径到环境变量</p>
+<h2 id="c-安装-Pygments"><a href="#c-安装-Pygments" class="headerlink" title="c. 安装 Pygments"></a>c. 安装 Pygments</h2><p><strong>步骤：</strong> 执行命令easy_install Pygments</p>
+<h1 id="5-Jekyll启动与调试"><a href="#5-Jekyll启动与调试" class="headerlink" title="5. Jekyll启动与调试"></a>5. Jekyll启动与调试</h1><p><strong>步骤：</strong> 打开命令行窗口，执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//创建jekyll工程目录</span><br><span class="line">jekyll new myblog</span><br><span class="line"></span><br><span class="line">//切换到工程目录，并开启服务</span><br><span class="line">cd myblog</span><br><span class="line">jekyll serve</span><br></pre></td></tr></table></figure>
+
+<p><strong>测试：</strong> Jekyll是否正常开启，访问<a href="http://localhost:4000" target="_blank" rel="noopener">localhost:4000</a></p>
+<h1 id="最后：附件"><a href="#最后：附件" class="headerlink" title="最后：附件"></a>最后：附件</h1><p>附件个自动安装脚本，双击install.bat即可：<a href="http://or8fqs2b1.bkt.clouddn.com/fastjekyll.rar" target="_blank" rel="noopener">点此下载</a></p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Jekyll/">Jekyll</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/windows-install-jekyll/&title=《如何在Windows下安装Jekyll》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/windows-install-jekyll/&title=《如何在Windows下安装Jekyll》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/windows-install-jekyll/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何在Windows下安装Jekyll》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/windows-install-jekyll/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/windows-install-jekyll/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/css-image-lightness/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CSS控制背景图片亮度</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/bootsrp-form-demo/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">初学BootStrap --Form Demo</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/windows-install-jekyll/&title=《如何在Windows下安装Jekyll》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/windows-install-jekyll/&title=《如何在Windows下安装Jekyll》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/windows-install-jekyll/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《如何在Windows下安装Jekyll》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/windows-install-jekyll/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/windows-install-jekyll/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3aSW7DMAwF0N7/0inQVYHWziepDpGeVoHh2HpeEBz09havx8f6/Pvrlft/3d959eTFCwMD42UZj9t1/4IJ4OpDXL33am8YGBjnMPIgmyDvQ+f99V4ox8DAwLh/9JNQWPwQGBgYGKsY+VaqxTAGBgbGpIitBtzkX39Qi2NgYLwgozcY+J3fPz7fwMDA+PeMR3FNBgn5aKG8KwwMjK0ZvVZXL2lLGEmoLWS4GBgYWzDyxtaqO/NCt9C8w8DAOICRH/aqhsgcVh0eYGBgnMPIi8n5tqqfrFC+YmBgHMCobndVo60X0KN2GwYGxkaMtQE0HwPMh5oYGBjnMPKA2DueNT/gVRgkYGBgbM2oJn/lGWmrkTcqZTEwMDZi9IaRTwaK46Zbnm5iYGCcxug17qshuNfIK58ZwcDA2JSRl46TV1bTzSgcY2BgbM1otuDz5teiQjcZRWBgYJzGWNXuT0akvWIYAwPjTEYeUvPkr5pKVj8EBgbGCYw8LFbbcJNGf14eY2BgnMmohtckWcyRvTEDBgbG3oxeCz7fdD74nGAwMDD2ZjyKq5rArSpln6SnGBgYWzPylZes1YZdoS/YGppiYGDswZgE2d6YMylNq0U1BgbGCYzJoYfq6ydJ3iUGAwMDozU26A0G8rbdN6khBgYGRnEkkA8d58UwBgbGCYxes77XyZsfDsPAwDiNUR0M9IreamBtNt0wMDB2Y7wD7SetYwkGFqoAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

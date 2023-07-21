@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>fixed 定位失效 与 CSS 层叠上下文 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CSS">
+    <meta name="description" content="第一部分，position: fixed失效的问题；第二部分，了解一下由此扯出的一个Stacking Context层叠上下文。 关于 position: fixedposition: fixed 在日常布局中比较常用，如移动端头部和底部导航定位、模态框、悬浮按钮等，设置了这个属性值得元素会相对于屏幕视口（viewport）进行定位，其位置在屏幕进行滚动时会保持不变，不占用文档流中的位置，而且打印">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fixed 定位失效 与 CSS 层叠上下文">
+<meta property="og:url" content="https://summxu.github.io/2019/fixed-stacking-context/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="第一部分，position: fixed失效的问题；第二部分，了解一下由此扯出的一个Stacking Context层叠上下文。 关于 position: fixedposition: fixed 在日常布局中比较常用，如移动端头部和底部导航定位、模态框、悬浮按钮等，设置了这个属性值得元素会相对于屏幕视口（viewport）进行定位，其位置在屏幕进行滚动时会保持不变，不占用文档流中的位置，而且打印">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20180102175637761?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvUGFuZGFfbQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fixed 定位失效 与 CSS 层叠上下文">
+<meta name="twitter:description" content="第一部分，position: fixed失效的问题；第二部分，了解一下由此扯出的一个Stacking Context层叠上下文。 关于 position: fixedposition: fixed 在日常布局中比较常用，如移动端头部和底部导航定位、模态框、悬浮按钮等，设置了这个属性值得元素会相对于屏幕视口（viewport）进行定位，其位置在屏幕进行滚动时会保持不变，不占用文档流中的位置，而且打印">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180102175637761?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvUGFuZGFfbQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">fixed 定位失效 与 CSS 层叠上下文</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">fixed 定位失效 与 CSS 层叠上下文</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-22T15:38:51.000Z" itemprop="datePublished" class="page-time">
+  2019-05-22
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#关于-position-fixed"><span class="post-toc-number">1.</span> <span class="post-toc-text">关于 position: fixed</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#层叠上下文-Stacking-Context"><span class="post-toc-number">2.</span> <span class="post-toc-text">层叠上下文 Stacking Context</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2019/fixed-stacking-context"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">fixed 定位失效 与 CSS 层叠上下文</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-22 23:38:51" datetime="2019-05-22T15:38:51.000Z"  itemprop="datePublished">2019-05-22</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>第一部分，position: fixed失效的问题；<br>第二部分，了解一下由此扯出的一个Stacking Context层叠上下文。</p>
+<h1 id="关于-position-fixed"><a href="#关于-position-fixed" class="headerlink" title="关于 position: fixed"></a>关于 position: fixed</h1><p><strong>position: fixed</strong> 在日常布局中比较常用，如移动端头部和底部导航定位、模态框、悬浮按钮等，设置了这个属性值得元素会相对于屏幕视口（viewport）进行定位，其位置在屏幕进行滚动时会保持不变，不占用文档流中的位置，而且打印时这个元素会出现在 每一页 的相同位置。设置了 <strong>position: fixed</strong> 的元素最终的位置由它的 <strong>top, right, bottom, left</strong> 来决定，这个值会创建一个新的 <strong>stacking context</strong><br>但是，有些情况下，这种定位方式会失效，使得元素相对于视窗定位的定位不符合预期（其实是 <strong>fixed</strong> 定位的参考元素变了）。当该元素的父元素中（广义，包含祖先元素）有元素的 <strong>transform</strong> 或 <strong>perspective</strong> 的值不是 <strong>none</strong>，该元素就会相对于这个父元素而不是视口进行定位。<br>具体的原因是这样：</p>
+<blockquote>
+<p>Specifying a value other than none for the transform property establishes a new local coordinate system at the element that it is applied to. The mapping from where the element would have rendered into that local coordinate system is given by the element’s transformation matrix. Transformations are cumulative. That is, elements establish their local coordinate system within the coordinate system of their parent. From the perspective of the user, an element effectively accumulates all the transform properties of its ancestors as well as any local transform applied to it. The accumulation of these transforms defines a current transformation matrix for the element.</p>
+</blockquote>
+<p>解释一下，<strong>transform</strong> 或 perspective 的非 none 值会影响元素的包含块和层叠上下文，这些值会在应用它的元素上建立一个局部的坐标系（X轴向右水平增加; Y轴垂直向下增加），由变换矩阵（<strong>transform</strong> 的值）给出元素到该局部坐标系的映射，而且 <strong>transform</strong> 带来的局部坐标系的改变是可以累积的——也就是说，子元素会在它的父元素的坐标系内建立子元素自己的局部坐标系：<br>父元素的 <strong>transform</strong> 们一层层积累定义了子元素当前的变换矩阵（一个元素的变换矩阵是从 <strong>transform</strong> 和 <strong>transform</strong>-origin 属性中计算出来的），步骤如下：</p>
+<ul>
+<li>通过 <strong>transform-origin</strong> 的值对坐标原点 X 和 Y 的位置进行转换</li>
+<li>以变换后的 X、Y 为坐标原点原点，根据 <strong>transform</strong> 的属性值进行变换</li>
+<li>X 和 Y 根据 <strong>transform-origin</strong> 的相反值平移回去</li>
+</ul>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdn.net/20180102175637761?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvUGFuZGFfbQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="如图" title>
+                </div>
+                <div class="image-caption">如图</div>
+            </figure>
+
+<p><strong>transform</strong> 会影响最终的渲染效果，但是不影响除overflow外的CSS布局，当通过 <strong>getClientRects()</strong>、<strong>getBoundingClientRect()</strong> 这些接口获取 <strong>client rectangles</strong> 时，<strong>transform</strong> 的效果也会被考虑进去。</p>
+<p>可以应用 <strong>transform</strong> 的元素（<strong>transformable elements</strong>）有：</p>
+<ul>
+<li>满足CSS盒模型的块级元素或行内元素，或者它的 display 值为 table-row, table-row-group, table-header-group, table-footer-group, table-cell, table-caption 中的一个</li>
+<li>SVG 命名空间中具有 transform, patternTransform 或 gradientTransform 属性的元素</li>
+</ul>
+<p>p.s. 关于上面的应用<strong>transform</strong>后元素位置的计算方式。原文如下：</p>
+<ol>
+<li>Start with the identity matrix.</li>
+<li>Translate by the computed X and Y of transform-origin</li>
+<li>Multiply by each of the transform functions in transform property from left to right</li>
+<li>Translate by the negated computed X and Y values of transform-origin</li>
+</ol>
+<p>参考文档：</p>
+<p><a href="https://www.w3.org/TR/css-transforms-1/#propdef-transform" target="_blank" rel="noopener">The transform Property - W3C Working Draft - 30 November 2017</a></p>
+<p><a href="https://www.w3.org/TR/css-transforms-1/#transform-rendering" target="_blank" rel="noopener">The Transform Rendering Model - W3C Working Draft - 30 November 2017</a></p>
+<h1 id="层叠上下文-Stacking-Context"><a href="#层叠上下文-Stacking-Context" class="headerlink" title="层叠上下文 Stacking Context"></a>层叠上下文 Stacking Context</h1><p>通过上文我们知道了有层叠上下文这么一个东西，层叠上下文是HTML元素的三维概念，这些HTML元素在一条假想的相对于面向（电脑屏幕的）视窗z轴上延伸，HTML元素依据其自身属性按照优先级顺序占用层叠上下文的空间。和BFC还有IFC这些xx context一样，创建层叠上下文也是有条件的，文档中的层叠上下文由满足以下任意一个条件的元素形成：</p>
+<ul>
+<li>根元素 (HTML),</li>
+<li>z-index 值不为 auto 的 绝对/相对定位元素</li>
+<li>position 不是 static 的元素（sticky 也会创建层叠上下文，这是一个神奇的实验中的属性值）</li>
+<li>一个 z-index 值不为 auto 的 flex 项目 (flex item)</li>
+<li>opacity 属性值小于 1 的元素（参考 the specification for opacity）</li>
+<li>transform 属性值不为 none 的元素</li>
+<li>mix-blend-mode 属性值不为 normal 的元素</li>
+<li>有 transform、filter、perspective、clip-path、mask / mask-image / mask-border 这些属性中任意一个或多个属性的元素</li>
+<li>isolation 属性被设置为 isolate的元素</li>
+<li>在 will-change 中指定了任意CSS` 属性的元素（即使没有直接指定这些属性的值）</li>
+<li>-webkit-overflow-scrolling 属性被设置 touch的元素</li>
+<li>设置了 transform-style: preserve-3d 的元素</li>
+</ul>
+<p>在层叠上下文中的子元素也会按照上面的规则进行层叠，子元素的 z-index 值只在父级层叠上下文中有意义，子级层叠上下文被自动视为父级层叠上下文的一个独立单元。</p>
+<p>但是，并不是创建了新的层叠上下文的元素并不一定都会对其拥有position: fixed的子元素的效果产生影响，<br>在Chrome（Blink内核）中，可以明确看到产生了影响的是：</p>
+<ul>
+<li>transform 属性值不为 none 的元素</li>
+<li>设置了 transform-style: preserve-3d 的元素</li>
+<li>perspective 值不为 none 的元素</li>
+<li>在 will-change 中指定了任意 CSS 属性的元素</li>
+<li>但是，在不同的浏览器内核下，上述结论也会有所差异，例如，在 Safari（Webkit内核） 中，只有transform 属性值不为 none 的元素会对 fixed 定位的效果产生影响.</li>
+</ul>
+<p>参考文档：</p>
+<p><a href="https://www.w3.org/TR/css-color-3/#transparency" target="_blank" rel="noopener">the specification for opacity - W3C</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context" target="_blank" rel="noopener">The stacking context - MDN</a></p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2019/fixed-stacking-context/&title=《fixed 定位失效 与 CSS 层叠上下文》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2019/fixed-stacking-context/&title=《fixed 定位失效 与 CSS 层叠上下文》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2019/fixed-stacking-context/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《fixed 定位失效 与 CSS 层叠上下文》 — 小兵旭旭的博客&url=https://summxu.github.io/2019/fixed-stacking-context/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2019/fixed-stacking-context/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/http-cache-etag/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">HTTP缓存-ETag</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/transform-element-impact/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">css3 transform对普通元素的n多渲染影响</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2019/fixed-stacking-context/&title=《fixed 定位失效 与 CSS 层叠上下文》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2019/fixed-stacking-context/&title=《fixed 定位失效 与 CSS 层叠上下文》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2019/fixed-stacking-context/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《fixed 定位失效 与 CSS 层叠上下文》 — 小兵旭旭的博客&url=https://summxu.github.io/2019/fixed-stacking-context/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2019/fixed-stacking-context/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aS27DMAwFwNz/0u62QGr3kbQXlkarwmkdjQoI/H0+8Tp+reTJ96fXb7t+ftvCwMB4LeO4XMkXJ5u45n2/J98bBgbGPoyzLz77nTNqsvUq43pvGBgYGMnvJCu5djEwMDDuYsxz5d7li4GBgZFclHniWr1q8wv6hlwcAwPjhYzJFfn0z4/0NzAwMF7FOIrr6S0erYWBgbE2I7/gckzeJJiEfRgYGLsxqmnnvPRfHddInmBgYKzNqBaw8lGw6jHlIekfTzAwMBZlzC/TagMyGdpIDug0F8fAwFiOkUdW1SAvb09O3vapfoyBgbEcYx515m2A3rWLgYGBkRf689LYE5cvBgbGDozqK6qjGL3RjeSwMDAwdmD0hreSVkF+HJPj++frMTAwlmNUGwPV1DdPYsvFPgwMjKUZeUkrCfKSUYy7mqPNmREMDIyFGNXSfJJqJluchKQYGBirMvI/6zUGJgMct9ULMTAwXs6YlNKeaEPmwxYYGBi7MfLgrzo8kbPnI2gYGBj7MKoJbRK65U2CXpiIgYGxMyNvPVYDwUlx7fQQMTAwFmUcxZWnoL22aPK8/H/AwMB4OWNy2VVLbJOjiZJYDAyMpRm9Ule1bZCfaDPpxcDA2ICRb7HXbuwdU2FXGBgYGEXSZPyi+U4MDAyMOEystgSSqzY6OAwMjA0YSehWTVN7bdHmkWFgYCzNqKaOSYJaTkFbiSsGBsYGjB81d+TzHobduAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

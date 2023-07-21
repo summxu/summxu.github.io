@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>关闭Linux强行杀掉进程服务 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Game">
+    <meta name="description" content="本人搭建了个Minecraft的服务器运行在了Centos上，本身机器内存为1G，我设置的Java *Xms700m -Xmx700m *.  那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？                                                                                             M">
+<meta name="keywords" content="Linux,Game">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关闭Linux强行杀掉进程服务">
+<meta property="og:url" content="https://summxu.github.io/2017/linux-oom-kill/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="本人搭建了个Minecraft的服务器运行在了Centos上，本身机器内存为1G，我设置的Java *Xms700m -Xmx700m *.  那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？                                                                                             M">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/08/5939657f9516b.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/08/5939665e84bb4.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/08/593966b07671c.png">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关闭Linux强行杀掉进程服务">
+<meta name="twitter:description" content="本人搭建了个Minecraft的服务器运行在了Centos上，本身机器内存为1G，我设置的Java *Xms700m -Xmx700m *.  那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？                                                                                             M">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/08/5939657f9516b.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">关闭Linux强行杀掉进程服务</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">关闭Linux强行杀掉进程服务</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-07T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-08
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？"><span class="post-toc-number">1.</span> <span class="post-toc-text">那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#OOM-killer"><span class="post-toc-number"></span> <span class="post-toc-text">OOM_killer</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#宕机了！！！"><span class="post-toc-number"></span> <span class="post-toc-text">宕机了！！！</span></a>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/linux-oom-kill"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">关闭Linux强行杀掉进程服务</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-08 00:00:00" datetime="2017-06-07T16:00:00.000Z"  itemprop="datePublished">2017-06-08</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>本人搭建了个Minecraft的服务器运行在了Centos上，本身机器内存为1G，我设置的Java *<em>Xms700m -Xmx700m *</em>.</p>
+</blockquote>
+<h3 id="那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？"><a href="#那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？" class="headerlink" title="那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？"></a>那么问题来了，我的世界玩着的时候经常断开，而且服务器也连接不上了？</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/08/5939657f9516b.png" alt="Minecraft" title>
+                </div>
+                <div class="image-caption">Minecraft</div>
+            </figure>
+
+<p>仔细查看系统日志发现：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/08/5939665e84bb4.png" alt="kill java" title>
+                </div>
+                <div class="image-caption">kill java</div>
+            </figure>
+
+<p>竟然因为内存占用过多被系统直接Kill掉了。我们都知道，Linux系统为了保护系统运行，会把内存占用过高的程序杀掉，那么这个进程就是 <strong>OOM_killer</strong></p>
+<h1 id="OOM-killer"><a href="#OOM-killer" class="headerlink" title="OOM_killer"></a>OOM_killer</h1><p><strong>OOM_killer</strong>是Linux自我保护的方式，当内存不足时不至于出现太严重问题，有点壮士断腕的意味<br>在kernel 2.6，内存不足将唤醒oom_killer，挑出/proc/<pid>/oom_score最大者并将之kill掉</pid></p>
+<p>为了保护重要进程不被oom-killer掉，我们可以：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo -17 &gt; /proc/&lt;pid&gt;/oom_adj,-17表示禁用OOM</span><br></pre></td></tr></table></figure>
+
+<p>我们也可以对把整个系统的OOM给禁用掉：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.panic_on_oom=1 （默认为0，表示开启）</span><br><span class="line">sysctl -p</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，有些时候 free -m 时还有剩余内存，但还是会触发OOM-killer，可能是因为进程占用了特殊内存地址</p>
+<p>平时我们应该留意下新进来的进程内存使用量，免得系统重要的业务进程被无辜牵连<br>可用 top M 查看最消耗内存的进程，但也不是进程一超过就会触发oom_killer<br>参数/proc/sys/vm/overcommit_memory可以控制进程对内存过量使用的应对策略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">当overcommit_memory=0 允许进程轻微过量使用内存，但对于大量过载请求则不允许(默认）</span><br><span class="line">当overcommit_memory=1 永远允许进程overcommit</span><br><span class="line">当overcommit_memory=2 永远禁止overcommit</span><br></pre></td></tr></table></figure>
+
+<p>OK 了，果然没在出现掉线的情况了，不过这个方式还是会存在问题，就是当内存实在是过大的时候，会破坏系统的整体稳定性，<strong>极大可能会宕机！</strong></p>
+<p>22：54更新</p>
+<h2 id="宕机了！！！"><a href="#宕机了！！！" class="headerlink" title="宕机了！！！"></a>宕机了！！！</h2><p>重启后发现：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/08/593966b07671c.png" alt="error" title>
+                </div>
+                <div class="image-caption">error</div>
+            </figure>
+
+<p>这就悲剧了！！！</p>
+<p>看来还是老老实实的 Java *<em>Xms256m -Xmx256m *</em></p>
+<p>这样确实不出现连接问题，但是这样会损失一点游戏的流畅性(比如在铁路上做很长距离的矿车，会卡成狗。。)</p>
+<p>什么？？？想完美解决？ 还是 ： <strong>给服务器加大内存把@！！@！</strong></p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game/">Game</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/linux-oom-kill/&title=《关闭Linux强行杀掉进程服务》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/linux-oom-kill/&title=《关闭Linux强行杀掉进程服务》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/linux-oom-kill/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关闭Linux强行杀掉进程服务》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/linux-oom-kill/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/linux-oom-kill/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/html-jquery-bootstrap-temp/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">初学BootStrap --引入模板</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/vscode-extended-html/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">精简实用的VScode前端扩展</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/linux-oom-kill/&title=《关闭Linux强行杀掉进程服务》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/linux-oom-kill/&title=《关闭Linux强行杀掉进程服务》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/linux-oom-kill/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关闭Linux强行杀掉进程服务》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/linux-oom-kill/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/linux-oom-kill/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aS27DMAwFwNz/0um2RSvjkXQKWBqtisKRNV4Q4uf1itf721r9/3pVd3t9YmFgYDyWkby++szv/Vf7rJ7J34uBgXEOYxXBVs8kx13xqr+9PhsGBgZGLyBeA3okDAwMjDljkgZjYGBgJIwkdCZBNgmsvWvlbbk4BgbGAxl51f3///5IfwMDA+NRjHdxzal3neTHqTAwMLZmzF8zaRvkTdAoJcbAwDiMMQ+7yfO9cY0o3mNgYGzNaBbli5lm3mAohHUMDIytGZNG5rwB0LsmLj8lBgbGdox7k8nrV87HMgpjFhgYGBsxkmQySUSTy18vyBZGKzAwMDZlVK901WPNByyij4iBgbE1I08183ZCtcGQf4JmCxMDA2MLRr7dpN2YXBxHAAwMjE0Z82JZL4zeHNwxMDCOYVQLcHcNfvXAf+TiGBgYRzKqQTkJ1tUPl7Q0MDAwTmDkF7W7GpCTlsAN9UIMDIxHMfLjjip5g2cKV1IMDIwjGfkh8uA7OW5UdMPAwDiGUW1SVg9dvQhiYGBg5OX+pASWD1LkuzWnRTAwMLZgvIurN6KRHCvZfxl8MTAwtmb0gl1OStLU/DqYXFIxMDB2ZUxKXZMEOBm8KPdjMTAwtmZUA191tOLj6TEGBgZGK5msDpblITsatsDAwMCIG43Vhmj1c2BgYJzDyJsBvV8lhbnRyCwGBsbWjEnqWA2gvTZkFYmBgbER4wsU1HRyfEZ/hgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

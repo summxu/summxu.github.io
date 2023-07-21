@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>HTTPS自动跳转JS代码 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="SEO,JavaScript">
+    <meta name="description" content="前言 因为某种原因，本站的博客部署在了 Coding Pages 。其很大原因主要是为了兼顾百度的收录问题（GitHub停止了百度收录），但是却遇到了重重困难。  Coding pages开启了https                                                                                             https">
+<meta name="keywords" content="SEO,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPS自动跳转JS代码">
+<meta property="og:url" content="https://summxu.github.io/2017/coding-301-baidu-spider/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="前言 因为某种原因，本站的博客部署在了 Coding Pages 。其很大原因主要是为了兼顾百度的收录问题（GitHub停止了百度收录），但是却遇到了重重困难。  Coding pages开启了https                                                                                             https">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/11/593ce3f1da679.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/11/593ce44b5bedb.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/11/593ce44b5bedb.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/11/593cea972b222.png">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTPS自动跳转JS代码">
+<meta name="twitter:description" content="前言 因为某种原因，本站的博客部署在了 Coding Pages 。其很大原因主要是为了兼顾百度的收录问题（GitHub停止了百度收录），但是却遇到了重重困难。  Coding pages开启了https                                                                                             https">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/11/593ce3f1da679.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">HTTPS自动跳转JS代码</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">HTTPS自动跳转JS代码</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-10T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-11
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Coding-pages开启了https"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">Coding pages开启了https</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#代码实现"><span class="post-toc-number">2.</span> <span class="post-toc-text">代码实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#检测来自百度蜘蛛并跳转"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">检测来自百度蜘蛛并跳转</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#直接HTTP到https跳转"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">直接HTTP到https跳转</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#结果"><span class="post-toc-number">3.</span> <span class="post-toc-text">结果</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/coding-301-baidu-spider"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">HTTPS自动跳转JS代码</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-11 00:00:00" datetime="2017-06-10T16:00:00.000Z"  itemprop="datePublished">2017-06-11</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>因为某种原因，本站的博客部署在了 Coding Pages 。其很大原因主要是为了兼顾百度的收录问题（GitHub停止了百度收录），但是却遇到了重重困难。</p>
+</blockquote>
+<h2 id="Coding-pages开启了https"><a href="#Coding-pages开启了https" class="headerlink" title="Coding pages开启了https"></a>Coding pages开启了https</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/11/593ce3f1da679.png" alt="https enble" title>
+                </div>
+                <div class="image-caption">https enble</div>
+            </figure>
+
+<p> 如果启用了强制HTTPS访问，百度抓取就会 出现一下错误：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/11/593ce44b5bedb.png" alt="error" title>
+                </div>
+                <div class="image-caption">error</div>
+            </figure>
+
+<p>上面提示异常信息：<strong>连接重定向次数超过5次的上限</strong>。这里就有两个疑问：</p>
+<ol>
+<li>我是hrtps的站点，抓取的时候确实http？</li>
+<li>我确实做了强行301到https（刚才coding上那个选项），但是为什么说重定向超过5次？</li>
+</ol>
+<p>我感觉这次抓取的结果可以重三个方面分析：</p>
+<ul>
+<li>我是hrtps的站点，抓取的时候确实http？<ul>
+<li>首先这个原因，暂且认为百度抓取只会抓HTTP的页面<strong>并不会抓HTTPS</strong>，这个原因直接导致了抓取http出现有跳转的情况。(但是想了想可能又不是这样，百度搜索引擎是不可能连一个HTTPS都不抓的。不过从抓取结果上来看，它确实只是抓取的http)</li>
+</ul>
+</li>
+<li>为什么说重定向超过5次？<ol>
+<li>有可能是因为Coding.Coding的强制跳转到HTTPS是不是就跳转了一次，还中间做了其他的页面？</li>
+<li>百度抓取问题。</li>
+</ol>
+</li>
+</ul>
+<p>所以说这个问题至今都很奇怪，除了百度，其他所有的搜索引擎都可以成功去抓取。</p>
+<p>索性关掉CodingPages的301功能来用JavaScript代码试下。</p>
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><h2 id="检测来自百度蜘蛛并跳转"><a href="#检测来自百度蜘蛛并跳转" class="headerlink" title="检测来自百度蜘蛛并跳转"></a>检测来自百度蜘蛛并跳转</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 判断百度爬虫 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> s=<span class="built_in">document</span>.referrer;    <span class="comment">//获取来源地址</span></span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> targetProtocol = <span class="string">"https:"</span>;</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">if</span>(s.indexOf(<span class="string">"baidu"</span>)&gt;<span class="number">0</span>)&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (<span class="built_in">window</span>.location.protocol != targetProtocol)&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.location.href = targetProtocol + <span class="built_in">window</span>.location.href.substring(<span class="built_in">window</span>.location.protocol.length);  <span class="comment">//跳转到HTTPs</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 判断百度爬虫END --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这段代码其实是检测百度抓取而不是其他引擎或者用户正常访问来做的跳转，其中：</p>
+<blockquote>
+<p>document.referrer  //获取来源地址<br>window.location.href  //只身跳转，可传递搜索引擎权重并不会引起各种浏览器屏蔽<br>indexOf()  // 方法可返回某个指定的字符串值在字符串中首次出现的位置。</p>
+</blockquote>
+<h2 id="直接HTTP到https跳转"><a href="#直接HTTP到https跳转" class="headerlink" title="直接HTTP到https跳转"></a>直接HTTP到https跳转</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> targetProtocol = <span class="string">"https:"</span>;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (<span class="built_in">window</span>.location.protocol != targetProtocol)&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">window</span>.location.href = targetProtocol + <span class="built_in">window</span>.location.href.substring(<span class="built_in">window</span>.location.protocol.length);  <span class="comment">//跳转到HTTPs</span></span></span><br><span class="line">            &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>window.location.protocol  //检测当前访问是不是HTTP</p>
+</blockquote>
+<h1 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h1><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/11/593ce44b5bedb.png" alt="rithg" title>
+                </div>
+                <div class="image-caption">rithg</div>
+            </figure>
+
+<p>百度能正常抓取了，看样子是http的页面，不知道为什么，真的是好乱，而且JS跳转真的是不入直接301.唉，为了百度的索引。</p>
+<p>更新下，已经有页面抓取到了。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/11/593cea972b222.png" alt="end" title>
+                </div>
+                <div class="image-caption">end</div>
+            </figure>
+
+<p>先这么滴把。</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SEO/">SEO</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/coding-301-baidu-spider/&title=《HTTPS自动跳转JS代码》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/coding-301-baidu-spider/&title=《HTTPS自动跳转JS代码》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/coding-301-baidu-spider/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HTTPS自动跳转JS代码》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/coding-301-baidu-spider/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/coding-301-baidu-spider/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/atao-up-link-baidu/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">通过JS代码提交连接到百度</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/vscode-snippet/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">巧用VScode“用户代码片段”来提高效率</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/coding-301-baidu-spider/&title=《HTTPS自动跳转JS代码》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/coding-301-baidu-spider/&title=《HTTPS自动跳转JS代码》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/coding-301-baidu-spider/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《HTTPS自动跳转JS代码》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/coding-301-baidu-spider/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/coding-301-baidu-spider/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3a0W7EIAxE0fz/T6evkdpYM2NSCXN5qrIscLaSAzbXJbf70X4/qZ8/P332UWZZ3GDAgLEt4y5bPYE7pTKO8qP8MS8MGDAOYLxNqQ9dh+Z65Hquem0wYMCAoQytb+ncJcKAAQPGqoDrLsI9KsOAAQOGfojVE2puKs1N3sGAAeM0hh4K///vT+obMGDA2Ipxm83drmXftVcFAwaM0Qw9wPU3Z51CqbTRhAEDxlCGnu7/jppd6Xj9P8CAAWMcI9vqZYVMN93mXtqAAQPGCQyjWBjB+gxphwsDBoxxDD2k6ktULqcq1zWMyxwwYMAYzejUAbM0WadsIM0CAwaMcYxOsHMLkPX47ozSewMGDBiDGPV20LjuIMP0NJyU2oMBA8YxjOymhlt0dA/J0ssABgwYxzCyE3BWsMwOsa3iJQwYMLZluOXGfhJfLwbos8OAAWM2ww2LSnB0N4hu8L360R0GDBjbMvSj6apSZbYlld4VMGDAGMToJO71wmQHXM8FAwaM0xjupYrsU6Uw4F5HgwEDxjkMpaveR1mQHoKl5zBgwDiAUXftT9xPrtnvDRgwYIxg3GbLEmqrvmtvCmHAgDGCkSXC9OGUJSrJNfewDQMGjHkMN7GV9dGPr9lxFwYMGCcwskPsF9u+EAkDBgwYQmB1we5PsDjgwoABYzSjnka5FJuVBD55b8CAAWMrhnKIXXW9tTPOa38YMGCMZrj7rmxBbhly7dEXBgwY2zJ+ADpiLLqCfGk3AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>CSS控制背景图片亮度 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CSS,HTML">
+    <meta name="description" content="不美观引发的技术思考即实现。。  前言打开博客，细细的看了看自己写的小东西，虽说不好但却是自己一点一点的小经验。但是，种感觉有什么怪怪的。。                                                                                              1               仔细看看：">
+<meta name="keywords" content="CSS,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS控制背景图片亮度">
+<meta property="og:url" content="https://summxu.github.io/2017/css-image-lightness/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="不美观引发的技术思考即实现。。  前言打开博客，细细的看了看自己写的小东西，虽说不好但却是自己一点一点的小经验。但是，种感觉有什么怪怪的。。                                                                                              1               仔细看看：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/15/59422d135296a.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/15/59422d171a019.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/15/59422d12af472.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/15/59422d1318cd9.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/15/59422d16cc5cc.png">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS控制背景图片亮度">
+<meta name="twitter:description" content="不美观引发的技术思考即实现。。  前言打开博客，细细的看了看自己写的小东西，虽说不好但却是自己一点一点的小经验。但是，种感觉有什么怪怪的。。                                                                                              1               仔细看看：">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/15/59422d135296a.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">CSS控制背景图片亮度</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">CSS控制背景图片亮度</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-14T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-15
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#想法：opacity"><span class="post-toc-number">2.</span> <span class="post-toc-text">想法：opacity</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#rgba"><span class="post-toc-number">3.</span> <span class="post-toc-text">rgba</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#IE专属滤镜-filter-Alpha"><span class="post-toc-number">4.</span> <span class="post-toc-text">IE专属滤镜 filter:Alpha</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/css-image-lightness"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">CSS控制背景图片亮度</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-15 00:00:00" datetime="2017-06-14T16:00:00.000Z"  itemprop="datePublished">2017-06-15</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>不美观引发的技术思考即实现。。</p>
+</blockquote>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>打开博客，细细的看了看自己写的小东西，虽说不好但却是自己一点一点的小经验。但是，种感觉有什么怪怪的。。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/15/59422d135296a.jpg" alt="1" title>
+                </div>
+                <div class="image-caption">1</div>
+            </figure>
+
+<p>仔细看看：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/15/59422d171a019.png" alt="2" title>
+                </div>
+                <div class="image-caption">2</div>
+            </figure>
+
+<p><strong>卧槽。。</strong>发现文字颜色为什么和图片融为一体了？？？？我是瞎了吗这么久都没看出来！！！！<strong>得赶紧想想办法</strong></p>
+<h1 id="想法：opacity"><a href="#想法：opacity" class="headerlink" title="想法：opacity"></a>想法：opacity</h1><p>首先想到的就是，<strong>调暗图片颜色</strong></p>
+<p>记得可以使用：<strong>css3的opacity:x</strong>调整图片透明度，上面弄上全黑背景，因为用的jekyll，所以直接改代码。。。</p>
+<p>找到<strong>post.html</strong> 看了看头部发现代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">header.intro-header&#123;</span><br><span class="line">        background-image: url(&apos;&#123;% if page.header-img %&#125;&#123; &#123; page.header-img &#125; &#125;&#123;% else %&#125;&#123; &#123; site.header-img &#125; &#125;&#123;% endif %&#125;&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很简单，直接就一个 <em>background-image</em> 然后直接加上覆盖上一个css试试。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">header.intro-header&#123;</span><br><span class="line">        background-image: url(&apos;&#123;% if page.header-img %&#125;&#123; &#123; page.header-img &#125; &#125;&#123;% else %&#125;&#123; &#123; site.header-img &#125; &#125;&#123;% endif %&#125;&apos;);</span><br><span class="line">        opacity: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/15/59422d12af472.jpg" alt="3" title>
+                </div>
+                <div class="image-caption">3</div>
+            </figure>
+
+<p>发现可以透明了，但是整个文字也透明了，这不符合要求啊。。。百度了下，原来用 <em>opacity</em> 是不符合要求的。</p>
+<blockquote>
+<p>实现透明的css方法通常有以下3种方式，以下是不透明度都为80%的写法</p>
+</blockquote>
+<blockquote>
+<ul>
+<li>css3的opacity:x，x 的取值从 0 到 1，如opacity: 0.8</li>
+<li>css3的rgba(red, green, blue, alpha)，alpha的取值从 0 到 1，如rgba(255,255,255,0.8)</li>
+<li>IE专属滤镜 filter:Alpha(opacity=x)，x 的取值从 0 到 100，如filter:Alpha(opacity=80)</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>使用说明：设置opacity元素的所有后代元素会随着一起具有透明性，一般用于调整图片或者模块的整体不透明度..那么使用opacity实现《背景透明，文字不透明》是<strong>不可取</strong>的。</p>
+</blockquote>
+<p>*<em>opacity *</em>代码示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;css3的rgba&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">*&#123;</span><br><span class="line">    padding: 0;</span><br><span class="line">    margin: 0;</span><br><span class="line">&#125;</span><br><span class="line">body&#123;</span><br><span class="line">    padding: 50px;</span><br><span class="line">    background: url(img/bg.png) 0 0 repeat;</span><br><span class="line">&#125;</span><br><span class="line">.demo&#123;</span><br><span class="line">  padding: 25px;</span><br><span class="line">  background-color:#000000;/* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */</span><br><span class="line">  background-color:rgba(0,0,0,0.2); /* IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂，但解析为透明 */</span><br><span class="line">&#125;</span><br><span class="line">.demo p&#123;</span><br><span class="line">    color: #FFFFFF;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;    </span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;demo&quot;&gt;</span><br><span class="line">    &lt;p&gt;背景透明，文字也透明&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="rgba"><a href="#rgba" class="headerlink" title="rgba"></a>rgba</h1><blockquote>
+<p>很奇葩的是，IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂rgba，解析后颜色为透明，其实应该是null.</p>
+</blockquote>
+<p>管不了这么多了，IE这种被时代抛弃的东西，我才不考虑。.</p>
+<p>看了下示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;css3的rgba&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">*&#123;</span><br><span class="line">    padding: 0;</span><br><span class="line">    margin: 0;</span><br><span class="line">&#125;</span><br><span class="line">body&#123;</span><br><span class="line">    padding: 50px;</span><br><span class="line">    background: url(img/bg.png) 0 0 repeat;</span><br><span class="line">&#125;</span><br><span class="line">.demo&#123;</span><br><span class="line">  padding: 25px;</span><br><span class="line">  background-color:#000000;/* IE6和部分IE7内核的浏览器(如QQ浏览器)下颜色被覆盖 */</span><br><span class="line">  background-color:rgba(0,0,0,0.2); /* IE6和部分IE7内核的浏览器(如QQ浏览器)会读懂，但解析为透明 */</span><br><span class="line">&#125;</span><br><span class="line">.demo p&#123;</span><br><span class="line">    color: #FFFFFF;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;    </span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;demo&quot;&gt;</span><br><span class="line">    &lt;p&gt;背景透明，文字也透明&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>加到我的Jekyll post 里看看效果：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/15/59422d1318cd9.jpg" alt="4" title>
+                </div>
+                <div class="image-caption">4</div>
+            </figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">        .mengban&#123;</span><br><span class="line">            background-color:#000000;</span><br><span class="line">            background-color:rgba(0,0,0,0.2); </span><br><span class="line">        &#125;</span><br><span class="line">        header.intro-header&#123;</span><br><span class="line">        background-image: url(&apos;&#123;% if page.header-img %&#125;&#123; &#123; page.header-img &#125; &#125;&#123;% else %&#125;&#123; &#123; site.header-img &#125; &#125;&#123;% endif %&#125;&apos;);</span><br><span class="line">        opacity: 1;</span><br><span class="line">        &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+
+<p>可以了，但是还是有点白 ， 调整下参数。。完美解决。。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/15/59422d16cc5cc.png" alt="5" title>
+                </div>
+                <div class="image-caption">5</div>
+            </figure>
+
+<p>不过既然写到这了，在说下IE的:</p>
+<h1 id="IE专属滤镜-filter-Alpha"><a href="#IE专属滤镜-filter-Alpha" class="headerlink" title="IE专属滤镜 filter:Alpha"></a>IE专属滤镜 filter:Alpha</h1><p>使用说明：IE浏览器专属，问题多多，本文以设置背景透明为例子，如下：</p>
+<ol>
+<li><p>仅支持IE6、7、8、9，在IE10版本被废除</p>
+</li>
+<li><p>在IE6、7中，需要激活IE的haslayout属性(如：<em>zoom:1或者</em>overflow:hidden)，让它读懂filter:Alpha</p>
+</li>
+<li><p>在IE6、7、8中，设置了filter:Alpha的元素，父元素设置position:static(默认属性)，其子元素为相对定位，可让子元素不透明</p>
+</li>
+</ol>
+<p>示例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;title&gt;opacity&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">*&#123;</span><br><span class="line">    padding: 0;</span><br><span class="line">    margin: 0;</span><br><span class="line">&#125;</span><br><span class="line">body&#123;</span><br><span class="line">    padding: 50px;</span><br><span class="line">    background: url(img/bg.png) 0 0 repeat;</span><br><span class="line">&#125;</span><br><span class="line">.demo&#123;</span><br><span class="line">  padding: 25px;</span><br><span class="line">  background: #000000;</span><br><span class="line">  filter:Alpha(opacity=50);/* 只支持IE6、7、8、9 */</span><br><span class="line">  position:static; /* IE6、7、8只能设置position:static(默认属性) ，否则会导致子元素继承Alpha值 */</span><br><span class="line">  *zoom:1; /* 激活IE6、7的haslayout属性，让它读懂Alpha */</span><br><span class="line">&#125;</span><br><span class="line">.demo p&#123;</span><br><span class="line">    color: #FFFFFF;</span><br><span class="line">    position: relative;/* 设置子元素为相对定位，可让子元素不继承Alpha值，保证字体颜色不透明 */</span><br><span class="line">&#125;      </span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;    </span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;demo&quot;&gt;</span><br><span class="line">    &lt;p&gt;背景透明，文字不透明&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>本文部分文章出处：<a href="http://peunzhang.cnblogs.com/" target="_blank" rel="noopener">http://peunzhang.cnblogs.com/</a></p>
+</blockquote>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/css-image-lightness/&title=《CSS控制背景图片亮度》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/css-image-lightness/&title=《CSS控制背景图片亮度》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/css-image-lightness/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CSS控制背景图片亮度》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/css-image-lightness/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/css-image-lightness/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/add-jquery-effect/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">通过jQuery添加网页的动画效果</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/windows-install-jekyll/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何在Windows下安装Jekyll</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/css-image-lightness/&title=《CSS控制背景图片亮度》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/css-image-lightness/&title=《CSS控制背景图片亮度》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/css-image-lightness/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《CSS控制背景图片亮度》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/css-image-lightness/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/css-image-lightness/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOElEQVR42u3aUY7DIAxF0ex/050NNHCfPVQCbr6iKpNwGMkytp8HX5/hNX7y7W3jrzwrLhkyZGzLIEvs7xPBv92T7ZMhQ8YNjHFYJK/m4PHzb/eTNcuQIUMG+DBJ+MZLJM/IkCFDBmHwD6cLlSFDhowxgyR8ndIYL8AtP4vLkCFjQwZfxO/vl/Q3ZMiQsRXjE17kb0kiSBoDwapkyJBxNIMHOL7Q38xCyJAh4x4GD5q8DckPnLVw/OUXGTJkHM0gpXlSlO+MfHHSZJ0yZMi4hlEbfeA8vgVxA0CGDBmHMtLg+L+/8O2bsGXIkHENIy3uk5CdHlnTBDHIbWXIkLEtI10oCaDrWpuTnFCGDBlHMzoFr065n7wzbp3KkCHjOEat9UhKaWkbkj//2hKQIUPGoQxeFKulffxwywc7iqdkGTJkbMvgQxK8rkVaC0HGSkK2DBkyjmaQ8McTxHT8ojPY8aRRXIYMGdsyap/hAxm1AhwP95OZERkyZBzBSKNW+uo0BUyP08XgK0OGjA0ZaUsgPXzyo2+696jLIUOGjIMYnVZlrcTGS/+o0CZDhowLGOlyO1ftbZNALEOGjEMZtaEKnrTVWgv8SIz+DzJkyNic0Ql2tSYoHywb3xdhMmTI2JbBg2y/lJ8W5uKRCxkyZBzNIKEzPYiuSPsmZ3EZMmTIAAz+tnQL0IlchgwZMnD4460FnixOkDJkyLiA0W9h1gYyOuFbhgwZ9zBqtaxOea5fwmv1N2TIkLET4w9a/JNhHX+ykgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

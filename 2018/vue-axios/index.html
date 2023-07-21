@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Vue-resouce改为Axios之旅 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Vue">
+    <meta name="description" content="尤雨溪说了，vue2.0 将不再维护自己的原生请求插件 vue-resource 而推荐使用axios，所以以后就用axios来发送vue请求了。  使用 cnpm 安装 axioscnpm install axios --save-dev 安装其他插件的时候，可以直接在 main.js 中引入并 Vue.use()，但是 axios 并不能 use，只能每个需要发送请求的组件中即时引入为了解决">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue-resouce改为Axios之旅">
+<meta property="og:url" content="https://summxu.github.io/2018/vue-axios/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="尤雨溪说了，vue2.0 将不再维护自己的原生请求插件 vue-resource 而推荐使用axios，所以以后就用axios来发送vue请求了。  使用 cnpm 安装 axioscnpm install axios --save-dev 安装其他插件的时候，可以直接在 main.js 中引入并 Vue.use()，但是 axios 并不能 use，只能每个需要发送请求的组件中即时引入为了解决">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue-resouce改为Axios之旅">
+<meta name="twitter:description" content="尤雨溪说了，vue2.0 将不再维护自己的原生请求插件 vue-resource 而推荐使用axios，所以以后就用axios来发送vue请求了。  使用 cnpm 安装 axioscnpm install axios --save-dev 安装其他插件的时候，可以直接在 main.js 中引入并 Vue.use()，但是 axios 并不能 use，只能每个需要发送请求的组件中即时引入为了解决">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Vue-resouce改为Axios之旅</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Vue-resouce改为Axios之旅</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-08-27T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-08-28
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-cnpm-安装-axios"><span class="post-toc-number">1.</span> <span class="post-toc-text">使用 cnpm 安装 axios</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#首先在-main-js-中引入-axios"><span class="post-toc-number">2.</span> <span class="post-toc-text">首先在 main.js 中引入 axios</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置-axios"><span class="post-toc-number">3.</span> <span class="post-toc-text">配置 axios</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名"><span class="post-toc-number">4.</span> <span class="post-toc-text">请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2018/vue-axios"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Vue-resouce改为Axios之旅</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-08-28 00:00:00" datetime="2018-08-27T16:00:00.000Z"  itemprop="datePublished">2018-08-28</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>尤雨溪说了，vue2.0 将不再维护自己的原生请求插件 vue-resource 而推荐使用axios，所以以后就用axios来发送vue请求了。</p>
+</blockquote>
+<h2 id="使用-cnpm-安装-axios"><a href="#使用-cnpm-安装-axios" class="headerlink" title="使用 cnpm 安装 axios"></a>使用 cnpm 安装 axios</h2><p><code>cnpm install axios --save-dev</code></p>
+<p>安装其他插件的时候，可以直接在 main.js 中引入并 Vue.use()，但是 axios 并不能 use，只能每个需要发送请求的组件中即时引入<br>为了解决这个问题，有两种开发思路，一是在引入 axios 之后，修改原型链，二是结合 Vuex，封装一个 aciton。这里只说修改原型链的方式<br>改写原型链</p>
+<h2 id="首先在-main-js-中引入-axios"><a href="#首先在-main-js-中引入-axios" class="headerlink" title="首先在 main.js 中引入 axios"></a>首先在 main.js 中引入 axios</h2><p><code>import axios from &#39;axios&#39;</code></p>
+<p>这时候如果在其它的组件中，是无法使用 axios 命令的。所以我们将 axios 改写为 Vue 的原型属性</p>
+<p><code>Vue.prototype.$http= axios</code></p>
+<p>在 main.js 中添加了这两行代码之后，就能直接在组件的 methods 中使用 $http命令<br>例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">  show() &#123;</span><br><span class="line">    this.$http(&#123;</span><br><span class="line">      method: &apos;get&apos;,</span><br><span class="line">      url: &apos;/user&apos;,</span><br><span class="line">      data: &#123;</span><br><span class="line">        name: &apos;virus&apos;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-axios"><a href="#配置-axios" class="headerlink" title="配置 axios"></a>配置 axios</h2><p>实际上只有 url 是必须的，完整的 api 可以参考<br><a href="https://link.jianshu.com/?t=https://www.kancloud.cn/yunye/axios/234845" target="_blank" rel="noopener">https://link.jianshu.com/?t=https://www.kancloud.cn/yunye/axios/234845</a></p>
+<ol>
+<li>对于get请求</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">axios.get(&apos;/user&apos;, &#123;</span><br><span class="line">  params:&#123;</span><br><span class="line">        name:&quot;virus&quot;  </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>对于POST请求</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">axios.post(&apos;/user&apos;,&#123;</span><br><span class="line">  name:&quot;virus&quot; </span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>一次并发多个请求</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function getUserAccount()&#123;</span><br><span class="line">  return axios.get(&apos;/user/12345&apos;);</span><br><span class="line">&#125;</span><br><span class="line">function getUserPermissions()&#123;</span><br><span class="line">  return axios.get(&apos;/user/12345/permissions&apos;);</span><br><span class="line">&#125;</span><br><span class="line">axios.all([getUserAccount(),getUserPermissions()])</span><br><span class="line">  .then(axios.spread(function(acct,perms)&#123;</span><br><span class="line">    //当这两个请求都完成的时候会触发这个函数，两个参数分别代表返回的结果</span><br><span class="line">  &#125;))</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>axios可以通过配置（config）来发送请求</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">axios(&#123;</span><br><span class="line">  method:&quot;POST&quot;,</span><br><span class="line">  url:&apos;/user/1111&apos;,</span><br><span class="line">  data:&#123;</span><br><span class="line">    name:&quot;virus&quot; </span><br><span class="line">&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>完整的请求还应当包括 .then 和 .catch</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.then(function(res)&#123;</span><br><span class="line">    console.log(res)</span><br><span class="line">  &#125;)</span><br><span class="line">.catch(function(err)&#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>当请求成功时，会执行 .then，否则执行 .catch<br>这两个回调函数都有各自独立的作用域，如果直接在里面访问 this，无法访问到 Vue 实例,这时只要添加一个 .bind(this) 就能解决这个问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.then(function(res)&#123;</span><br><span class="line">    console.log(this.data)</span><br><span class="line">&#125;.bind(this))</span><br></pre></td></tr></table></figure>
+
+<h2 id="请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名"><a href="#请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名" class="headerlink" title="请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名"></a>请求方式的别名，这里对所有已经支持的请求方式都提供了方便的别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">axios.request(config);</span><br><span class="line"></span><br><span class="line">axios.get(url[,config]);</span><br><span class="line"></span><br><span class="line">axios.delete(url[,config]);</span><br><span class="line"></span><br><span class="line">axios.head(url[,config]);</span><br><span class="line"></span><br><span class="line">axios.post(url[,data[,config]]);</span><br><span class="line"></span><br><span class="line">axios.put(url[,data[,config]])</span><br><span class="line"></span><br><span class="line">axios.patch(url[,data[,config]])</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/vue-axios/&title=《Vue-resouce改为Axios之旅》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/vue-axios/&title=《Vue-resouce改为Axios之旅》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/vue-axios/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue-resouce改为Axios之旅》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/vue-axios/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/vue-axios/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/upload-files/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Web文件上传实现</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/mobileweb-bootstrap-slide/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Bootstrap响应式轮播图问题</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/vue-axios/&title=《Vue-resouce改为Axios之旅》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/vue-axios/&title=《Vue-resouce改为Axios之旅》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/vue-axios/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue-resouce改为Axios之旅》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/vue-axios/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/vue-axios/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aS27DMAwFwNz/0inQbWHlkbTkFBitAsexR1kQ/Oj1itf7d/29kl9PnnnbwsXFHXPfy/X30dV71ldyAy4u7nnuOtAkL1v/Nv/8wYaLi/tl3HlKlGweFxf3f3GTRGddrVT/Dlxc3Ge5SfGzxq23t97AlloNFxd3wK2mLDs+b+zv4uLiFrnv4kpe30t9orfj4uIe4SYtjCSJSdock0FLoeOCi4s75k5KnaSY6R2/+BDCcHFxN3PLN42bob0/qBDUcHFxb+Lmh6vuDUbN3+Li4h7h9oYfeVHUK58+vBcXF3czt9oeHR2rWjZNogQLFxd3M7cQ54JSJ2+A9sIlLi7uSW5vKJKPVKsDmEsDLi7uQW4+DukFsnIddhX4cHFxH+VWg1QSmPJDGJd0XFzcI9x7xyfJ/ZOUCBcX9wy3WYQUE5R52YOLi3uee9cBrKQcehUXLi7uU9x8TaYbozlwXp/h4uKOub0CJrmSt1973+Li4u7mVketvTBXbZFcPhkXF/cgt9fo3NFs/XAPLi7ul3F77Y9kA1sCGS4u7kFutRXSO851acPFxT3I7Q1B8+1VWyc3tEVwcXEH3F7DtJqmVMseXFzch7g/WWC+Vcs+RP0AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Apahce的CGI操作 - Python | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Apache,Python">
+    <meta name="description" content="最近在研究Podcast泛博客的订阅地址，在国内的几大Podcast平台基本都提供RSS订阅源地址，但还是有很多专辑没有被分享订阅地址出来，碰巧最近在研究Python，打算用Python做爬虫，分析出来各大节目的广播地址并生成订阅源头。如果用前台去调用后台接口大部分的方式都是用PHP和Apache的方法，为了不想再涉及到PHP，下面就用这种古老的CGI的方式来解决。  什么是 CGICGI 是W">
+<meta name="keywords" content="Linux,Apache,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Apahce的CGI操作 - Python">
+<meta property="og:url" content="https://summxu.github.io/2018/apache-cgi/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="最近在研究Podcast泛博客的订阅地址，在国内的几大Podcast平台基本都提供RSS订阅源地址，但还是有很多专辑没有被分享订阅地址出来，碰巧最近在研究Python，打算用Python做爬虫，分析出来各大节目的广播地址并生成订阅源头。如果用前台去调用后台接口大部分的方式都是用PHP和Apache的方法，为了不想再涉及到PHP，下面就用这种古老的CGI的方式来解决。  什么是 CGICGI 是W">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Apahce的CGI操作 - Python">
+<meta name="twitter:description" content="最近在研究Podcast泛博客的订阅地址，在国内的几大Podcast平台基本都提供RSS订阅源地址，但还是有很多专辑没有被分享订阅地址出来，碰巧最近在研究Python，打算用Python做爬虫，分析出来各大节目的广播地址并生成订阅源头。如果用前台去调用后台接口大部分的方式都是用PHP和Apache的方法，为了不想再涉及到PHP，下面就用这种古老的CGI的方式来解决。  什么是 CGICGI 是W">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Apahce的CGI操作 - Python</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Apahce的CGI操作 - Python</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-04-12T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-04-13
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#什么是-CGI"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是 CGI</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#怎么用Apache来调用指定CGI"><span class="post-toc-number">2.</span> <span class="post-toc-text">怎么用Apache来调用指定CGI</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置对CGI的支持"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">配置对CGI的支持</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义CGI的目录"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">定义CGI的目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定义CGI支持的文件后缀"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">定义CGI支持的文件后缀</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#编写Python脚本的CGI"><span class="post-toc-number">3.</span> <span class="post-toc-text">编写Python脚本的CGI</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2018/apache-cgi"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Apahce的CGI操作 - Python</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-04-13 00:00:00" datetime="2018-04-12T16:00:00.000Z"  itemprop="datePublished">2018-04-13</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>最近在研究Podcast泛博客的订阅地址，在国内的几大Podcast平台基本都提供RSS订阅源地址，但还是有很多专辑没有被分享订阅地址出来，碰巧最近在研究Python，打算用Python做爬虫，分析出来各大节目的广播地址并生成订阅源头。如果用前台去调用后台接口大部分的方式都是用PHP和Apache的方法，为了不想再涉及到PHP，下面就用这种古老的CGI的方式来解决。</p>
+</blockquote>
+<h1 id="什么是-CGI"><a href="#什么是-CGI" class="headerlink" title="什么是 CGI"></a>什么是 CGI</h1><p>CGI 是Web 服务器运行时外部程序的规范,按CGI 编写的程序可以扩展服务器功能。CGI 应用程序能与浏览器进行交互,还可通过数据库API 与数据库服务器等外部数据源进行通信,从数据库服务器中获取数据。格式化为HTML文档后，发送给浏览器，也可以将从浏览器获得的数据放到数据库中。几乎所有服务器都支持CGI,可用任何语言编写CGI,包括流行的C、C ++、VB 和Delphi 等。CGI 分为标准CGI 和间接CGI两种。标准CGI 使用命令行参数或环境变量表示服务器的详细请求，服务器与浏览器通信采用标准输入输出方式。间接CGI 又称缓冲CGI,在CGI 程序和CGI 接口之间插入一个缓冲程序，缓冲程序与CGI 接口间用标准输入输出进行通信。</p>
+<h1 id="怎么用Apache来调用指定CGI"><a href="#怎么用Apache来调用指定CGI" class="headerlink" title="怎么用Apache来调用指定CGI"></a>怎么用Apache来调用指定CGI</h1><p>其实调用原理很简单,无非就是配置apache的cgi支持、设置cgi的运行目录和运行cgi的后缀</p>
+<h2 id="配置对CGI的支持"><a href="#配置对CGI的支持" class="headerlink" title="配置对CGI的支持"></a>配置对CGI的支持</h2><p><code>LoadModule cgi_module modules/mod_cgi.so</code></p>
+<h2 id="定义CGI的目录"><a href="#定义CGI的目录" class="headerlink" title="定义CGI的目录"></a>定义CGI的目录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ScriptAlias /cgi-bin/ &quot;/var/www/cgi-bin/&quot;</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># &quot;/var/www/cgi-bin&quot; should be changed to whatever your ScriptAliased</span><br><span class="line"># CGI directory exists, if you have that configured.</span><br><span class="line">#</span><br><span class="line">&lt;Directory &quot;/var/www/cgi-bin&quot;&gt;</span><br><span class="line">    Options Indexes FollowSymLinks MultiViews +ExecCGI</span><br><span class="line">    AllowOverride None</span><br><span class="line">    Options None</span><br><span class="line">    Order allow,deny</span><br><span class="line">    Allow from all</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义CGI支持的文件后缀"><a href="#定义CGI支持的文件后缀" class="headerlink" title="定义CGI支持的文件后缀"></a>定义CGI支持的文件后缀</h2><p><code>AddHandler cgi-script .cgi .py .sh</code></p>
+<h1 id="编写Python脚本的CGI"><a href="#编写Python脚本的CGI" class="headerlink" title="编写Python脚本的CGI"></a>编写Python脚本的CGI</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: UTF-8 -*-</span><br><span class="line"></span><br><span class="line">import cgi</span><br><span class="line">import cgitb</span><br><span class="line">print &quot;Content-type:text/html&quot;</span><br><span class="line">print</span><br><span class="line"></span><br><span class="line">form = cgi.FieldStorage()</span><br><span class="line">name = form.getvalue(&apos;name&apos;)</span><br><span class="line">print name</span><br></pre></td></tr></table></figure>
+
+<p>这里要注意的是 apache 调用cgi的时候必须要输出的这一句 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print &quot;Content-type:text/html&quot;</span><br><span class="line">print</span><br></pre></td></tr></table></figure>
+
+<p>这个应该是固定格式，具体的原因的话没再深入研究</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Apache/">Apache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/apache-cgi/&title=《Apahce的CGI操作 - Python》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/apache-cgi/&title=《Apahce的CGI操作 - Python》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/apache-cgi/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Apahce的CGI操作 - Python》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/apache-cgi/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/apache-cgi/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/apache-cgi-abandon/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">三天教你Apache CGI从入门到放弃</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/ajax-cookie-php/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">博客大改之Ajax、Cookie、PHP</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/apache-cgi/&title=《Apahce的CGI操作 - Python》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/apache-cgi/&title=《Apahce的CGI操作 - Python》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/apache-cgi/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Apahce的CGI操作 - Python》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/apache-cgi/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/apache-cgi/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3a0QrDIAxA0f7/T3ewp8FWvUk0OLg+jdHqsQ8Sk1wXHvd7fP/zOcb/kzmXDbly5Za593CMueMZnlbhM/zYkly5chu544MmtxlC5Aa5cuWeySUgMgPZsFy5cv+FGw1rnt5tPXflypVb4JIghl9vSEJk+11Nrly5BW40Ybrj98b8rly5coPcOzhy7y5bXa5cuS1cUibJlVorV6nJMSdXrtwWLqfz9AdZbME8cuXK3cblCU3SgBVtsyDEHyGOXLlyt3GjB1MuwREok4zpcuXKbeRyOlksFzCR5ItcuXI7uXwKvr3cNiZzypUrt4UbLYhWmjB4G5ZcuXLP4fIkBV8md1BOyipy5crdzOUBSj21QTYzOV7lypXbyOVNV+SZXFkFfRS5cuW2cPlDuetKLniaJF/kypW7mVtplSDH2aprj1y5cvu5y4IPnokJFl3kypXbz+WDs0g5NpqWlStXbg+33jDB2zL4DPzqJVeu3H1cfnWJHovRlg5SpJErV24nN5xnDR520W2X6r1y5cpt5Naf4cWYxw8kV67cI7kkAMo1ZqHQSq5cuY3caItV5cJDcAvSInLlyi1wowlTnjqJFkvkypV7APcFRglN1H+nvZYAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

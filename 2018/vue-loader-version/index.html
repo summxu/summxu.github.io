@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Vue-loader版本遇到的坑 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Vue,WebPack">
+    <meta name="description" content="在学习Vue.js和Webpack的路上遇到了不少问题,也找到了相对的解决办法, 这次记录下在vue-loader版本遇到的问题.  vue-loader简介在webpack中加载第三方的文件支持,就要有第三方的文件解析工具,在vue的组件模板文件中,要有vue-loader的支持才可以.他可以将vue文件转换为JS模块； vue-loader特性（1）ES2015默认支持（2）允许对VUE组件">
+<meta name="keywords" content="Vue,WebPack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue-loader版本遇到的坑">
+<meta property="og:url" content="https://summxu.github.io/2018/vue-loader-version/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="在学习Vue.js和Webpack的路上遇到了不少问题,也找到了相对的解决办法, 这次记录下在vue-loader版本遇到的问题.  vue-loader简介在webpack中加载第三方的文件支持,就要有第三方的文件解析工具,在vue的组件模板文件中,要有vue-loader的支持才可以.他可以将vue文件转换为JS模块； vue-loader特性（1）ES2015默认支持（2）允许对VUE组件">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://p5oqx8gut.bkt.clouddn.com/18-7-22/21405627.jpg">
+<meta property="og:image" content="http://p5oqx8gut.bkt.clouddn.com/18-7-22/28336505.jpg">
+<meta property="og:image" content="http://p5oqx8gut.bkt.clouddn.com/18-7-22/55563364.jpg">
+<meta property="og:image" content="http://p5oqx8gut.bkt.clouddn.com/18-7-22/80861378.jpg">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue-loader版本遇到的坑">
+<meta name="twitter:description" content="在学习Vue.js和Webpack的路上遇到了不少问题,也找到了相对的解决办法, 这次记录下在vue-loader版本遇到的问题.  vue-loader简介在webpack中加载第三方的文件支持,就要有第三方的文件解析工具,在vue的组件模板文件中,要有vue-loader的支持才可以.他可以将vue文件转换为JS模块； vue-loader特性（1）ES2015默认支持（2）允许对VUE组件">
+<meta name="twitter:image" content="http://p5oqx8gut.bkt.clouddn.com/18-7-22/21405627.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Vue-loader版本遇到的坑</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Vue-loader版本遇到的坑</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-07-22
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#vue-loader简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">vue-loader简介</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#vue-loader特性"><span class="post-toc-number">2.</span> <span class="post-toc-text">vue-loader特性</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#vue-loader-14-Version"><span class="post-toc-number">3.</span> <span class="post-toc-text">vue-loader@14 Version</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#vue-loader-15-Version"><span class="post-toc-number">4.</span> <span class="post-toc-text">vue-loader@15 Version</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2018/vue-loader-version"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Vue-loader版本遇到的坑</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-22 00:00:00" datetime="2018-07-21T16:00:00.000Z"  itemprop="datePublished">2018-07-22</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>在学习Vue.js和Webpack的路上遇到了不少问题,也找到了相对的解决办法, 这次记录下在vue-loader版本遇到的问题.</p>
+</blockquote>
+<h1 id="vue-loader简介"><a href="#vue-loader简介" class="headerlink" title="vue-loader简介"></a>vue-loader简介</h1><p>在webpack中加载第三方的文件支持,就要有第三方的文件解析工具,在vue的组件模板文件中,要有vue-loader的支持才可以.他可以将vue文件转换为JS模块；</p>
+<h1 id="vue-loader特性"><a href="#vue-loader特性" class="headerlink" title="vue-loader特性"></a>vue-loader特性</h1><p>（1）ES2015默认支持<br>（2）允许对VUE组件的组成部分使用其他webpack loader;比如对&lt; style &gt;使用SASS（编译CSS语言），对&lt; template &gt;使用JADE（jade是一个高性能的模板引擎，用JS实现，也有其他语言的实现—php,scala,yuby,python,java，可以供给node使用）<br>（3）.vue文件中允许自定义节点，然后使用自定义的loader处理他们<br>（4）对&lt; style &gt;&lt; template &gt;中的静态资源当做模块来对待，并且使用webpack loaders进行处理<br>（5）对每个组件模拟出CSS作用域<br>（6）支持开发期组件的热重载<br>在编写vue应用程序时，组合使用webpack跟vue-loader能带来一个现代。灵活并且非常强大的前端工作流程；</p>
+<h1 id="vue-loader-14-Version"><a href="#vue-loader-14-Version" class="headerlink" title="vue-loader@14 Version"></a>vue-loader@14 Version</h1><p>特性上面说了,<strong>允许对VUE组件的组成部分使用其他webpack loader;比如对&lt; style &gt;使用SASS（编译CSS语言），对&lt; template &gt;使用JADE</strong>，但是我在运行的过程中在vue组件模板文件下写stylus的样式一直报错</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://p5oqx8gut.bkt.clouddn.com/18-7-22/21405627.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://p5oqx8gut.bkt.clouddn.com/18-7-22/28336505.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>总是提示说需要装一个loader支持，但是我已经装了</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://p5oqx8gut.bkt.clouddn.com/18-7-22/55563364.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>而且语法也有写错</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://p5oqx8gut.bkt.clouddn.com/18-7-22/80861378.jpg" alt title>
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这是我看到报错里提到了vue-loader，果然是vue-loader 的版本问题</p>
+<h1 id="vue-loader-15-Version"><a href="#vue-loader-15-Version" class="headerlink" title="vue-loader@15 Version"></a>vue-loader@15 Version</h1><p>在最新的npm上装的是vue-loader 15.x 版本，但是现在直接npm装的最新版本的vue-loader 15 把这个功能给去除了,同时在vue-loader 15配置的时候还要引入一个插件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">15版本以上的vue-loader 需要插件支持 , 插件是个对象,这里引入的时候要转换成对象才行</span><br><span class="line">const &#123;VueLoaderPlugin&#125; = require(&apos;vue-loader&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">plugins: [</span><br><span class="line">  //15版本以上的vue-loader 需要插件支持</span><br><span class="line">  new VueLoaderPlugin()</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<p>不仅如此，15版本的vue-loader还 <strong>去除了 对&lt; style &gt; 编译CSS预处理的支持</strong></p>
+<p>现在暂时使用14版本的vue-loader，15版本的新特性和使用方法还需要进一步的学习。。。</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebPack/">WebPack</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/vue-loader-version/&title=《Vue-loader版本遇到的坑》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/vue-loader-version/&title=《Vue-loader版本遇到的坑》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/vue-loader-version/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue-loader版本遇到的坑》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/vue-loader-version/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/vue-loader-version/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/webpack-html-withimg/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Webpack CSS分类打包和html img不打包配置</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/div-height100/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">DIV的Height为什么不能100%</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/vue-loader-version/&title=《Vue-loader版本遇到的坑》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/vue-loader-version/&title=《Vue-loader版本遇到的坑》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/vue-loader-version/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue-loader版本遇到的坑》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/vue-loader-version/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/vue-loader-version/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3a3WrDMAwG0L7/S3e3g5L0k5wUYh1fjS6dfTIQ1s/rFa/3v/X5+eczn+voW8kuly0MDIzHMpLtkw2Sb+V7VV8NBgbGBMbRsc6fScLx+UHP90rOhoGBgXEeBFcC9/lfwMDAwLiDcW0ajIGBgdELlNWrW/6tn+biGBgYD2Tk4fL3P9/S38DAwHgU411c1ZZA71jlU2FgYGzNyLfJ08v88rdy7cPAwJjGSNqN1UGuq4YzkpeCgYGxN6M3TtHLlXsDGVFzAgMDYwAjL8r3roB5u7Q3MouBgTGBsR4c8yP2GplfnsHAwBjAuG/kNB9yTZ4/5GFgYGzNSAr3yXWwd1lc3/HwP4OBgbEdoxry8gT1joAedWIxMDCGMZJyf68xUC3MfSn/YWBgDGBUx0+T0Fkd1Oi1HzAwMPZm5IDelvlFMMEffoKBgTGGcUexPg/BvbEzDAyMCYy8QJ8XwprFsuJvMTAwpjHWk9Jeylq9SkavDwMDY1NGVVwd/KqmxNXXh4GBMZPRjNkL3ypPsWFgYIxnVENt3ras7pgU7zAwMPZmvItrJR1NjpVfLgv9BwwMjIcz8lXdciUoJ8MfTRgGBsZjGdWRi5XyfbU5WkhrMTAwBjB6KWt1eCIv+iclucOZEQwMDIw4CCbBdGU444KAi4GBsSkj2eyCY8XJMAYGxhxG3gzIS2DVy1+OxMDAmMZYSh2X+4krQRYDA2MA4w9J8rwqTYGI9gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Python网页自动化操作 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python">
+    <meta name="description" content="最近几天忙忙碌碌却感到忙出来什么好结果，不过最近几天要抓紧时间学学英语。因为最近有一个表需要一直重复向网页添加信息，于是就借此机会研究了Python的网页自动化，在此是用了Selenium框架。。  什么是Seleniumselenium 是一套完整的web应用程序测试系统，包含了测试的录制（selenium IDE）,编写及运行（Selenium Remote Control）和测试的并行处理">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python网页自动化操作">
+<meta property="og:url" content="https://summxu.github.io/2018/python-selenium/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="最近几天忙忙碌碌却感到忙出来什么好结果，不过最近几天要抓紧时间学学英语。因为最近有一个表需要一直重复向网页添加信息，于是就借此机会研究了Python的网页自动化，在此是用了Selenium框架。。  什么是Seleniumselenium 是一套完整的web应用程序测试系统，包含了测试的录制（selenium IDE）,编写及运行（Selenium Remote Control）和测试的并行处理">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python网页自动化操作">
+<meta name="twitter:description" content="最近几天忙忙碌碌却感到忙出来什么好结果，不过最近几天要抓紧时间学学英语。因为最近有一个表需要一直重复向网页添加信息，于是就借此机会研究了Python的网页自动化，在此是用了Selenium框架。。  什么是Seleniumselenium 是一套完整的web应用程序测试系统，包含了测试的录制（selenium IDE）,编写及运行（Selenium Remote Control）和测试的并行处理">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Python网页自动化操作</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Python网页自动化操作</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-05-29T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-05-30
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#什么是Selenium"><span class="post-toc-number">1.</span> <span class="post-toc-text">什么是Selenium</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#selenium基本使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">selenium基本使用</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2018/python-selenium"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Python网页自动化操作</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-05-30 00:00:00" datetime="2018-05-29T16:00:00.000Z"  itemprop="datePublished">2018-05-30</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>最近几天忙忙碌碌却感到忙出来什么好结果，不过最近几天要抓紧时间学学英语。因为最近有一个表需要一直重复向网页添加信息，于是就借此机会研究了Python的网页自动化，在此是用了Selenium框架。。</p>
+</blockquote>
+<h1 id="什么是Selenium"><a href="#什么是Selenium" class="headerlink" title="什么是Selenium"></a>什么是Selenium</h1><p>selenium 是一套完整的web应用程序测试系统，包含了测试的录制（selenium IDE）,编写及运行（Selenium Remote Control）和测试的并行处理（Selenium Grid）。Selenium的核心Selenium Core基于JsUnit，完全由JavaScript编写，因此可以用于任何支持JavaScript的浏览器上。</p>
+<p>selenium可以模拟真实浏览器，自动化测试工具，支持多种浏览器，爬虫中主要用来解决JavaScript渲染问题。</p>
+<h1 id="selenium基本使用"><a href="#selenium基本使用" class="headerlink" title="selenium基本使用"></a>selenium基本使用</h1><p>在此之前先上段代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(&apos;http://sdxy.gov.cn:8888/auth/pub/loginerror&apos;)</span><br><span class="line">wait = WebDriverWait(browser, 10, 1.0)</span><br><span class="line">browser.set_page_load_timeout(8)</span><br><span class="line">browser.set_script_timeout(8)</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">## 声明浏览器对象</span><br><span class="line"></span><br><span class="line">首先selenium支持绝大多数主流浏览器，但是中间要有浏览器的驱动程序 在此我是调用的 **[chromedriver](http://npm.taobao.org/mirrors/chromedriver/)** 放到相同目录下就可以运行。</span><br><span class="line">`browser = webdriver.Firefox()`</span><br><span class="line">这是火狐的调用方式。</span><br><span class="line"></span><br><span class="line">## 访问页面</span><br></pre></td></tr></table></figure>
+
+<p>browser.get(“<a href="http://www.baidu.com&quot;" target="_blank" rel="noopener">http://www.baidu.com&quot;</a>)<br>print(browser.page_source)<br>browser.close() </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">用**rowser.get**方法可以打开网页**page_source**是提取网页源代码</span><br><span class="line"></span><br><span class="line">## 查找元素</span><br><span class="line">### 单个元素查找</span><br></pre></td></tr></table></figure>
+
+<p>from selenium import webdriver</p>
+<p>browser = webdriver.Chrome()</p>
+<p>browser.get(“<a href="http://www.taobao.com&quot;" target="_blank" rel="noopener">http://www.taobao.com&quot;</a>)<br>input_first = browser.find_element_by_id(“q”)<br>input_second = browser.find_element_by_css_selector(“#q”)<br>input_third = browser.find_element_by_xpath(‘//*[@id=”q”]’)<br>print(input_first)<br>print(input_second)<br>print(input_third)<br>browser.close()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这里列举一下常用的查找元素方法：</span><br><span class="line"></span><br><span class="line">find_element_by_name</span><br><span class="line">find_element_by_id</span><br><span class="line">find_element_by_xpath</span><br><span class="line">find_element_by_link_text</span><br><span class="line">find_element_by_partial_link_text</span><br><span class="line">find_element_by_tag_name</span><br><span class="line">find_element_by_class_name</span><br><span class="line">find_element_by_css_selector</span><br><span class="line"></span><br><span class="line">下面这种方式是比较通用的一种方式：这里需要记住By模块所以需要导入</span><br><span class="line">from selenium.webdriver.common.by import By</span><br><span class="line"></span><br><span class="line">### 多个元素查找</span><br></pre></td></tr></table></figure>
+
+<p>from selenium import webdriver</p>
+<p>browser = webdriver.Chrome()<br>browser.get(“<a href="http://www.taobao.com&quot;" target="_blank" rel="noopener">http://www.taobao.com&quot;</a>)<br>lis = browser.find_elements_by_css_selector(‘.service-bd li’)<br>print(lis)<br>browser.close()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这样获得就是一个列表:</span><br><span class="line"></span><br><span class="line">![from zhaof](https://images2015.cnblogs.com/blog/997599/201706/997599-20170606193737497-369795287.png)</span><br><span class="line"></span><br><span class="line">## 元素交互操作</span><br></pre></td></tr></table></figure>
+
+<p>from selenium import webdriver</p>
+<p>import time</p>
+<p>browser = webdriver.Chrome()<br>browser.get(“<a href="http://www.taobao.com&quot;" target="_blank" rel="noopener">http://www.taobao.com&quot;</a>)<br>input_str = browser.find_element_by_id(‘q’)<br>input_str.send_keys(“ipad”)<br>time.sleep(1)<br>input_str.clear()<br>input_str.send_keys(“MakBook pro”)<br>button = browser.find_element_by_class_name(‘btn-search’)<br>button.click()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">运行的结果可以看出程序会自动打开Chrome浏览器并打开淘宝输入ipad,然后删除，重新输入MakBook pro，并点击搜索</span><br><span class="line"></span><br><span class="line">Selenium所有的api文档：&lt;http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.common.action_chains&gt;</span><br><span class="line"></span><br><span class="line">### 交互动作</span><br><span class="line">将动作附加到动作链中串行执行</span><br><span class="line"></span><br><span class="line">from selenium import webdriver</span><br><span class="line">from selenium.webdriver import ActionChains</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line"></span><br><span class="line">url = &quot;http://www.runoob.com/try/try.php?filename=jqueryui-api-droppable&quot;</span><br><span class="line">browser.get(url)</span><br><span class="line">browser.switch_to.frame(&apos;iframeResult&apos;)</span><br><span class="line">source = browser.find_element_by_css_selector(&apos;#draggable&apos;)</span><br><span class="line">target = browser.find_element_by_css_selector(&apos;#droppable&apos;)</span><br><span class="line">actions = ActionChains(browser)</span><br><span class="line">actions.drag_and_drop(source, target)</span><br><span class="line">actions.perform()</span><br><span class="line"></span><br><span class="line">## 执行JavaScript</span><br><span class="line">这是一个非常有用的方法，这里就可以直接调用js方法来实现一些操作，</span><br><span class="line">下面的例子是通过登录知乎然后通过js翻到页面底部，并弹框提示</span><br></pre></td></tr></table></figure>
+
+<p>from selenium import webdriver<br>browser = webdriver.Chrome()<br>browser.get(“<a href="http://www.zhihu.com/explore&quot;" target="_blank" rel="noopener">http://www.zhihu.com/explore&quot;</a>)<br>browser.execute_script(‘window.scrollTo(0, document.body.scrollHeight)’)<br>browser.execute_script(‘alert(“To Bottom”)’)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 元素操作</span><br><span class="line"></span><br><span class="line"> 元素操作 | 方法</span><br><span class="line">---------|----------</span><br><span class="line"> 获取元素属性 | get_attribute(&apos;class&apos;)</span><br><span class="line"> 获取文本值 | text</span><br><span class="line"> 获取ID | id </span><br><span class="line"> 位置 | location </span><br><span class="line"> 标签名 | tag_name </span><br><span class="line"></span><br><span class="line">## 等待</span><br><span class="line">当使用了隐式等待执行测试的时候，如果 WebDriver没有在 DOM中找到元素，将继续等待，超出设定时间后则抛出找不到元素的异常, 换句话说，当查找元素或元素并没有立即出现的时候，隐式等待将等待一段时间再查找 DOM，默认的时间是0</span><br><span class="line">### 显式等待</span><br><span class="line"></span><br><span class="line">指定一个等待条件，并且指定一个最长等待时间，会在这个时间内进行判断是否满足等待条件，如果成立就会立即返回，如果不成立，就会一直等待，直到等待你指定的最长等待时间，如果还是不满足，就会抛出异常，如果满足了就会正常返回</span><br></pre></td></tr></table></figure>
+
+<p>from selenium import webdriver<br>from selenium.webdriver.common.by import By<br>from selenium.webdriver.support.ui import WebDriverWait<br>from selenium.webdriver.support import expected_conditions as EC</p>
+<p>browser = webdriver.Chrome()<br>browser.get(‘<a href="https://www.taobao.com/&#39;" target="_blank" rel="noopener">https://www.taobao.com/&#39;</a>)<br>wait = WebDriverWait(browser, 10)<br>input = wait.until(EC.presence_of_element_located((By.ID, ‘q’)))<br>button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, ‘.btn-search’)))<br>print(input, button)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 隐式等待</span><br><span class="line">到了一定的时间发现元素还没有加载，则继续等待我们指定的时间，如果超过了我们指定的时间还没有加载就会抛出异常，如果没有需要等待的时候就已经加载完毕就会立即执行</span><br></pre></td></tr></table></figure>
+
+<p>from selenium import webdriver</p>
+<p>browser = webdriver.Chrome()<br>browser.implicitly_wait(10)<br>browser.get(‘<a href="https://www.zhihu.com/explore&#39;" target="_blank" rel="noopener">https://www.zhihu.com/explore&#39;</a>)<br>input = browser.find_element_by_class_name(‘zu-top-add-question’)<br>print(input)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">## 条件判断</span><br><span class="line"></span><br><span class="line">1. title_is 标题是某内容</span><br><span class="line">2. title_contains 标题包含某内容</span><br><span class="line">3. presence_of_element_located 元素加载出，传入定位元组，如(By.ID, &apos;p&apos;)</span><br><span class="line">4. visibility_of_element_located 元素可见，传入定位元组</span><br><span class="line">5. visibility_of 可见，传入元素对象</span><br><span class="line">6. presence_of_all_elements_located 所有元素加载出</span><br><span class="line">7. text_to_be_present_in_element 某个元素文本包含某文字</span><br><span class="line">8. text_to_be_present_in_element_value 某个元素值包含某文字</span><br><span class="line">9. frame_to_be_available_and_switch_to_it frame加载并切换</span><br><span class="line">10. invisibility_of_element_located 元素不可见</span><br><span class="line">11. element_to_be_clickable 元素可点击</span><br><span class="line">12. staleness_of 判断一个元素是否仍在DOM，可判断页面是否已经刷新</span><br><span class="line">13. element_to_be_selected 元素可选择，传元素对象</span><br><span class="line">14. element_located_to_be_selected 元素可选择，传入定位元组</span><br><span class="line">15. element_selection_state_to_be 传入元素对象以及状态，相等返回True，否则返回False</span><br><span class="line">16. element_located_selection_state_to_be 传入定位元组以及状态，相等返回True，否则返回False</span><br><span class="line">17. alert_is_present 是否出现Alert</span><br><span class="line"></span><br><span class="line">## cookie操作</span><br><span class="line"></span><br><span class="line">get_cookies()</span><br><span class="line">delete_all_cookes()</span><br><span class="line">add_cookie()</span><br></pre></td></tr></table></figure>
+
+<p>from selenium import webdriver</p>
+<p>browser = webdriver.Chrome()<br>browser.get(‘<a href="https://www.zhihu.com/explore&#39;" target="_blank" rel="noopener">https://www.zhihu.com/explore&#39;</a>)<br>print(browser.get_cookies())<br>browser.add_cookie({‘name’: ‘name’, ‘domain’: ‘<a href="http://www.zhihu.com&#39;" target="_blank" rel="noopener">www.zhihu.com&#39;</a>, ‘value’: ‘zhaofan’})<br>print(browser.get_cookies())<br>browser.delete_all_cookies()<br>print(browser.get_cookies())</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 选项卡管理</span><br><span class="line">通过执行js命令实现新开选项卡window.open()</span><br><span class="line">不同的选项卡是存在列表里browser.window_handles</span><br><span class="line">通过browser.window_handles[0]就可以操作第一个选项卡</span><br></pre></td></tr></table></figure>
+
+<p>import time<br>from selenium import webdriver</p>
+<p>browser = webdriver.Chrome()<br>browser.get(‘<a href="https://www.baidu.com&#39;" target="_blank" rel="noopener">https://www.baidu.com&#39;</a>)<br>browser.execute_script(‘window.open()’)<br>print(browser.window_handles)<br>browser.switch_to_window(browser.window_handles[1])<br>browser.get(‘<a href="https://www.taobao.com&#39;" target="_blank" rel="noopener">https://www.taobao.com&#39;</a>)<br>time.sleep(1)<br>browser.switch_to_window(browser.window_handles[0])<br>browser.get(‘<a href="https://python.org&#39;" target="_blank" rel="noopener">https://python.org&#39;</a>)<br>```</p>
+<p>还有很多强大的功能有待研究</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/python-selenium/&title=《Python网页自动化操作》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/python-selenium/&title=《Python网页自动化操作》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/python-selenium/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python网页自动化操作》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/python-selenium/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/python-selenium/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/div-height100/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">DIV的Height为什么不能100%</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/vue-jsx/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">初次尝试Vue Jsx</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/python-selenium/&title=《Python网页自动化操作》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/python-selenium/&title=《Python网页自动化操作》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/python-selenium/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Python网页自动化操作》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/python-selenium/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/python-selenium/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACM0lEQVR42u3aQZLCMAwFUe5/aWY7UxCnv+RMle3Oigpg/FgokqXXC1/vX9fnHXJ/vNr4/rRLhgwZyzLew4t/5mplwvv8ZPy7MmTIOIBBNjF+Td5Nv8VXkCFDhow+dRzE+3+EDBkyZPRD57gYJu/KkCFDBili0XL4wG68hwdrcRkyZCzI4Jv4/9eP9DdkyJCxFOMdXjwpJI3Pzk7+rCNDhoytGTzApSnj3KiIEk0ZMmRsyphVUqajFbVwfHlHhgwZxzDIAT3nddqcvEnwJeDKkCFjO0aatPFileBrwfcmw5UhQ8Z2DH40X0sE0zCaNk1lyJBxAoOXsmmqVwupaUoaTLfJkCFjWcbTbUuSMtb+si/PDRkyZGzK4I3GWvOgWFWDRwJ6hsiQIWMLRpr28fBaC9ZpKEdLy5AhYwsGT+A6YZeXtbzMliFDxpkM8vPp4Fc6rpGGYBkyZJzGSM/beUuys+YNTIYMGccwggCHj/J5ME0bqJdFrAwZMrZjpJVgOgzBm5edgQwZMmScwBhviwe79F2CCVJPGTJkHMBIS9la07GTjN7clyFDxjGM2h1+TJYeqBXLVxkyZGzE6Bz9z9ou+YNuRi5kyJCxNaMT7GotgXSd9BdlyJCxKyMdoSBjW/0RivhoT4YMGQcwyLZ40JzWWeVIGTJkyCilfWly2RoLkyFDhozHhiRqyeK054YMGTKWYvBmQNo26LcHSHoqQ4aMvRm8dEwHL/ia6eFdq78hQ4aMlRg/ORvHZT1+c5sAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

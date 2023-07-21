@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Web文件上传实现 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="JavaScript,Node.js">
+    <meta name="description" content="项目匿名评论系统的文件上传服务的实现  做了个匿名评论论坛的小系统，里面涉及到了图片的上传，期间遇到的问题汇总。 HTML首先上传文件还是要套到form表单里，并且文件上传是 input type = file 的一个标签‘ 12345678&amp;lt;form id=&amp;quot;form1&amp;quot; method=&amp;quot;POST&amp;quot; enctype =&amp;quot;multipart">
+<meta name="keywords" content="JavaScript,Node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web文件上传实现">
+<meta property="og:url" content="https://summxu.github.io/2018/upload-files/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="项目匿名评论系统的文件上传服务的实现  做了个匿名评论论坛的小系统，里面涉及到了图片的上传，期间遇到的问题汇总。 HTML首先上传文件还是要套到form表单里，并且文件上传是 input type = file 的一个标签‘ 12345678&amp;lt;form id=&amp;quot;form1&amp;quot; method=&amp;quot;POST&amp;quot; enctype =&amp;quot;multipart">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web文件上传实现">
+<meta name="twitter:description" content="项目匿名评论系统的文件上传服务的实现  做了个匿名评论论坛的小系统，里面涉及到了图片的上传，期间遇到的问题汇总。 HTML首先上传文件还是要套到form表单里，并且文件上传是 input type = file 的一个标签‘ 12345678&amp;lt;form id=&amp;quot;form1&amp;quot; method=&amp;quot;POST&amp;quot; enctype =&amp;quot;multipart">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Web文件上传实现</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Web文件上传实现</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-09-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-09-10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTML"><span class="post-toc-number">1.</span> <span class="post-toc-text">HTML</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JS"><span class="post-toc-number">2.</span> <span class="post-toc-text">JS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Node…"><span class="post-toc-number">3.</span> <span class="post-toc-text">Node…</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2018/upload-files"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Web文件上传实现</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-09-10 00:00:00" datetime="2018-09-09T16:00:00.000Z"  itemprop="datePublished">2018-09-10</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>项目匿名评论系统的文件上传服务的实现</p>
+</blockquote>
+<p>做了个匿名评论论坛的小系统，里面涉及到了图片的上传，期间遇到的问题汇总。</p>
+<h2 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h2><p>首先上传文件还是要套到form表单里，并且文件上传是 input type = file 的一个标签‘</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;form id=&quot;form1&quot; method=&quot;POST&quot; enctype =&quot;multipart/form-data&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;form-group&quot;&gt;</span><br><span class="line">    &lt;label class=&quot;color&quot; for=&quot;exampleInputFile&quot;&gt;图片发表&lt;/label&gt;</span><br><span class="line">    &lt;input class=&quot;color&quot; type=&quot;file&quot;  id=&quot;exampleInputFile&quot; multiple=&quot;multiple&quot; onchange=&quot;imagechange(this)&quot; value=&quot;&quot;&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;textarea style=&quot;resize:none;&quot; name=&quot;content&quot; class=&quot;form-control&quot; rows=&quot;9&quot;&gt;&lt;/textarea&gt;</span><br><span class="line">  &lt;button style=&quot;margin-top:10px;&quot; type=&quot;button&quot; onclick=&quot;upload1()&quot; class=&quot;btn btn-primary btn-lg btn-block&quot;&gt;发表发表发发表发表发表表发发表发表&lt;/button&gt;</span><br><span class="line">&lt;/form&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里上表单上传多了一个 <code>enctype =&quot;multipart/form-data&quot;</code> 属性，这是代表表单可以上传带有数据的文件。input type = file 的控件是文件标签，其中 <code>class=&quot;form-control&quot;</code> 是可以上传多个文件？ （但我实践上这个属性并没有什么用，最后还是在js里push了多文件上传） <code>onchange=&quot;imagechange(this)&quot;</code> 这个是在文件选择被改变的事件，这里把本dom对象传给js就不用麻烦的获取该dom对象了。</p>
+<p>其中该dom节点有一个files对象，这是一个数组，里面放了文件的对象，按道理来说 <code>enctype =&quot;multipart/form-data&quot;</code>会在这里生效在多文件的时候往files里添加多个文件，但实际并没有，新的文件还是把旧的文件覆盖了。所以下面我手动push到了一个新的数组里。<strong>这地方还有待研究</strong></p>
+<p>注意的是这里一个坑，<strong>当我把函数名命名为 upload 的时候，居然不会生效？</strong> 难道是函数命名有冲突？</p>
+<h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function imagechange(a) &#123;</span><br><span class="line">  files.push(a.files);</span><br><span class="line">&#125;</span><br><span class="line">function upload1() &#123;</span><br><span class="line">  var fd = new FormData(document.getElementById(&apos;form1&apos;))</span><br><span class="line">  files.forEach(item =&gt; &#123;</span><br><span class="line">    fd.append(&apos;pic&apos;,item[0])</span><br><span class="line">  &#125;);</span><br><span class="line">  fd.append(&apos;postuser&apos;,&apos;小兵旭旭&apos;)</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    url: &quot;/sendpost&quot;,</span><br><span class="line">    type: &quot;POST&quot;,</span><br><span class="line">    data: fd,</span><br><span class="line">    sync: false,</span><br><span class="line">    processData: false,  // 告诉jQuery不要去处理发送的数据</span><br><span class="line">    contentType: false,   // 告诉jQuery不要去设置Content-Type请求头</span><br><span class="line">    success: function(response,status,xhr)&#123;</span><br><span class="line">      console.log(xhr);</span><br><span class="line">      if (response === &apos;success&apos;) &#123;</span><br><span class="line">        $(&apos;#sendpost&apos;).toggle();</span><br><span class="line">        location.reload()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>js里是用了新的 FormData 对象，这个对象可以接收一个form表单的对象，并且 FormData <strong>可以自己添加属性的</strong>，他会一并跟随上传到服务器上。这里把文件数组添加了进去，再通过ajax异步发送到服务器，摆脱了页面停止响应的异步表单提交。</p>
+<p>不过需要注意的是，直接console.log（FormData）的对象看上去是个空的对象，<strong>他传的参数是不直接在对象里的，而在对象的更深处</strong> 这种情况可以在 network 里查看到传出的参数</p>
+<h2 id="Node…"><a href="#Node…" class="headerlink" title="Node…"></a>Node…</h2><p>在Node接收文件的时候也有许多坑，其中就是 express 接收post的请求，<strong>并且含有文件数据请求的时候，需要一个中间件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const multiparty = require(&apos;connect-multiparty&apos;)</span><br><span class="line">.use(multiparty(&#123;uploadDir:&apos;./linshi&apos;&#125;))</span><br><span class="line">var mutipartMiddeware = multiparty();</span><br><span class="line">.post(&apos;/sendpost&apos;, mutipartMiddeware, (req, res) =&gt; &#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>{uploadDir:’./linshi’} 配置了该中间件接收到的文件存放的临时目录。并且该中间件接收到的res有以下几个有用的参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">req.body: 请求体</span><br><span class="line">req.files: 接收到的文件数组</span><br><span class="line">req.files.file.path: 临时存放文件的路径</span><br><span class="line">req.files.file.name: 接收到的文件名字</span><br></pre></td></tr></table></figure>
+
+<p>上面注意到，该中间件存放的是临时文件，并且文件名是随机命名的（req属性里有真实的文件名字），如果想正常保存上传来的文件，还是需要自己手动去处理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var target_path = &apos;./upload/&apos; + req.files.pic.name</span><br><span class="line">fs.rename(&apos;./&apos; + req.files.pic.path, target_path, function (err) &#123;</span><br><span class="line">  if (err) throw err;</span><br><span class="line">  postObj.images.push(target_path.replace(&apos;.&apos;,&apos;&apos;))</span><br><span class="line">  // 删除临时文件夹文件, </span><br><span class="line">  fs.unlink(&apos;./&apos; + req.files.pic.path, function () &#123;</span><br><span class="line">    if (err) throw err;</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这样一个基本的文件上传服务就完成了，当然还有很多判断需要自己手动去实现。这里是使用了 FormData 对象，MDN上也给出了不使用该对象的方法。</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/Using_FormData_Objects" target="_blank" rel="noopener">FromData上传文件的方法</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Submitting_forms_and_uploading_files" target="_blank" rel="noopener">Ajax序列化及文件上传</a></p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/upload-files/&title=《Web文件上传实现》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/upload-files/&title=《Web文件上传实现》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/upload-files/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Web文件上传实现》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/upload-files/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/upload-files/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/mongo-object-files/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">MongoDB的查找find方法取出不正经对象</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/vue-axios/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Vue-resouce改为Axios之旅</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2018/upload-files/&title=《Web文件上传实现》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2018/upload-files/&title=《Web文件上传实现》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2018/upload-files/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Web文件上传实现》 — 小兵旭旭的博客&url=https://summxu.github.io/2018/upload-files/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2018/upload-files/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3a0U7DMAwFUP7/p4eEeJsaru0WaHryNFVTyCmSZ8f++IjX62u9P3l/fvT9ZJ/1nicsDAyM2zJey3X0nXyH3srPhoGB8RzGOjjmQXC929ErqP5dDAwMjKPtqqFwEl4xMDAw/oqxDqkYGBgYa0ZyoKSgnaeJl9fiGBgYN2RUS9Pf/HxhfwMDA+MmjMmVfbWdmVy09U6FgYGxN6Oa9s2v1fJ0s1zcYmBgPIBRPfQkoay2MNdPMDAw9mZUA2L1Em3eMIjSSgwMjK0ZeUOxl8Yl8X5e4mJgYDyBkSd2edOx+nkd0EeNTAwMjC0Y+Rb5NdkkTcyDb6FixsDAuC2jehHfSxN7f7dAxcDAeAAjuaavBsFJeM2T1O/nGBgYWzN6A15XB9CkqfnDq8TAwNiOkY879AJltSWQt0WbUxsYGBi3YlRTrkJXobV6IRgDA2NvRt5QrCZ5vWSxGqaj/wkGBsbNGVFdG7cz85A6aaNGoRYDA2M7Ri9O50F2MtjR7MRiYGBsxDhrRKyX6l3S2cDAwNiOcVbAnaeD1fT0ktQQAwPjXzJ6xWe14EwC8fwkGBgYuzJexVVtNyZvrjdMFv1uYGBgbME460K/N6JRfREnJIgYGBi3ZfSGJKpX/2tM/mrKl24YGBgbMZID5YA8Tcx/AQqTIxgYGBiDAbIril4MDAyMPJj2ytSzGgYYGBhPYFSL2Ov26TVHMTAw9mZMgnI1QawOZBRSQwwMjD0Zn6a4esAj71JDAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

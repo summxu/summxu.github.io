@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>巧用VScode“用户代码片段”来提高效率 | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="BootStrap,HTML,VScode">
+    <meta name="description" content="前言刚学前端，用VS code写代码很爽，而且还支持git、markdown可以直接上传刚写完的博客。而用来写HTML、JavaScript也是相当方便。最近在学习bootstrap，总感觉每次引入js或者样式文件非常麻烦，但发现VS code有代码片段功能，在此记录下。 使用找到入口这里提供了两种方法：  按「Alt」键切换菜单栏，通过文件 &amp;gt; 首选项 &amp;gt; 用户代码片段，选择进入目的">
+<meta name="keywords" content="BootStrap,HTML,VScode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="巧用VScode“用户代码片段”来提高效率">
+<meta property="og:url" content="https://summxu.github.io/2017/vscode-snippet/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="前言刚学前端，用VS code写代码很爽，而且还支持git、markdown可以直接上传刚写完的博客。而用来写HTML、JavaScript也是相当方便。最近在学习bootstrap，总感觉每次引入js或者样式文件非常麻烦，但发现VS code有代码片段功能，在此记录下。 使用找到入口这里提供了两种方法：  按「Alt」键切换菜单栏，通过文件 &amp;gt; 首选项 &amp;gt; 用户代码片段，选择进入目的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/10/593bbc44c73ff.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/10/593bbf8b0d1a9.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/10/593bbf8b24e7a.png">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="巧用VScode“用户代码片段”来提高效率">
+<meta name="twitter:description" content="前言刚学前端，用VS code写代码很爽，而且还支持git、markdown可以直接上传刚写完的博客。而用来写HTML、JavaScript也是相当方便。最近在学习bootstrap，总感觉每次引入js或者样式文件非常麻烦，但发现VS code有代码片段功能，在此记录下。 使用找到入口这里提供了两种方法：  按「Alt」键切换菜单栏，通过文件 &amp;gt; 首选项 &amp;gt; 用户代码片段，选择进入目的">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/10/593bbc44c73ff.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">巧用VScode“用户代码片段”来提高效率</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">巧用VScode“用户代码片段”来提高效率</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-10
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">使用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#找到入口"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">找到入口</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VSCode-中-snippet-的文法"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">VSCode 中 snippet 的文法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#snippet-各参数介绍"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">snippet 各参数介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引入文件的写入"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">引入文件的写入</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#json字符转义"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">json字符转义</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结果"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">结果</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/vscode-snippet"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">巧用VScode“用户代码片段”来提高效率</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-10 00:00:00" datetime="2017-06-09T16:00:00.000Z"  itemprop="datePublished">2017-06-10</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>刚学前端，用VS code写代码很爽，而且还支持<strong>git</strong>、<strong>markdown</strong>可以直接上传刚写完的博客。而用来写HTML、JavaScript也是相当方便。最近在学习bootstrap，总感觉每次引入js或者样式文件非常麻烦，但发现VS code有<strong>代码片段</strong>功能，在此记录下。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="找到入口"><a href="#找到入口" class="headerlink" title="找到入口"></a>找到入口</h2><p>这里提供了两种方法：</p>
+<ol>
+<li><p>按「Alt」键切换菜单栏，通过文件 &gt; 首选项 &gt; 用户代码片段，选择进入目的语言的代码段设置文件；</p>
+<p> <img src="https://ooo.0o0.ooo/2017/06/10/593bbc44c73ff.png" alt="123"></p>
+</li>
+<li><p>通过快捷键「Ctrl + Shift + P」打开命令窗口（all command window），输入「snippet」，通过候选栏中的选项进入目的语言的代码段设置文件。</p>
+</li>
+</ol>
+<h2 id="VSCode-中-snippet-的文法"><a href="#VSCode-中-snippet-的文法" class="headerlink" title="VSCode 中 snippet 的文法"></a>VSCode 中 snippet 的文法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// Place your snippets for C here. Each snippet is defined under a snippet name and has a prefix, body and </span><br><span class="line"> // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:</span><br><span class="line"> // $1, $2 for tab stops, $0 for the final cursor position, and $&#123;1:label&#125;, $&#123;2:another&#125; for placeholders. Placeholders with the </span><br><span class="line"> // same ids are connected.</span><br><span class="line"> // Example:</span><br><span class="line"> &quot;Print to console&quot;: &#123;</span><br><span class="line">    &quot;prefix&quot;: &quot;log&quot;,,</span><br><span class="line">    &quot;body&quot;: [</span><br><span class="line">        &quot;console.log(&apos;$1&apos;);&quot;,</span><br><span class="line">        &quot;$2&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;description&quot;: &quot;Log output to console&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="snippet-各参数介绍"><a href="#snippet-各参数介绍" class="headerlink" title="snippet 各参数介绍"></a>snippet 各参数介绍</h2><p>snippet 由三部分组成：</p>
+<ul>
+<li><strong>prefix：</strong>前缀，定义了 snippets 从 IntelliSense 中呼出的关键字;</li>
+<li><strong>body：</strong> 主体，即模板的主体内容，其中每个字符串表示一行;</li>
+<li><strong>description：</strong>说明，会在 IntelliSense 候选栏中出现。未定义的情况下直接显示对象名，上例中将会显示 Print to console。</li>
+</ul>
+<p>其中 <strong>body</strong> 部分可以使用特殊结构来控制光标和要插入的文本。 支持的功能及其文法如下：</p>
+<ul>
+<li><strong>Tabstops：</strong>制表符<br>用「Tabstops」可以让编辑器的指针在 snippet 内跳转。使用 $1，$2 etc. 指定光标位置。这些数字指定了Tabstops将被访问的顺序，特别地，$0表示最终光标位置。相同序号的「Tabstops」被链接在一起，将会同步更新，比如下列用于生成头文件封装的 snippet 被替换到编辑器上时，光标就将同时出现在所有$1位置。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;#ifndef $1&quot;</span><br><span class="line">&quot;#define $1&quot;</span><br><span class="line">&quot;#end // $1&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>Placeholders：</strong>占位符<br>「placeholder」是带有默认值的「Tabstops」，如 ${1：foo}。「placeholder」文本将被插入「Tabstops」位置，并在跳转时被全选，以方便修改。占位符还可以嵌套，例如 :</p>
+<blockquote>
+<p>struct ${1:name_t} {\n\t$2\n};</p>
+</blockquote>
+</li>
+<li><p>Variables：变量<br>使用$name或${name:default}可以插入变量的值。 当未设置变量时，将插入其缺省值或空字符串。 当varibale未知（即，其名称未定义）时，将插入变量的名称，并将其转换为「placeholder」。 可以使用以下「Variable」：</p>
+<ul>
+<li>TM_SELECTED_TEXT：当前选定的文本或空字符串</li>
+</ul>
+<ul>
+<li>TM_CURRENT_LINE：当前行的内容</li>
+<li>TM_CURRENT_WORD：光标下的单词的内容或空字符串</li>
+<li>TM_LINE_INDEX：基于零索引的行号</li>
+<li>TM_LINE_NUMBER：基于一索引的行号</li>
+<li>TM_FILENAME：当前文档的文件名</li>
+<li>TM_DIRECTORY：当前文档的目录</li>
+<li>TM_FILEPATH：当前文档的完整文件路径</li>
+</ul>
+</li>
+</ul>
+<h2 id="引入文件的写入"><a href="#引入文件的写入" class="headerlink" title="引入文件的写入"></a>引入文件的写入</h2><p>知道了如上支持，我就开始着手写bootstrap的引入文件了：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">"Print to console": &#123;</span><br><span class="line">		"prefix": "bootstrap",</span><br><span class="line">		"body": [</span><br><span class="line">			"&lt;link rel=\"stylesheet\" href=\"http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css\"&gt;",</span><br><span class="line">			"&lt;script src=\"http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js\"&gt;&lt;/script&gt;",</span><br><span class="line">			<span class="string">"&lt;script src=\"http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js\"&gt;&lt;/script&gt;"</span></span><br><span class="line">		],</span><br><span class="line">		"description": "This Jquery &amp; BootStrap quate"</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是：文件是以<strong>json</strong>的书写格式来的，而引号在其中要用<strong>转义字符</strong>，直接输入引号的话，是会产生错误的。</p>
+<h2 id="json字符转义"><a href="#json字符转义" class="headerlink" title="json字符转义"></a>json字符转义</h2><p>官网也给出了 snippet 的 EBNF 范式的正则文法，注意，使用\（反斜杠）转义$, ,, }和\。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">any ::= tabstop | placeholder | variable | text </span><br><span class="line">tabstop ::= &apos;$&apos; int | &apos;$&#123;&apos; int &apos;&#125;&apos; </span><br><span class="line">placeholder ::= &apos;$&#123;&apos; int &apos;:&apos; any &apos;&#125;&apos; </span><br><span class="line">variable ::= &apos;$&apos; var | &apos;$&#123;&apos; var &#125;&apos; | &apos;$&#123;&apos; var &apos;:&apos; any &apos;&#125;&apos; </span><br><span class="line">var ::= [_a-zA-Z] [_a-zA-Z0-9]* </span><br><span class="line">int ::= [0-9]+ </span><br><span class="line">text ::= .*</span><br></pre></td></tr></table></figure>
+
+<p>而在代码里我们的引号换成了：</p>
+<blockquote>
+<p>&quot;</p>
+</blockquote>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/10/593bbf8b0d1a9.png" alt="jg1" title>
+                </div>
+                <div class="image-caption">jg1</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/10/593bbf8b24e7a.png" alt="jg2" title>
+                </div>
+                <div class="image-caption">jg2</div>
+            </figure>
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BootStrap/">BootStrap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VScode/">VScode</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/vscode-snippet/&title=《巧用VScode“用户代码片段”来提高效率》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/vscode-snippet/&title=《巧用VScode“用户代码片段”来提高效率》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/vscode-snippet/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《巧用VScode“用户代码片段”来提高效率》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/vscode-snippet/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/vscode-snippet/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/coding-301-baidu-spider/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">HTTPS自动跳转JS代码</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/html-jquery-bootstrap-temp/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">初学BootStrap --引入模板</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/vscode-snippet/&title=《巧用VScode“用户代码片段”来提高效率》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/vscode-snippet/&title=《巧用VScode“用户代码片段”来提高效率》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/vscode-snippet/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《巧用VScode“用户代码片段”来提高效率》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/vscode-snippet/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/vscode-snippet/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACN0lEQVR42u3aUarDMAwF0ex/0+lvocSeKyeFyOOvkva5Pn0gJEvHgdf5tb6fXH3md413Gz+/bcmQIeO1DPL1tSe/4PH+5POXVBkyZGzAuIpg49ckHPNgTb7r8rkMGTJkDL94JShzkgwZMmSkDLIDL1xlyJAhgzBIEUvSPp4s8tTw5lpchgwZL2TwW/f/v36kvyFDhoxXMc5w1UJqmjjGp5IhQ0ZrxhMlKE/+VtI+GTJk7MPgF23kEISdNhJQW0KGDBnbMHijsVZwpgMZwSWdDBkyWjN48jcOoCsNAN6QOGq/lgwZMhoxSLIYhz/8Q6RjFpPdZMiQ0YjBgywPiOTd8W7pwKsMGTJ2YKQXYelV/vp42WQ3GTJktGakTcq0pOQhmxfJk8aDDBky2jFqw1u8kZk2BvjRUQtThgwZjRh3XbHdmzjGwxYyZMhozUh7gvy46YVaLUGUIUPGboy0vEzbjSm4OFohQ4aMRoy0lK0VvbUrvHhMTYYMGa0ZvNG4EhxrgZu3NmXIkNGbsXKtzwMiH/ZKE0oZMmTszOCXX+kQaloGo7+SIUPGBow0FeMBtNYcjZNLGTJkNGWc4eLJYppukobE5P8gQ4aMpoy0P1gLxCtDFXwoTYYMGb0ZJMimrU3evIyblKQxIEOGjKaMdLQiDaDxsdKBDxkyZMgoXf3fhX8k4MqQIWMbxvqxeEtgspsMGTI2YJAidqV5UEsiedCXIUNGb0ZaOsbTHLgw5s3Rpf6GDBky3sT4ABRSdHLxJRqRAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

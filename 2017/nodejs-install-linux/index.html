@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Linxu下安装Node.js | 小兵旭旭的博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Node.js">
+    <meta name="description" content="系统环境：Ubuntu 32位  下载Node.js首先去官网复制下Node.js的Source Code包地址                                                                                              1               然后用 weget 来下载编译包。">
+<meta name="keywords" content="Linux,Node.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linxu下安装Node.js">
+<meta property="og:url" content="https://summxu.github.io/2017/nodejs-install-linux/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="系统环境：Ubuntu 32位  下载Node.js首先去官网复制下Node.js的Source Code包地址                                                                                              1               然后用 weget 来下载编译包。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/26/5950810f1484c.png">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/26/5950820c6c40c.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/26/5950812f9ba2a.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/26/595084d48efd7.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/26/595084d490492.jpg">
+<meta property="og:image" content="https://ooo.0o0.ooo/2017/06/26/595084d477f91.jpg">
+<meta property="og:updated_time" content="2023-07-21T06:33:35.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linxu下安装Node.js">
+<meta name="twitter:description" content="系统环境：Ubuntu 32位  下载Node.js首先去官网复制下Node.js的Source Code包地址                                                                                              1               然后用 weget 来下载编译包。">
+<meta name="twitter:image" content="https://ooo.0o0.ooo/2017/06/26/5950810f1484c.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-info-circle"></i>
+                关于
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Linxu下安装Node.js</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Linxu下安装Node.js</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-25T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2017-06-26
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 16:33:53
+ * @Description: 
+-->
+
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#下载Node-js"><span class="post-toc-number">1.</span> <span class="post-toc-text">下载Node.js</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装Node-js"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装Node.js</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#检查安装"><span class="post-toc-number">3.</span> <span class="post-toc-text">检查安装</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2017/nodejs-install-linux"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Linxu下安装Node.js</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-26 00:00:00" datetime="2017-06-25T16:00:00.000Z"  itemprop="datePublished">2017-06-26</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>系统环境：Ubuntu 32位</p>
+</blockquote>
+<h1 id="下载Node-js"><a href="#下载Node-js" class="headerlink" title="下载Node.js"></a>下载Node.js</h1><p>首先去<a href="http://nodejs.org" target="_blank" rel="noopener">官网</a>复制下Node.js的Source Code包地址</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/26/5950810f1484c.png" alt="1" title>
+                </div>
+                <div class="image-caption">1</div>
+            </figure>
+
+<p>然后用 <strong>weget</strong> 来下载编译包。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/26/5950820c6c40c.jpg" alt="2" title>
+                </div>
+                <div class="image-caption">2</div>
+            </figure>
+
+<h1 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h1><p>先解压包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -xf node-v6.11.0.tar.gz</span><br><span class="line">cd node-v6.11.0</span><br></pre></td></tr></table></figure>
+
+<p>配置并编译</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./configure</span><br><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/26/5950812f9ba2a.jpg" alt="5" title>
+                </div>
+                <div class="image-caption">5</div>
+            </figure>
+
+<p>安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+
+<h1 id="检查安装"><a href="#检查安装" class="headerlink" title="检查安装"></a>检查安装</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/26/595084d48efd7.jpg" alt="7" title>
+                </div>
+                <div class="image-caption">7</div>
+            </figure>
+
+<p>创建nodejs项目目录</p>
+<blockquote>
+<p>mkdir -p /usr/local/nodejs/</p>
+</blockquote>
+<p>创建hello.js文件</p>
+<blockquote>
+<p>vi /usr/local/nodejs/hello.js</p>
+</blockquote>
+<p>内容如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">request, response</span>) </span>&#123;</span><br><span class="line">	response.writeHead(<span class="number">200</span>, &#123;</span><br><span class="line">		<span class="string">"Content-Type"</span> : <span class="string">"text/plain"</span> <span class="comment">// 输出类型</span></span><br><span class="line">	&#125;);</span><br><span class="line">	response.write(<span class="string">"Hello BoomXu"</span>);<span class="comment">// 页面输出</span></span><br><span class="line">	response.end();</span><br><span class="line">&#125;).listen(<span class="number">8100</span>); <span class="comment">// 监听端口号</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"nodejs start listen 8100 port!"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>开启nodejs服务</p>
+<blockquote>
+<p>node hello.js</p>
+</blockquote>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/26/595084d490492.jpg" alt="8" title>
+                </div>
+                <div class="image-caption">8</div>
+            </figure>
+
+<p>浏览器访问</p>
+<p><a href="http://127.0.0.1:8100/" target="_blank" rel="noopener">http://127.0.0.1:8100/</a></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://ooo.0o0.ooo/2017/06/26/595084d477f91.jpg" alt="6" title>
+                </div>
+                <div class="image-caption">6</div>
+            </figure>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Node-js/">Node.js</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/nodejs-install-linux/&title=《Linxu下安装Node.js》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/nodejs-install-linux/&title=《Linxu下安装Node.js》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/nodejs-install-linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linxu下安装Node.js》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/nodejs-install-linux/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/nodejs-install-linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/linux-shell-2/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Linux下Shell学习 --基础2</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/linux-socket-c/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Linux下C语言实现Socket通信</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-20 17:36:14
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2017/nodejs-install-linux/&title=《Linxu下安装Node.js》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2017/nodejs-install-linux/&title=《Linxu下安装Node.js》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2017/nodejs-install-linux/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Linxu下安装Node.js》 — 小兵旭旭的博客&url=https://summxu.github.io/2017/nodejs-install-linux/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2017/nodejs-install-linux/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3aS27DMAxFUe9/0+kCCjn3kXYLidejwBEqngxUfnRd+Pn8esia1fr0/WOPDBkytmWQ7VdveHDpmvSnkSFDxgTG6gRLtyGhp4z72GTIkCHjfg3BEHa6rwwZMmTU0jVeY97vLkOGDBmdIpYcviQd/OdaXIYMGRsyeNf97z+/Mt+QIUPGVoxP+NSO1PSAjqOSIUPG0Yz+NiTVS8cJxZJYhgwZhzI6o0cSCh8ndFpyMmTImMOokfqDAQ5YfitDhoyjGWQ0+Gz5ev/XSNKJkkgZMmQcxOiMKmtbpokjGlHIkCFjAIMs7bTP+m27L6mnDBkyBjA65ShfXxtzktJXhgwZ0xjpBuQzb7TxC2Ff7ozIkCHjIAZqsj80JAja+jitDLJdGTJkbMsgjTAebueo5Yd7cNlChgwZxzHS5j7ZgFz84mMDdGdEhgwZxzFq1yBIcLUQeRF7dTJKGTJkbMV4I1AS3FOXLWTIkDGBwTEkFN5u40OI4EqZDBkyBjDSEMlxSYrV9KdcxiBDhowBDDIMSI9F8m0xEUznDDJkyDiO0RooNo7jWm9NhgwZZzNqCVmtYZeORcm/gbgKlyFDxoaM2pQwHQzwBLHWjJMhQ8YERtrY6hzT/A2nypAhYw6jc/DVDuVOEVu8nSFDhoxhDD4wiAOqteRkyJAhI0wN+xNGXgzLkCFjDuONCxMdZHoFRIYMGWczaqVjrRytFcM8GZUhQ8ZxjB/kiomHTeTVNQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>
