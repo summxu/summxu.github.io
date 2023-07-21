@@ -11,14 +11,14 @@ menu:
   home:
     text: 主页
     url: /
-  archives:
+  align-right:
     text: 时间线
     url: /archives
-  tags:
-    text: 标签
+  star:
+    text: 分类标签
     url: /tags
-  info-circle:
-    text: 关于
+  grav:
+    text: 这是我
     url: /about
   github:
     url: https://github.com/summxu
@@ -26,7 +26,8 @@ menu:
   weibo:
     url: https://weibo.com/u/1938786603
     target: _blank
-  rss:
+  rss-square:
+    text: Rss
     url: /atom.xml
     target: _blank
 
@@ -46,7 +47,7 @@ email: chenxu4012@foxmail.com
 color: '#3F51B5'
 
 # 页面标题
-tags_title: 标签
+tags_title: 分类标签
 archives_title: 时间线
 categories_title: 分类
 
