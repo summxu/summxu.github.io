@@ -1,3 +1,9 @@
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 16:07:23
+ * @LastEditTime: 2023-07-26 10:27:57
+ * @Description: 
+-->
 <footer id="footer">
   <% if (theme.sidebar === 'bottom'){ %>
     <%- partial('_partial/sidebar') %>
@@ -5,7 +11,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; <%= date(new Date(), 'YYYY') %> <%= config.author || config.title %><br>
-      <%= __('powered_by') %> <a href="http://hexo.io/" target="_blank">Hexo</a>
+      <%= __('powered_by') %> Hexo
     </div>
   </div>
 </footer>
