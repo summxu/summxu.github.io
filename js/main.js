@@ -66,25 +66,15 @@
           mask.classList.add('in');
           menu.classList.add('show');
 
-          if (isWX) {
-            var top = rootScollTop();
-            main.classList.add('lock');
-            main.scrollTop = top;
-          } else {
+         
             root.classList.add('lock');
-          }
         }
 
       } else {
         menu.classList.remove('show');
         mask.classList.remove('in');
-        if (isWX) {
-          var top = main.scrollTop;
-          main.classList.remove('lock');
-          w.scrollTo(0, top);
-        } else {
+        
           root.classList.remove('lock');
-        }
 
       }
     },

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Vue3响应式属性Reactive和Ref</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Vue">
+    <meta name="description" content="ref 的基本使用1.ref:接受一个内部值并返回一个响应式且可变的 ref 对象。ref 对象仅有一个 .value property，指向该内部值。 注意：被ref包装之后需要.value 来进行赋值，因为使用ref包装，返回的是一个对象，Ref TS对应的接口 12345678910111213&amp;lt;template&amp;gt;  &amp;lt;button @click=&quot;onChangeMsg&quot;">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3响应式属性Reactive和Ref">
+<meta property="og:url" content="https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="ref 的基本使用1.ref:接受一个内部值并返回一个响应式且可变的 ref 对象。ref 对象仅有一个 .value property，指向该内部值。 注意：被ref包装之后需要.value 来进行赋值，因为使用ref包装，返回的是一个对象，Ref TS对应的接口 12345678910111213&amp;lt;template&amp;gt;  &amp;lt;button @click=&quot;onChangeMsg&quot;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-31T02:01:04.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue3响应式属性Reactive和Ref">
+<meta name="twitter:description" content="ref 的基本使用1.ref:接受一个内部值并返回一个响应式且可变的 ref 对象。ref 对象仅有一个 .value property，指向该内部值。 注意：被ref包装之后需要.value 来进行赋值，因为使用ref包装，返回的是一个对象，Ref TS对应的接口 12345678910111213&amp;lt;template&amp;gt;  &amp;lt;button @click=&quot;onChangeMsg&quot;">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-align-right"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/CSS"  >
+                <i class="icon icon-lg icon-star"></i>
+                分类标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-grav"></i>
+                这是我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss-square"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Vue3响应式属性Reactive和Ref</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Vue3响应式属性Reactive和Ref</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-03-27T00:49:38.000Z" itemprop="datePublished" class="page-time">
+  2023-03-27
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ref-的基本使用"><span class="post-toc-number">1.</span> <span class="post-toc-text">ref 的基本使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ref-为何要用-value"><span class="post-toc-number">2.</span> <span class="post-toc-text">ref 为何要用.value</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Reactive-的基本使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">Reactive 的基本使用</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023/Vue3响应式属性Reactive和Ref"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Vue3响应式属性Reactive和Ref</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-03-27 08:49:38" datetime="2023-03-27T00:49:38.000Z"  itemprop="datePublished">2023-03-27</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="ref-的基本使用"><a href="#ref-的基本使用" class="headerlink" title="ref 的基本使用"></a>ref 的基本使用</h2><p>1.ref:接受一个内部值并返回一个响应式且可变的 ref 对象。ref 对象仅有一个 <code>.value</code> property，指向该内部值。</p>
+<p><strong>注意</strong>：被ref包装之后需要.value 来进行赋值，因为使用ref包装，返回的是一个对象，Ref TS对应的接口</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button <span class="meta">@click</span>=<span class="string">"onChangeMsg"</span>&gt;修改数据&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;&#123;&#123; message &#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; ref, Ref &#125; from 'vue';</span></span><br><span class="line"><span class="regexp">const message: Ref&lt;string&gt; = ref('ref响应式数据');</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const onChangeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  message.value = '修改后的数据';</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>ts的另外一种方式：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button <span class="meta">@click</span>=<span class="string">"onChangeMsg"</span>&gt;修改数据&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;&#123;&#123; message &#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; ref &#125; from 'vue';</span></span><br><span class="line"><span class="regexp">const message = ref&lt;string | number&gt;('ref响应式数据');</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const onChangeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  message.value = '修改后的数据';</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3.shallowRef创建一个跟踪自身 <code>.value</code> 变化的 ref，但不会使其值也变成响应式的。&lt;template&gt;</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button <span class="meta">@click</span>=<span class="string">"onChangeMsg"</span>&gt;修改数据&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;&#123;&#123; message &#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; ref, shallowRef &#125; from 'vue';</span></span><br><span class="line"><span class="regexp">type Obj = &#123;</span></span><br><span class="line"><span class="regexp">  name: string;</span></span><br><span class="line"><span class="regexp">  num: number;</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">const message = shallowRef&lt;Obj&gt;(&#123;</span></span><br><span class="line"><span class="regexp">  name: 'vue3',</span></span><br><span class="line"><span class="regexp">  num: 100</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const onChangeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/修改的值无法显示在页面上</span></span><br><span class="line"><span class="regexp">  message.value.name = '修改了name';</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/修改的值可以显示在页面上</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/message.value = &#123; name: '修改了name', num: 123 &#125;;　</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/triggerRef强制修改，修改的值可以在页面显示  </span></span><br><span class="line"><span class="regexp">  triggerRef(message);</span></span><br><span class="line"><span class="regexp">  console.log(message, 'message');</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4.customRef 是个工厂函数要求我们返回一个对象 并且实现 get 和 set：</p>
+<p>应用场景：实现防抖函数</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button <span class="meta">@click</span>=<span class="string">"onChangeMsg"</span>&gt;修改数据&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;&#123;&#123; message &#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"> </span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; ref, shallowRef, triggerRef, customRef &#125; from 'vue';</span></span><br><span class="line"><span class="regexp"> </span></span><br><span class="line"><span class="regexp">let message = MycustomRef('我是原始数据');</span></span><br><span class="line"><span class="regexp">const onChangeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  message.value = '修改了数据';</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp"> </span></span><br><span class="line"><span class="regexp">function MycustomRef&lt;T&gt;(value: T) &#123;</span></span><br><span class="line"><span class="regexp">  return customRef((track, trigger) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    return &#123;</span></span><br><span class="line"><span class="regexp">      get: () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">        track();/</span><span class="regexp">/通知vue，跟踪数据的变化</span></span><br><span class="line"><span class="regexp">        return value;</span></span><br><span class="line"><span class="regexp">      &#125;,</span></span><br><span class="line"><span class="regexp">      set: (newVal: T) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">        value = newVal;</span></span><br><span class="line"><span class="regexp">        trigger();/</span><span class="regexp">/通知vue重新解析模版，挂载数据</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &#125;;</span></span><br><span class="line"><span class="regexp">  &#125;);</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ref-为何要用-value"><a href="#ref-为何要用-value" class="headerlink" title="ref 为何要用.value"></a>ref 为何要用.value</h2><blockquote>
+<p>在Vue2中，所有的数据都通过一个Data进行统一的返回，并且在data中对某个组件要用的数据进行统一的管理，常见的使用形式是这样的：</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div <span class="keyword">class</span>=<span class="string">"div"</span>&gt;</span><br><span class="line">    &lt;todos :Obj=<span class="string">"tos"</span> :removeObj=<span class="string">"removeObj"</span>&gt;&lt;<span class="regexp">/todos&gt;</span></span><br><span class="line"><span class="regexp">  &lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">import search from '@/</span>components/search<span class="string">'</span></span><br><span class="line"><span class="string">import todos from '</span>@/components/todos<span class="string">'</span></span><br><span class="line"><span class="string">import all from '</span>@/components/all<span class="string">'</span></span><br><span class="line"><span class="string">export default &#123;</span></span><br><span class="line"><span class="string">  name: '</span>App<span class="string">',</span></span><br><span class="line"><span class="string">  data () &#123;</span></span><br><span class="line"><span class="string">    return &#123;</span></span><br><span class="line"><span class="string">      tos: [</span></span><br><span class="line"><span class="string">        &#123; id: '</span><span class="number">001</span><span class="string">', value: '</span>第一个<span class="string">', done: true &#125;,</span></span><br><span class="line"><span class="string">        &#123; id: '</span><span class="number">002</span><span class="string">', value: '</span>第二个<span class="string">', done: true &#125;,</span></span><br><span class="line"><span class="string">        &#123; id: '</span><span class="number">003</span><span class="string">', value: '</span>第三个<span class="string">', done: false &#125;,</span></span><br><span class="line"><span class="string">        &#123; id: '</span><span class="number">004</span><span class="string">', value: '</span>第四个<span class="string">', done: true &#125;,</span></span><br><span class="line"><span class="string">      ],</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  computed: &#123; &#125;,</span></span><br><span class="line"><span class="string">  components: &#123;</span></span><br><span class="line"><span class="string">    search, todos, all,</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">  methods: &#123;</span></span><br><span class="line"><span class="string">    removeObj (obj) &#123;</span></span><br><span class="line"><span class="string">      console.log(obj.id)</span></span><br><span class="line"><span class="string">      this.tos = this.tos.filter(item =&gt; item.id !== obj.id)</span></span><br><span class="line"><span class="string">      console.log(this.tos)</span></span><br><span class="line"><span class="string">    &#125;,</span></span><br><span class="line"><span class="string">  &#125;,</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看出来这里定义的内容都在一个数组中进行，或者是一个函数，将要使用的数据返回出来，这里无论怎么进行操作处理，最终进行数据代理的时候得到的都是一个对象，Vue2中直接通过defineProperty进行处理，并绑定对应的监听事件进行响应式的处理。</p>
+<p>而Vue3中，数据的定义可以是单独的，Vue可以让随时需要随时定义，这也就带来了另一个问题，我需要的一个数据可能不是对象</p>
+<p><strong>如果要定义的数据不是对象，还需要代理会怎么样？</strong></p>
+<ul>
+<li><code>Object.defineProperty()</code> 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。</li>
+</ul>
+<p>通过这个可以明确看出，只能进行对象的代理，不能进行普通数据的代理</p>
+<p>在Vue3中数据代理可以使用单一数据了，并且也改进了数据代理的方式，使用的是<code>Proxy</code>完成了数据代理，而MDN中对<code>Proxy</code>也进行了定义：</p>
+<ul>
+<li><code>Proxy</code> 对象用于创建一个对象的代理，从而实现基本操作的拦截和自定义（如属性查找、赋值、枚举、函数调用等）。</li>
+</ul>
+<p>即使是Vue3中使用的<code>Proxy</code>的代理方式也不能进行普通数据的代理，所以当调用Ref的时候其实仍然创建了一个<code>Proxy</code>对象，并且Vue帮你给这个对象了一个value属性，属性值就是你定义的内容，改变的时候监视的改变依然是通过<code>Proxy</code>的数据劫持来进行响应式的处理，而模板中使用的时候Vue会默认调用对应的value属性，从而完成模板中的内容的直接调用 </p>
+<h2 id="Reactive-的基本使用"><a href="#Reactive-的基本使用" class="headerlink" title="Reactive 的基本使用"></a>Reactive 的基本使用</h2><p>1.reactive:用来绑定复杂的数据类型：数组，对象等。</p>
+<p><strong>注意</strong>:reactive如果绑定的是基础类型数据会报错。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button <span class="meta">@click</span>=<span class="string">"onChangeMsg"</span>&gt;修改数据&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;&#123;&#123; obj.name &#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; reactive &#125; from 'vue';</span></span><br><span class="line"><span class="regexp">let obj = reactive(&#123;</span></span><br><span class="line"><span class="regexp">  name: '张三',</span></span><br><span class="line"><span class="regexp">  age: 18,</span></span><br><span class="line"><span class="regexp">  boj: &#123;</span></span><br><span class="line"><span class="regexp">    namespaced: true</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  obj.name = '异步赋值无效';</span></span><br><span class="line"><span class="regexp">&#125;, 2000);</span></span><br><span class="line"><span class="regexp">const onChangeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  obj.name = '李四';</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.readonly:拷贝一份proxy对象并设置为只读属性</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button <span class="meta">@click</span>=<span class="string">"onChangeMsg"</span>&gt;修改数据&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;&#123;&#123; obj.name &#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; reactive, readonly &#125; from 'vue';</span></span><br><span class="line"><span class="regexp">let obj = reactive(&#123;</span></span><br><span class="line"><span class="regexp">  name: '张三',</span></span><br><span class="line"><span class="regexp">  age: 18,</span></span><br><span class="line"><span class="regexp">  boj: &#123;</span></span><br><span class="line"><span class="regexp">    namespaced: true</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">let CopyObj = readonly(obj);</span></span><br><span class="line"><span class="regexp">setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  CopyObj.name = '异步赋值无效';</span></span><br><span class="line"><span class="regexp">&#125;, 2000);</span></span><br><span class="line"><span class="regexp">const onChangeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  CopyObj.name = '李四';</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>3.shallowReactive:拷贝一份对象，可以修改浅层数据，无法修改深层数据</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button <span class="meta">@click</span>=<span class="string">"onChangeMsg"</span>&gt;修改数据&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">  &lt;div&gt;&#123;&#123; obj.name &#125;&#125;&lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; reactive, shallowReactive &#125; from 'vue';</span></span><br><span class="line"><span class="regexp">let obj = reactive(&#123;</span></span><br><span class="line"><span class="regexp">  name: '张三',</span></span><br><span class="line"><span class="regexp">  age: 18,</span></span><br><span class="line"><span class="regexp">  boj: &#123;</span></span><br><span class="line"><span class="regexp">    namespaced: true</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">let CopyObj = shallowReactive(obj);</span></span><br><span class="line"><span class="regexp">setTimeout(() =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/可以修改</span></span><br><span class="line"><span class="regexp">  CopyObj.name = '异步赋值';</span></span><br><span class="line"><span class="regexp">  /</span><span class="regexp">/无法修改</span></span><br><span class="line"><span class="regexp">  CopyObj.boj.namespaced = false;</span></span><br><span class="line"><span class="regexp">&#125;, 2000);</span></span><br><span class="line"><span class="regexp">console.log(CopyObj.boj.namespaced);</span></span><br><span class="line"><span class="regexp">const onChangeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  CopyObj.name = '李四';</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-26 10:01:46
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/&title=《Vue3响应式属性Reactive和Ref》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/&title=《Vue3响应式属性Reactive和Ref》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue3响应式属性Reactive和Ref》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/Vue的响应式原理/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Vue的响应式原理</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/Vue3中watch和watchEffect的用法和区别/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Vue3中watch和watchEffect的用法和区别</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:30
+ * @LastEditTime: 2023-07-26 10:29:21
+ * @Description: 
+-->
+<footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by Hexo
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-26 10:01:46
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/&title=《Vue3响应式属性Reactive和Ref》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/&title=《Vue3响应式属性Reactive和Ref》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue3响应式属性Reactive和Ref》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/Vue3响应式属性Reactive和Ref/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACr0lEQVR42u3aQW4CMRAEQP7/aSLlxCG76R7bBEXlEyLCuIy0M2n78YjH83u8vn4d+ftXMyezXc2wYeDh4eGNln4/Xft+vln368m3+HINeHh4eMd4s2Kwsk3379yDkzXj4eHhfQLv/lP5A/1++/K2Hg8PD+8/8VrqLBDBw8PD+1te0gonZSBpgp/BmIW8eHh4eO/hrTyU/+r18fM9PDw8vNGp+qw5TlrtPMJYGXh4eHgneEnbuh4K5LAiYogvHODh4eG9h3fiUd5GFUmHHG0THh4e3gFe+yDOw9M85M3nb69w4eHh4e3lJRFD+zhOLhm0bfEwEMHDw8M7wJu1uXvb5fxawCzIwMPDw9vLy6doo97Z1ahZG/1L3cPDw8Pbytt1AWvWcOct+Lal4+Hh4W3itXFq0gTPFtrOH5UNPDw8vK282Re0pSKPZfMkYXhFAA8PD2+Z1zbNs7ihDTvarV/6VfHw8PBK3qxVbQ/GVgLclfMsPDw8vBO8/PB+dtg/i26fC+OHooKHh4d3jJf/e58ca60c87etc5FS4+Hh4S3z8li2DSZm4WyL+SXUwMPDw3s7b/0AbLZByYWGKJ/Gw8PDO8bLD/6Tpa+Es3kjHm0KHh4e3jHeyhWBvDAkcXDbmkdXB/Dw8PC28nZFsckWJMVgbySBh4eHd4LXHjXNIow28G2jEDw8PLzP4c3w7V/bUpSUEzw8PLxzvKRFXo9W7zdrFkbUPwMeHh7eJt6zHMlCk0iiLRXt9+Lh4eGd4+WjXWLeEM+uJrRRBR4eHt5e3noxmDXE7fzDcAQPDw/vGG/l0CuPMPYy8PDw8D6ft9IW7yohSbdcfBgPDw/vLbxZeJEUm/Wtucyq8fDw8A7w8jBi9sieRbd5AbicAQ8PD+8Ar33Q58dU7ZWpc005Hh4e3ibeF25U2k/R4jBqAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

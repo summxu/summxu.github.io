@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head><meta name="generator" content="Hexo 3.9.0">
     
 
@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="为了达到操作变化的实时性，在多选择项的业务场景中，往往点击一次就会发送一次 HTTP 请求。但同时又面临另外一个问题，在连续点击同一个选择项时，就会连续触发针对此项的删除或添加逻辑，进而连续发送 POST 或 DELETE 请求。理想的状态是上一个请求结束后才开始下一个请求，但是网络请求是异步的、请求耗时是不可控的，也就有可能在此项的添加请求未完成前，删除请求先完成了。 我觉得用“插队”来描述这个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-07-21T12:35:55.259Z">
+<meta property="og:updated_time" content="2023-07-31T02:01:04.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用队列解决插队业务场景">
 <meta name="twitter:description" content="为了达到操作变化的实时性，在多选择项的业务场景中，往往点击一次就会发送一次 HTTP 请求。但同时又面临另外一个问题，在连续点击同一个选择项时，就会连续触发针对此项的删除或添加逻辑，进而连续发送 POST 或 DELETE 请求。理想的状态是上一个请求结束后才开始下一个请求，但是网络请求是异步的、请求耗时是不可控的，也就有可能在此项的添加请求未完成前，删除请求先完成了。 我觉得用“插队”来描述这个">
@@ -82,7 +82,7 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/tags"  >
+              <a href="/tags/CSS"  >
                 <i class="icon icon-lg icon-star"></i>
                 分类标签
               </a>
@@ -168,13 +168,7 @@
 
 
 <div class="container body-wrap">
-    <!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-20 16:33:53
- * @Description: 
--->
-
+    
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
@@ -241,7 +235,7 @@
     <!--
  * @Author: Chenxu
  * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-20 17:36:14
+ * @LastEditTime: 2023-07-26 10:01:46
  * @Description: 
 -->
 
@@ -343,7 +337,13 @@
 
 </div>
 
-        <footer class="footer">
+        <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:30
+ * @LastEditTime: 2023-07-26 10:29:21
+ * @Description: 
+-->
+<footer class="footer">
   <div class="top" style="display: none;">
     
 <p>
@@ -370,7 +370,7 @@
         2023</span>
       <span>
         
-        Power by <a href="http://hexo.io/" target="_blank">Hexo</a>
+        Power by Hexo
       </span>
     </p>
   </div>
@@ -382,7 +382,7 @@
 <!--
  * @Author: Chenxu
  * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-20 17:36:14
+ * @LastEditTime: 2023-07-26 10:01:46
  * @Description: 
 -->
 

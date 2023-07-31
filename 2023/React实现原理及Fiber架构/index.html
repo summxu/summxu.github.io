@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>React实现原理及Fiber架构</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="JavaScript,React">
+    <meta name="description" content="vdom定义：vdom 就是根据真实dom的属性使用js重新按照原有结构模拟出一份dom对象，dom api 对真实 dom 做增删改。 123456789&amp;#123;    type: &apos;div&apos;,    props: &amp;#123;        id: &apos;aaa&apos;,        className: [&apos;bbb&apos;, &apos;ccc&apos;],        onClick: function() &amp;#1">
+<meta name="keywords" content="JavaScript,React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React实现原理及Fiber架构">
+<meta property="og:url" content="https://summxu.github.io/2023/React实现原理及Fiber架构/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="vdom定义：vdom 就是根据真实dom的属性使用js重新按照原有结构模拟出一份dom对象，dom api 对真实 dom 做增删改。 123456789&amp;#123;    type: &apos;div&apos;,    props: &amp;#123;        id: &apos;aaa&apos;,        className: [&apos;bbb&apos;, &apos;ccc&apos;],        onClick: function() &amp;#1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-31T02:01:04.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React实现原理及Fiber架构">
+<meta name="twitter:description" content="vdom定义：vdom 就是根据真实dom的属性使用js重新按照原有结构模拟出一份dom对象，dom api 对真实 dom 做增删改。 123456789&amp;#123;    type: &apos;div&apos;,    props: &amp;#123;        id: &apos;aaa&apos;,        className: [&apos;bbb&apos;, &apos;ccc&apos;],        onClick: function() &amp;#1">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-align-right"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/CSS"  >
+                <i class="icon icon-lg icon-star"></i>
+                分类标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-grav"></i>
+                这是我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss-square"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">React实现原理及Fiber架构</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">React实现原理及Fiber架构</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-06-12T01:36:14.000Z" itemprop="datePublished" class="page-time">
+  2023-06-12
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#vdom"><span class="post-toc-number">1.</span> <span class="post-toc-text">vdom</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dsl-的编译"><span class="post-toc-number">2.</span> <span class="post-toc-text">dsl 的编译</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#渲染-vdom"><span class="post-toc-number">3.</span> <span class="post-toc-text">渲染 vdom</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#状态管理"><span class="post-toc-number">4.</span> <span class="post-toc-text">状态管理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Fiber"><span class="post-toc-number">5.</span> <span class="post-toc-text">Fiber</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一：Fiber的概念"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">一：Fiber的概念</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二：什么是Fiber？"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">二：什么是Fiber？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三：Fiber的基本原则："><span class="post-toc-number">5.3.</span> <span class="post-toc-text">三：Fiber的基本原则：</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四：Fiber的数据结构"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">四：Fiber的数据结构</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#五：Fiber的执行流程"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">五：Fiber的执行流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#六：Fiber对开发者有什么影响？"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">六：Fiber对开发者有什么影响？</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023/React实现原理及Fiber架构"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">React实现原理及Fiber架构</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-06-12 09:36:14" datetime="2023-06-12T01:36:14.000Z"  itemprop="datePublished">2023-06-12</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="vdom"><a href="#vdom" class="headerlink" title="vdom"></a>vdom</h2><p><strong>定义</strong>：vdom 就是根据真实dom的属性使用js重新按照原有结构模拟出一份dom对象，dom api 对真实 dom 做增删改。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    type: <span class="string">'div'</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">        id: <span class="string">'aaa'</span>,</span><br><span class="line">        className: [<span class="string">'bbb'</span>, <span class="string">'ccc'</span>],</span><br><span class="line">        onClick: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    children: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有了 vdom 的好处，就没有和 dom 强绑定了，可以跨平台渲染，比如 native、canvas 等等。</p>
+<p>但是要让开发去写这样的 vdom 么？</p>
+<p>那肯定不行，这样太麻烦了，大家熟悉的是 html 那种方式，所以要引入一些编译的手段。</p>
+<h2 id="dsl-的编译"><a href="#dsl-的编译" class="headerlink" title="dsl 的编译"></a>dsl 的编译</h2><p>dsl 是 domain specific language，领域特定语言的意思，html、css 都是 web 领域的 dsl。</p>
+<p>直接写 vdom 太麻烦了，所以前端框架都会设计一套 dsl，然后编译成 render function，执行后产生 vdom。</p>
+<p>vue 和 react 都是这样：</p>
+<blockquote>
+<p>jsx -&gt; render function -&gt; vdom</p>
+</blockquote>
+<p>这套 dsl 怎么设计呢？</p>
+<p>前端领域大家熟悉的描述 dom 的方式是 html，最好的方式自然是也设计成那样。</p>
+<p>所以 vue 的 template，react 的 jsx 就都是这么设计的。</p>
+<p>vue 的 template compiler 是自己实现的，而 react 的 jsx 的编译器是 babel 实现的，是两个团队合作的结果。</p>
+<h2 id="渲染-vdom"><a href="#渲染-vdom" class="headerlink" title="渲染 vdom"></a>渲染 vdom</h2><p>渲染 vdom 也就是通过 dom api 增删改 dom。</p>
+<p>比如一个 div，那就要 document.createElement 创建元素，然后 setAttribute 设置属性，addEventListener 设置事件监听器。</p>
+<p>如果是文本，那就要 document.createTextNode 来创建。</p>
+<p>所以说根据 vdom 类型的不同，写个 if else，分别做不同的处理就行了。</p>
+<p>没错，不管 vue 还是 react，渲染器里这段 if else 是少不了的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> (vdom.tag) &#123;</span><br><span class="line">  <span class="keyword">case</span> HostComponent:</span><br><span class="line">    <span class="comment">// 创建或更新 dom</span></span><br><span class="line">  <span class="keyword">case</span> HostText:</span><br><span class="line">    <span class="comment">// 创建或更新 dom</span></span><br><span class="line">  <span class="keyword">case</span> FunctionComponent: </span><br><span class="line">    <span class="comment">// 创建或更新 dom</span></span><br><span class="line">  <span class="keyword">case</span> ClassComponent: </span><br><span class="line">    <span class="comment">// 创建或更新 dom</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>react 里是通过 tag 来区分 vdom 类型的，比如 <code>HostComponent</code> 就是元素，<code>HostText</code> 就是文本，<code>FunctionComponent</code>、<code>ClassComponent</code> 就分别是函数组件和类组件。</p>
+<h2 id="状态管理"><a href="#状态管理" class="headerlink" title="状态管理"></a>状态管理</h2><p>react <strong>没有响应式系统</strong>，是通过 <code>setState</code> 的 api 触发状态更新的，更新以后就<strong>重新渲染整个 vdom</strong>。</p>
+<blockquote>
+<p>vue 是通过对状态做代理，get 的时候收集以来，然后修改状态的时候就可以触发对应组件的 render 了，不管是子组件、父组件、还是其他位置的组件，只要用到了对应的状态，那就会被作为依赖收集起来，状态变化的时候就可以触发它们的 render，不管是组件是在哪里的。</p>
+</blockquote>
+<p>这就是为什么 react 需要重新渲染整个 vdom，而 vue 不用。</p>
+<p>react 的 <code>setState</code> 会渲染整个 vdom，而一个应用的所有 vdom 可能是很庞大的，计算量就可能很大。</p>
+<p>浏览器里 js 计算时间太长是会阻塞渲染的，会占用每一帧的动画、重绘重排的时间，这样动画就会卡顿。</p>
+<p>作为一个有追求的前端框架，动画卡顿肯定是不行的。但是因为 <code>setState</code> 的方式只能渲染整个 vdom，所以计算量大是不可避免的。</p>
+<p>那能不能把计算量拆分一下，每一帧计算一部分，不要阻塞动画的渲染呢？</p>
+<p>顺着这个思路，react 就改造为了 fiber 架构。</p>
+<h2 id="Fiber"><a href="#Fiber" class="headerlink" title="Fiber"></a>Fiber</h2><h3 id="一：Fiber的概念"><a href="#一：Fiber的概念" class="headerlink" title="一：Fiber的概念"></a>一：Fiber的概念</h3><p>React Fiber是react执行渲染时的一种新的调度策略，JavaScript是单线程的，一旦组件开始更新，主线程就一直被React控制，这个时候如果再次执行交互操作，就会卡顿。</p>
+<p>  React Fiber就是通过对象记录组件上需要做或者已经完成的更新，一个组件可以对应多个Fiber。</p>
+<p>  在render函数中创建的React Element树在第一次渲染的时候会创建一颗结构一模一样的的Fiber节点树。不同的React Element类型对应不同的Fiber节点类型。一个React Element的工作就由它对应的Fiber节点来负责。</p>
+<p>  一个React Element可以对应不止一个Fiber，因为Fiber在update的时候，会从原来的Fiber(我们称为current)clone出一个新的Fiber(我们称之为alternate)。俩个Fiber diff出的变化(side effect)记录在alternate上。所以一个组件在更新时最多会有俩个Fiber与其对应，在更新结束后alternate会取代之前的current称为新的current节点。</p>
+<p>  React Fiber重构这种方式，渲染过程采用切片的方式，每执行一会儿，就歇一会儿。如果有优先级更高的任务到来以后呢，就会先去执行，降低页面发生卡顿的可能性，使得React对动画等实时性要求较高的场景体验更好。</p>
+<h3 id="二：什么是Fiber？"><a href="#二：什么是Fiber？" class="headerlink" title="二：什么是Fiber？"></a>二：什么是Fiber？</h3><p>  当js在处理大型计算的时候会导致页面出现卡帧的现象，更严重的会出现页面“假死”。所以在这些情况下，必然会导致动画丢帧、不连贯，用户体验就特别差。为了解决这个问题，我们可以将大型的计算拆分成一个个小型计算，然后按照执行顺序异步调用，这样就不会长时间霸占线程，UI也能在俩次小型计算的执行间隙进行更新，从而给与用户及时的反馈，Fiber就是这样做的，并且以一种更高逼格的方式实现了。<br><strong>Driving Idea</strong><br>  如果说v16.0之前的React解决了HOW(如何用最少的DOM操作成本来update视图)的问题，那么这一次Fiber的出现，在这个基础上还解决了WHEN(何时update视图的哪一部分)的问题。<br>   <strong>分片优先级！！！</strong></p>
+<p>  基于上述这些原因，Fiber实现了一个虚拟调用栈，并给所有的update进行优先级排序，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;;</span><br><span class="line"></span><br><span class="line">export type PriorityLevel = 0 | 1 | 2 | 3 | 4 | 5;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line"> </span><br><span class="line">NoWork: 0, // No work is pending.</span><br><span class="line"> </span><br><span class="line">SynchronousPriority: 1, // 用于控制文本输入。同步的副作用.</span><br><span class="line"></span><br><span class="line">AnimationPriority: 2, //需要在下一帧之前完成.</span><br><span class="line"> </span><br><span class="line">HighPriority: 3, // 需要很快完成的互动才能产生反应.</span><br><span class="line"> </span><br><span class="line">LowPriority: 4, // 数据获取，或更新存储的结果.</span><br><span class="line"> </span><br><span class="line">OffscreenPriority: 5, // 将不可见，但做的工作，以防它成为可见.</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>  然后根据这些update的优先级，来决定执行的顺序。<br>  我们可以看到动画和页面交互都是优先级比较高的，这也是Fiber能够使得动画、布局和页面交互变得更加的流畅的原因之一。<br>  可以把Priority分为同步和异步两个类别，同步优先级的任务会在当前帧完成，包括SynchronousPriority和TaskPriority。异步优先级的任务则可能在接下来的几个帧中被完成，包括HighPriority、LowPriority以及OffscreenPriority。<br>  React v16.3.2的优先级，不再这么划分，分为三类：NoWork、sync、async，前两类可以认为是同步任务，需要在当前tick完成，过期时间为null，最后一类异步任务会计算一个。<br>  expirationTime，在workLoop中，根据过期时间来判断是否进行下一个分片任务，scheduleWork中更新任务优先级，也就是更新这个expirationTime。至于这个时间怎么计算，可以查看源码。</p>
+<h3 id="三：Fiber的基本原则："><a href="#三：Fiber的基本原则：" class="headerlink" title="三：Fiber的基本原则："></a>三：Fiber的基本原则：</h3><p>  更新任务分成俩个阶段，Reconcilition Phase(调和阶段)和Commit Phase(交付阶段)。Reconciliation Phase的任务干的事情是，找出要做的更新工作(Diff Fiber Tree),就是一个计算阶段，计算结果可以被缓存，也就可以被打断；Commit Phase需要提交所有更新并渲染，为了防止页面抖动，被设置为不能打断。<br>  <strong>PS：componentWillMount</strong><br>  omponentWillReceiveProps componentWillUpdate 几个生命周期方法，在Reconciliation Phase被调用，有被打断的可能（时间用尽等情况），所以可能被多次调用。其实shouldComponentUpdate 也可能被多次调用，只是它只返回true或者false，没有副作用，可以暂时忽略。</p>
+<h3 id="四：Fiber的数据结构"><a href="#四：Fiber的数据结构" class="headerlink" title="四：Fiber的数据结构"></a>四：Fiber的数据结构</h3><p>  fiber是个链表，有child和sibing属性，指向第一个子节点和相邻的兄弟节点，从而构成fiber tree。return 属性指向其父节点。<br>  更新队列，updateQueue，是一个链表，有first和last俩个属性，指向第一个和最后一个update对象。<br>  每个fiber有一个属性updateQueue指向其对应的更新队列。<br>  每个fiber(当前fiber可以称为current)有一个属性alternate，开始时指向一个自己的clone体，update的变化会先更新到alternate上，当更新完毕，alternate替换current。</p>
+<h3 id="五：Fiber的执行流程"><a href="#五：Fiber的执行流程" class="headerlink" title="五：Fiber的执行流程"></a>五：Fiber的执行流程</h3><ol>
+<li>用户操作引起setState被调用以后，先调用enqueueSetState方法，该方法可以划分成俩个阶段（个人理解），第一阶段Data Preparation，是初始化一些数据结构，比如fiber，updateQueue，update。</li>
+<li>新的update会通过insertUpdateIntoQueue方法，根据优先级插入到队列的对应位置，ensureUpdateQueues方法初始化俩个更新队列，queue1和current.updateQueue对应，queue2和current.alternate.updateQueue对应。</li>
+<li>第二阶段，Fiber Reconciler，就开始进行任务分片调度，scheduleWork首先更新每个fiber的优先级，这里并没有updatePriority这个方法，但是干了这件事。当fiber.return === null，找到父节点，把所有diff出的变化(side effect)归结到root上。</li>
+<li>requestWork，首先把当前的更新添加到schedule list中(addRootToSchedule),然后根据当前是否为异步渲染(isAsync参数)，异步渲染调用。scheduleCallbackWithExpriation方法，下一步高能！！</li>
+<li>scheduleCallbackWithExpriation这个方法在不同环境，实现不一样，chrome等浏览器中使用requestIdleCallback API，没有这个API的浏览器中，通过requestAnimationFrame模拟一个requestIdCallback，来在浏览器空闲时，完成下一个分片的工作，注意，这个函数会传入一个expirationTime，超过这个时间活没干完，就放弃了。</li>
+<li>执行到performWorkOnRoot，就是fiber文档中提到的Commit Phase和Reconciliation Phase俩阶段。</li>
+<li>第一阶段Reconciliation Phase,在workLoop中，通过一个while循环，完成每个分片任务。</li>
+<li>performUnitOfWork也可以分成俩阶段，蓝色框表示。beginWork是一个入口函数，根据workInProgress的类型去实例化不同的react element class。workInProgress是通过alternate挂载一些新属性获得的。</li>
+<li>实例化不同的react element class时候会调用和will有关的生命周期方法。</li>
+<li>completeUnitOfWork是进行一些收尾工作，diff完一个节点以后，更新props和调用生命周期方法等。</li>
+<li>然后进入Commit Phase阶段，这个阶段不能被打断。</li>
+</ol>
+<h3 id="六：Fiber对开发者有什么影响？"><a href="#六：Fiber对开发者有什么影响？" class="headerlink" title="六：Fiber对开发者有什么影响？"></a>六：Fiber对开发者有什么影响？</h3><ol>
+<li>componentWillMount,componentWillReceiveProps,componentWillUpdate几个生命周期方法不再安全，由于任务执行过程可以被打断，这几个生命周期可能会执行多次，如果它们包含副作用(比如Ajax)，会有意想不到的bug。React团队提供了替换的生命周期方法。建议如果使用以上方法，尽量使用纯函数，避免以后踩坑。</li>
+<li>需要关注react为任务片设置的优先级，特别是页面用动画的情况。</li>
+<li>如果一直有更高的级别任务，那么fiber算法会先执行级别更高的任务，执行完毕后再通过callback回到之前渲染到一半的组件，从头开始渲染。（看起来放弃已经渲染完的生命周期，会有点不合理，反而会增加渲染时长，但是react确实是这么干的）</li>
+</ol>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-26 10:01:46
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/React实现原理及Fiber架构/&title=《React实现原理及Fiber架构》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/React实现原理及Fiber架构/&title=《React实现原理及Fiber架构》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/React实现原理及Fiber架构/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React实现原理及Fiber架构》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/React实现原理及Fiber架构/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/React实现原理及Fiber架构/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/Pinia使用和源码解析/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Pinia使用和源码解析</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/Vue的响应式原理/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Vue的响应式原理</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:30
+ * @LastEditTime: 2023-07-26 10:29:21
+ * @Description: 
+-->
+<footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by Hexo
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-26 10:01:46
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/React实现原理及Fiber架构/&title=《React实现原理及Fiber架构》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/React实现原理及Fiber架构/&title=《React实现原理及Fiber架构》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/React实现原理及Fiber架构/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《React实现原理及Fiber架构》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/React实现原理及Fiber架构/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/React实现原理及Fiber架构/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMklEQVR42u3aQXKEMAwFUe5/6ckmuwTTX4ZUkJrVVIaxeSwUWdJx4Ovz41p/S+5f73I8ccmQIeO1DLI9/0vtdaw/k1cjQ4aMCYyzLdN7eMDljPW+MmTIkJEux0NnuoIMGTJkpAxyQE2PozzdlCFDxkwGOcTyAhk59HLGzWdxGTJkvJDBQ+Hff36kvyFDhoxXMT7hRQpt/Ci7/zzf68iQIaM1467WY62IVksfT++UIUPGGAZZND3ckoMr3xFVDWXIkDGMwZsEPNVLQznaV4YMGU0ZfEQ1PVLu3ENekAwZMmYy+I/TkMqPu2mbU4YMGRMYtZELHjRJYrdTwovbmTJkyHghgzcsdwr35BG3xj5kyJAxhrGT8K2pfIVaIU+GDBlzGGkumYbLdJcg6MuQIaM1494GwF3DFjysy5AhYwKDF8t2BilqoxUBRoYMGa0ZZPwrTRPTZgA/MF/AZMiQ0ZqRNgB4ob/2gkjTVIYMGdMY6aPURit4I6EYamXIkDGAQZZOC2f8FaQv9CLDlSFDRlMGH5tI25NknVrB7uBLyJAhox0jTfvSYtnOeMfpnTJkyGjKqA1Y8DSONyZJCS8otMmQIaMRIy1v1YbDajAe6GXIkDGBQYJsWvxKm5ppsI4TRBkyZLRg7Ae+neGJdBTsl1/JkCFDRolKWpi82ZDPX8iQIWMugxTX0vZn+oSP/9+QIUPGv2TsFNRqB9rai7hIDWXIkNGUUcu7eOuxtmba1JQhQ0ZTxhfD2mqYFNiwkAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

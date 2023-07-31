@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Vue的响应式原理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content>
+    <meta name="description" content="vue2使用Object.defineProperty实现响应式 遍历属性，对每一个属性的值用Object.defineProperty进行getter和setter的改造；  123456789101112131415161718192021222324252627282930313233343536373839404142//getfunction track(data, key)&amp;#123;">
+<meta name="keywords" content="JavaScript,HTML5,TypeScript,React,Angular,Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue的响应式原理">
+<meta property="og:url" content="https://summxu.github.io/2023/Vue的响应式原理/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="vue2使用Object.defineProperty实现响应式 遍历属性，对每一个属性的值用Object.defineProperty进行getter和setter的改造；  123456789101112131415161718192021222324252627282930313233343536373839404142//getfunction track(data, key)&amp;#123;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-31T02:01:04.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue的响应式原理">
+<meta name="twitter:description" content="vue2使用Object.defineProperty实现响应式 遍历属性，对每一个属性的值用Object.defineProperty进行getter和setter的改造；  123456789101112131415161718192021222324252627282930313233343536373839404142//getfunction track(data, key)&amp;#123;">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-align-right"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/CSS"  >
+                <i class="icon icon-lg icon-star"></i>
+                分类标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-grav"></i>
+                这是我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss-square"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Vue的响应式原理</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Vue的响应式原理</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-05-07T01:07:32.000Z" itemprop="datePublished" class="page-time">
+  2023-05-07
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#vue2使用Object-defineProperty实现响应式"><span class="post-toc-number">1.</span> <span class="post-toc-text">vue2使用Object.defineProperty实现响应式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Vue3中的响应式原理"><span class="post-toc-number">2.</span> <span class="post-toc-text">Vue3中的响应式原理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Proxy"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Proxy</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Reflect"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Reflect</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Proxy和Reflect的使用"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">Proxy和Reflect的使用</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用Proxy和Reflect完成响应式"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用Proxy和Reflect完成响应式</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023/Vue的响应式原理"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Vue的响应式原理</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-05-07 09:07:32" datetime="2023-05-07T01:07:32.000Z"  itemprop="datePublished">2023-05-07</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="vue2使用Object-defineProperty实现响应式"><a href="#vue2使用Object-defineProperty实现响应式" class="headerlink" title="vue2使用Object.defineProperty实现响应式"></a>vue2使用Object.defineProperty实现响应式</h2><ul>
+<li>遍历属性，对每一个属性的值用Object.defineProperty进行getter和setter的改造；</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//get</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">track</span>(<span class="params">data, key</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'get data:'</span>, key)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// set</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trigger</span>(<span class="params">data, key, value</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'set data:'</span>, key,<span class="string">'-'</span>, value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">observe</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(!data || <span class="keyword">typeof</span> data !== <span class="string">'object'</span>) <span class="keyword">return</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> data)&#123;</span><br><span class="line">    <span class="keyword">let</span> value = data[key]</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(data, key, &#123;</span><br><span class="line">      enumerable: <span class="literal">true</span>,</span><br><span class="line">      configurable: <span class="literal">true</span>,</span><br><span class="line">      <span class="keyword">get</span>()&#123;</span><br><span class="line">        track(data, key)</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="keyword">set</span>(newVal)&#123;</span><br><span class="line">        trigger(data, key, newVal)</span><br><span class="line">        value = newVal</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> value === <span class="string">'object'</span>)&#123;</span><br><span class="line">      observe(value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  name: <span class="string">'win'</span>,</span><br><span class="line">  family: [<span class="number">2</span>,<span class="number">5</span>,<span class="number">8</span>]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">observe(obj)</span><br><span class="line"></span><br><span class="line">obj.name = <span class="string">'ten'</span></span><br><span class="line">obj.family[<span class="number">3</span>] = <span class="number">6</span> <span class="comment">//不是响应式，没有被Object.defineProperty包装一下</span></span><br><span class="line">obj.age = <span class="number">18</span> <span class="comment">//不是响应式，没有被Object.defineProperty包装一下</span></span><br><span class="line"><span class="built_in">console</span>.log(obj, <span class="string">'obj'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Vue3相对于Vue2响应式原理也发生了变化，由原先的 <code>Object.defineproperty</code> 改成了使用 <code>Proxy</code> 替代。<code>Proxy</code> 相对于 <code>Object.defineproperty</code> 有以下几个优化点：</p>
+<ul>
+<li>对象新增属性不再需要手动 <code>$set</code> 添加响应式，<code>Proxy</code> 默认会监听动态添加属性和属性的删除等操作。</li>
+<li>消除无法监听数组索引，length 属性等等，不再需要在数组原型对象上重写数组的方法。</li>
+<li><code>Object.defineproperty</code> 是劫持所有对象属性的 <code>get</code>/<code>set</code> 方法,需要遍历递归去实现，<code>Proxy</code> 是代理整个对象。</li>
+<li>Vue2 只能拦截对象属性的 <code>get</code> 和 <code>set</code> 操作,而 <code>Proxy</code> 拥有 <code>13</code> 种拦截方法。</li>
+</ul>
+<h2 id="Vue3中的响应式原理"><a href="#Vue3中的响应式原理" class="headerlink" title="Vue3中的响应式原理"></a>Vue3中的响应式原理</h2><p>实现原理：</p>
+<p>通过Proxy（代理）： 拦截对象中任意属性的变化，包括：属性值的读写，属性的增加，属性的删除等。</p>
+<p>通过Reffect（反射）： 对源对象的属性进行操作</p>
+<h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><ul>
+<li>Proxy对象对于创建一个对象的代理，也可以理解成在对象前面设了一层拦截，<strong>可以实现基本操作的拦截和一些自定义操作（比如一些赋值、属性查找、函数调用等）；</strong></li>
+<li>用法：<code>var proxy = new Proxy(target, handler);</code><br><strong>target：</strong>目标函数（即进行改造的函数）；<br><strong>handler：</strong>一些自定义操作（比如vue中getter和setter的操作）；</li>
+</ul>
+<h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><ul>
+<li>Reflect是es6为操作对象而提供的新API，设计它的目的有：<br>① 把Object对象上一些明显属于语言内部的方法放到Reflect对象身上，比如Object.defineProperty；<br>② 修改了某些object方法返回的结果；<br>③ 让Object操作都变成函数行为；<br>④ Reflect对象上的方法和Proxy对象上的方法一一对应，这样就可以让Proxy对象方便地调用对应的Reflect方法；</li>
+<li><code>Reflect.get(target, propertyKey, receiver)</code>：<strong>等价于<code>target[propertyKey]</code>，</strong>Reflect.get方法查找并返回target对象的propertyKey属性，如果没有该属性，则返回undefined。</li>
+<li><code>Reflect.set(target, propertyKey, value, receiver)</code>：<strong>等价于<code>target[propertyKey] = value</code>，</strong>Reflect.set方法设置target对象的propertyKey属性等于value。</li>
+</ul>
+<h3 id="Proxy和Reflect的使用"><a href="#Proxy和Reflect的使用" class="headerlink" title="Proxy和Reflect的使用"></a>Proxy和Reflect的使用</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  name: <span class="string">'win'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> handler = &#123;</span><br><span class="line">  <span class="keyword">get</span>: <span class="function"><span class="keyword">function</span>(<span class="params">target, key</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'get--'</span>, key)</span><br><span class="line">    <span class="keyword">return</span> Reflect.get(...arguments)  </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">set</span>: <span class="function"><span class="keyword">function</span>(<span class="params">target, key, value</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'set--'</span>, key, <span class="string">'='</span>, value)</span><br><span class="line">    <span class="keyword">return</span> Reflect.set(...arguments)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> data = <span class="keyword">new</span> Proxy(obj, handler)</span><br><span class="line">data.name = <span class="string">'ten'</span></span><br><span class="line"><span class="built_in">console</span>.log(data.name,<span class="string">'data.name22'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用Proxy和Reflect完成响应式"><a href="#使用Proxy和Reflect完成响应式" class="headerlink" title="使用Proxy和Reflect完成响应式"></a>使用Proxy和Reflect完成响应式</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">track</span>(<span class="params">target, key</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'get--'</span>, key)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trigger</span>(<span class="params">target, key, value</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'set--'</span>, key, <span class="string">'='</span>, value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reactive</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">const</span> handler = &#123;</span><br><span class="line">    <span class="keyword">get</span>(target, key, receiver)&#123;</span><br><span class="line">      track(target, key)</span><br><span class="line">      <span class="keyword">const</span> value = Reflect.get(...arguments)</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">typeof</span> value === <span class="string">'object'</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> reactive(value)</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="keyword">set</span>(target, key, val, receiver)&#123;</span><br><span class="line">      trigger(target, key, val)</span><br><span class="line">      <span class="keyword">return</span> Reflect.set(...arguments)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> Proxy(obj, handler)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  name: <span class="string">'win'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> data = reactive(obj)</span><br><span class="line"></span><br><span class="line">data.list = [<span class="number">5</span>] <span class="comment">//响应式  这两句话是执行Reflect.set()</span></span><br><span class="line">data.age = <span class="number">18</span> <span class="comment">//响应式</span></span><br><span class="line"><span class="built_in">console</span>.log(data, <span class="string">'data111'</span>)</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-26 10:01:46
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/Vue的响应式原理/&title=《Vue的响应式原理》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/Vue的响应式原理/&title=《Vue的响应式原理》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/Vue的响应式原理/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue的响应式原理》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/Vue的响应式原理/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/Vue的响应式原理/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/React实现原理及Fiber架构/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">React实现原理及Fiber架构</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/Vue3响应式属性Reactive和Ref/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Vue3响应式属性Reactive和Ref</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:30
+ * @LastEditTime: 2023-07-26 10:29:21
+ * @Description: 
+-->
+<footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by Hexo
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-26 10:01:46
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/Vue的响应式原理/&title=《Vue的响应式原理》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/Vue的响应式原理/&title=《Vue的响应式原理》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/Vue的响应式原理/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue的响应式原理》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/Vue的响应式原理/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/Vue的响应式原理/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aMXLDMAxEUd//0krrRsxfQEqG4GflkS2JzwUHC/LzweP6GndXauONZ8qQIWMe41qO9QvWr1w/h7yFzE2GDBnnMPhSSKbOr6Tf3l6XIUOGjJulkCy7tYVYhgwZMp5ipKXkuiT9twVXhgwZmzDItNbFHG+WrSf3ehaXIUPGhoxa+/5vPr+yvyFDhoytGFdpkFibLrKdWcmQIWM2g08oLdd4ocnbeTJkyDiT0Y+mtTi6/iVvzAU7ojJkyNicwQ9V8LYXfw5/8u2fIkOGjNGM/iEwXsalhSAvImXIkDGbkTbISMjsbADwUhLVpzJkyBjBSFtd5F7ybb8klSFDxjkMvqh1MB3A+je3WVyGDBmDGLUIWtsAIOUgvyJDhoxzGEV3acFN42sQs2XIkHEAI92q7BwFe2XbQIYMGaMZQUQMyz5+7wP9QhkyZIxm8ANYvFjky3daSra6hjJkyNicUVynw0Z/7XAGKhllyJBxAOOph/aLTtJiK75GhgwZ2zJIKZbeWwvA6d/9S6CVIUPGIEbalK9heIlZDL0yZMgYzehPND1+8RRVhgwZ5zCucKwDJ4+pPB6ju2TIkDGa8UoaLjX3WwdYZciQcQAjXWSfip1kgzNoAsqQIeMARtoCI2E1jbKdeCxDhgwZ/HhEZ0J8oUcbmTJkyDiSsS7OyLd8MyAOtzJkyDiAQUJsGkrTw/rpwf1iu02GDBkbMtJjFryt1mnbpSWpDBkyhjJ+AK7k5PO5Q43/AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

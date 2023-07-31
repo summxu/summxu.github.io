@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Vue3中watch和watchEffect的用法和区别</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Vue">
+    <meta name="description" content="1.1 watch 基本使用在 Vue3 中的组合式 API 中，watch 的作用和 Vue2 中的 watch 作用是一样的，他们都是用来监听响应式状态发生变化的，当响应式状态发生变化时，都会触发一个回调函数。 代码如下： 123456789101112131415161718&amp;lt;template&amp;gt;  &amp;lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo">
+<meta name="keywords" content="Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue3中watch和watchEffect的用法和区别">
+<meta property="og:url" content="https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="1.1 watch 基本使用在 Vue3 中的组合式 API 中，watch 的作用和 Vue2 中的 watch 作用是一样的，他们都是用来监听响应式状态发生变化的，当响应式状态发生变化时，都会触发一个回调函数。 代码如下： 123456789101112131415161718&amp;lt;template&amp;gt;  &amp;lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-07-31T02:01:04.163Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue3中watch和watchEffect的用法和区别">
+<meta name="twitter:description" content="1.1 watch 基本使用在 Vue3 中的组合式 API 中，watch 的作用和 Vue2 中的 watch 作用是一样的，他们都是用来监听响应式状态发生变化的，当响应式状态发生变化时，都会触发一个回调函数。 代码如下： 123456789101112131415161718&amp;lt;template&amp;gt;  &amp;lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-align-right"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/CSS"  >
+                <i class="icon icon-lg icon-star"></i>
+                分类标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-grav"></i>
+                这是我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss-square"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Vue3中watch和watchEffect的用法和区别</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Vue3中watch和watchEffect的用法和区别</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-01-12T09:13:34.000Z" itemprop="datePublished" class="page-time">
+  2023-01-12
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-1-watch-基本使用"><span class="post-toc-number">1.</span> <span class="post-toc-text">1.1 watch 基本使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-2-watch-监听类型"><span class="post-toc-number">2.</span> <span class="post-toc-text">1.2 watch 监听类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#1-3-深度监听"><span class="post-toc-number">3.</span> <span class="post-toc-text">1.3 深度监听</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#2-watchEffect"><span class="post-toc-number"></span> <span class="post-toc-text">2.watchEffect</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#3-watch-和-watchEffect-区别"><span class="post-toc-number"></span> <span class="post-toc-text">3.watch 和 watchEffect 区别</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#4-回调中的-DOM"><span class="post-toc-number"></span> <span class="post-toc-text">4.回调中的 DOM</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#5-手动停止监听器"><span class="post-toc-number"></span> <span class="post-toc-text">5.手动停止监听器</span></a>
+        </nav>
+    </aside>
+
+
+<article id="post-2023/Vue3中watch和watchEffect的用法和区别"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Vue3中watch和watchEffect的用法和区别</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-01-12 17:13:34" datetime="2023-01-12T09:13:34.000Z"  itemprop="datePublished">2023-01-12</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="1-1-watch-基本使用"><a href="#1-1-watch-基本使用" class="headerlink" title="1.1 watch 基本使用"></a>1.1 watch 基本使用</h3><p>在 Vue3 中的组合式 API 中，watch 的作用和 Vue2 中的 watch 作用是一样的，他们都是用来监听响应式状态发生变化的，当响应式状态发生变化时，都会触发一个回调函数。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;img alt=<span class="string">"Vue logo"</span> src=<span class="string">"./assets/logo.png"</span> /&gt;</span><br><span class="line">  &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;button @click="changeMsg"&gt;更改 message&lt;/</span>button&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; ref, watch &#125; from "vue";</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const message = ref("李四");</span></span><br><span class="line"><span class="regexp">watch(message, (newValue, oldValue) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log("新的值:", newValue);</span></span><br><span class="line"><span class="regexp">  console.log("旧的值:", oldValue);</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">const changeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  message.value = "张三";</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上段代码中点击按钮就会更改响应式变量 message 的值。又使用 watch 监听器监听了 message 变量，当它发生变化时，就会触发 watch 监听函数中的回调函数，并且回调函数默认接收两个参数：新值和旧值。</p>
+<p><strong>注意：当第一进入页面时，watch 监听函数的回调函数是不会执行的。</strong></p>
+<h3 id="1-2-watch-监听类型"><a href="#1-2-watch-监听类型" class="headerlink" title="1.2 watch 监听类型"></a>1.2 watch 监听类型</h3><p>前面一直强调 watch 监听的是响应式数据，如果监听的数据不是响应式的，那么可能会抛出警告。</p>
+<p><strong>（1）ref 和计算属性</strong></p>
+<p>ref 定义的数据是可以监听到的，因为前面的代码以及证明了。除此之外，计算属性也是可以监听到的，比如下列代码：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> message = ref(<span class="string">"李四"</span>);</span><br><span class="line"><span class="keyword">const</span> newMessage = computed(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> message.value;</span><br><span class="line">&#125;);</span><br><span class="line">watch(newMessage, <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>当 message 发生变化时，计算属性 newMessage 也会重新计算得出新的结果， watch 监听函数是可以监听到计算属性变化的。</p>
+<p><strong>（2）getter 函数</strong></p>
+<p>这里的 getter 函数可以简单的理解为获取数据的一个函数，说白了该函数就是一个返回值的操作，有点类似与计算属性。</p>
+<p><strong>示例代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;img alt=<span class="string">"Vue logo"</span> src=<span class="string">"./assets/logo.png"</span> /&gt;</span><br><span class="line">  &lt;p&gt;&#123;&#123; message &#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;p&gt;&#123;&#123; x1 + x2 &#125;&#125;&lt;/</span>p&gt;</span><br><span class="line">  &lt;button <span class="meta">@click</span>=<span class="string">"changeMsg"</span>&gt;更改 message&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line">&lt;script setup lang=<span class="string">"ts"</span>&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; ref, watch &#125; <span class="keyword">from</span> <span class="string">"vue"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> message = ref(<span class="string">"李四"</span>);</span><br><span class="line"><span class="keyword">const</span> x1 = ref(<span class="number">12</span>);</span><br><span class="line"><span class="keyword">const</span> x2 = ref(<span class="number">13</span>);</span><br><span class="line">watch(</span><br><span class="line">  () =&gt; x1.value + x2.value,</span><br><span class="line">  (newValue, oldValue) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"><span class="keyword">const</span> changeMsg = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  message.value = <span class="string">"张三"</span>;</span><br><span class="line">  x1.value = <span class="number">14</span>;</span><br><span class="line">  x2.value = <span class="number">23</span>;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上段代码中 watch 监听器中的第一个参数是一个箭头函数，也就是 getter 函数，getter 函数返回的是响应式数据 x1 和 x2 相加的值，当这两个中中有一个变化，都会执行 watch 中的回调函数。有点像是直接把计算属性写到监听器里面去了。</p>
+<p><strong>（3）监听响应式对象</strong></p>
+<p>前面监听的都是值类型的响应式数据，同样也可以监听响应式的对象。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">number</span> = reactive(&#123; count: <span class="number">0</span> &#125;);</span><br><span class="line"><span class="keyword">const</span> countAdd = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">number</span>.count++;</span><br><span class="line">&#125;;</span><br><span class="line">watch(<span class="built_in">number</span>, <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>当 watch 监听的是一个响应式对象时，会隐式地创建一个深层侦听器，即该响应式对象里面的任何属性发生变化，都会触发监听函数中的回调函数。</p>
+<p>需要注意的，watch 不能直接监听响应式对象的属性，即下面的写法是错误的：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">number</span> = reactive(&#123; count: <span class="number">0</span> &#125;);</span><br><span class="line"><span class="keyword">const</span> countAdd = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">number</span>.count++;</span><br><span class="line">&#125;;</span><br><span class="line">watch(<span class="built_in">number</span>.count, <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>上段代码中相当于你直接向 watch 传递了一个非响应式的数字，然而 watch 只能监听响应式数据。</p>
+<p><strong>但是：</strong></p>
+<p>如果非要监听响应式对象中的某个属性，可以使用 getter 函数的形式，代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">watch(</span><br><span class="line">  () =&gt; <span class="built_in">number</span>.count,</span><br><span class="line">  (newValue, oldValue) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>上段代码也是可以监听到 count 变化的。</p>
+<p><strong>（4）监听多个来源的数组</strong></p>
+<p>watch 还可以监听数组，前提是这个数组内部含有响应式数据。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x1 = ref(<span class="number">12</span>);</span><br><span class="line"><span class="keyword">const</span> <span class="built_in">number</span> = reactive(&#123; count: <span class="number">0</span> &#125;);</span><br><span class="line"><span class="keyword">const</span> countAdd = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">number</span>.count++;</span><br><span class="line">&#125;;</span><br><span class="line">watch([x1, <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">number</span>.count], <span class="function">(<span class="params">newValue, oldValue</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-深度监听"><a href="#1-3-深度监听" class="headerlink" title="1.3 深度监听"></a>1.3 深度监听</h3><p>在前面的代码中，如果将一个响应式对象传递给 watch 监听器时，只要对象里面的某个属性发生了变化，那么就会执行监听器回调函数。</p>
+<p>究其原因，因为传入响应对象给 watch 时，隐式的添加一个深度监听器，这就让造成了牵一发而至全身的效果。</p>
+<p>但是，如果是使用的 getter 函数返回响应式对象的形式，那么响应式对象的属性值发生变化，是不会触发 watch 的回调函数的。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">number</span> = reactive(&#123; count: <span class="number">0</span> &#125;);</span><br><span class="line"><span class="keyword">const</span> countAdd = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">number</span>.count++;</span><br><span class="line">&#125;;</span><br><span class="line">watch(</span><br><span class="line">  () =&gt; <span class="built_in">number</span>,</span><br><span class="line">  (newValue, oldValue) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">  &#125;,</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>上段代码中使用 getter 函数返回了响应式对象，当更改 number 中 count 的值时，watch 的回调函数是不会执行的。</p>
+<p>为了实现上述代码的监听，可以手动给监听器加上深度监听的效果。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">number</span> = reactive(&#123; count: <span class="number">0</span> &#125;);</span><br><span class="line"><span class="keyword">const</span> countAdd = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">number</span>.count++;</span><br><span class="line">&#125;;</span><br><span class="line">watch(</span><br><span class="line">  () =&gt; <span class="built_in">number</span>,</span><br><span class="line">  (newValue, oldValue) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; deep: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>添加深度监听很简单，只需要给 watch 添加第三个参数即可：{ deep: true }。</p>
+<p><strong>注意：</strong>上段代码中的 newValue 和 oldValue 的值是一样的，除非把响应式对象即 number 整个替换掉，那么这两个值才会变得不一样。除此之外，深度监听会遍历响应式对象的所有属性，开销较大，当对象体很大时，需要慎用<strong>。</strong></p>
+<p><strong>所以推荐 getter 函数只返回相应是对象中的某一个属性！！</strong></p>
+<h2 id="2-watchEffect"><a href="#2-watchEffect" class="headerlink" title="2.watchEffect"></a>2.watchEffect</h2><p>前面使用 watch 监听数据状态时，不知道有没有发现这样一个问题：只有当监听的数据源发生了变化，监听函数的回调函数才会执行。但是需求总是多变的，有些场景下可能需要刚进页面，或者说第一次渲染页面的时候，watch 监听器里面的回调函数就执行一遍。</p>
+<p>面对这种需求怎样处理呢？一般有两种方式：</p>
+<p><strong>方式一：</strong></p>
+<p>这种方式也是通过 watch 实现的，确切的说是巧妙的实现，而不是依赖于 watch 监听器。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">number</span> = reactive(&#123; count: <span class="number">0</span> &#125;);</span><br><span class="line"><span class="comment">// 进入页面先执行一遍</span></span><br><span class="line"><span class="keyword">const</span> callback = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, <span class="built_in">number</span>.count);</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, <span class="built_in">number</span>.count);</span><br><span class="line">&#125;;</span><br><span class="line">callback();</span><br><span class="line">watch(</span><br><span class="line">  () =&gt; <span class="built_in">number</span>.count,</span><br><span class="line">  (newValue, oldValue) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123; deep: <span class="literal">true</span> &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>既然想要第一次进入页面的时候就执行一遍回调函数，那么不妨把回调函数直接提取出来，进入页面执行一遍即可，这也算是巧妙的实现了的需求。</p>
+<p>但是这种方式似乎不太优雅，而且有些繁琐。所以 Vue 推出了更加优雅的方法：watchEffect 监听器。</p>
+<p><strong>方式二：</strong></p>
+<p>watchEffect 也是一个监听器，只不过它不会像 watch 那样接收一个明确的数据源，它只接收一个回调函数。而在这个回调函数当中，它会自动监听响应数据，当回调函数里面的响应数据发生变化，回调函数就会立即执行。</p>
+<p>所以可以将方式一中的代码使用 watchEffect 优雅的实现。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">number</span> = reactive(&#123; count: <span class="number">0</span> &#125;);</span><br><span class="line"><span class="keyword">const</span> countAdd = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">number</span>.count++;</span><br><span class="line">&#125;;</span><br><span class="line">watchEffect(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, <span class="built_in">number</span>.count);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上段代码中，当第一次进入页面时，number 响应数据从无到有，这个时候就会触发 watchEffect 的回调函数，因为在 watchEffect 回调函数中使用了 number 响应数据，所以它会自动跟踪 number 数据的变化。当点击按钮更改 count 的值时，watchEffect 中的回调函数便会再次执行。</p>
+<p>这样代码是不是简单很多呀！</p>
+<h2 id="3-watch-和-watchEffect-区别"><a href="#3-watch-和-watchEffect-区别" class="headerlink" title="3.watch 和 watchEffect 区别"></a>3.watch 和 watchEffect 区别</h2><p>已经大概知道了 watch 和 watchEffect 的用法，那么它们之间的区别相信也了解了一些，这里总结一下它们之间的区别。</p>
+<ul>
+<li>watch 和 watchEffect 都能监听响应式数据的变化，不同的是它们监听数据变化的方式不同。</li>
+<li>watch 会明确监听某一个响应数据，而 watchEffect 则是隐式的监听回调函数中响应数据。</li>
+<li>watch 在响应数据初始化时是不会执行回调函数的，watchEffect 在响应数据初始化时就会立即执行回调函数。</li>
+</ul>
+<h2 id="4-回调中的-DOM"><a href="#4-回调中的-DOM" class="headerlink" title="4.回调中的 DOM"></a>4.回调中的 DOM</h2><p>如果在监听器的回调函数中或取 DOM，这个时候的 DOM 是更新前的还是更新后的？</p>
+<p>不妨实验一下。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;img alt=<span class="string">"Vue logo"</span> src=<span class="string">"./assets/logo.png"</span> /&gt;</span><br><span class="line">  &lt;p ref=<span class="string">"msgRef"</span>&gt;&#123;&#123; message &#125;&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">  &lt;button @click="changeMsg"&gt;更改 message&lt;/</span>button&gt;</span><br><span class="line">&lt;<span class="regexp">/template&gt;</span></span><br><span class="line"><span class="regexp">&lt;script setup lang="ts"&gt;</span></span><br><span class="line"><span class="regexp">import &#123; computed, reactive, ref, watch, watchEffect &#125; from "vue";</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const message = ref("李四");</span></span><br><span class="line"><span class="regexp">const msgRef = ref&lt;any&gt;(null);</span></span><br><span class="line"><span class="regexp">const changeMsg = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  message.value = "张三";</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br><span class="line"><span class="regexp">watch(message, (newValue, oldValue) =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  console.log("DOM 节点", msgRef.value.innerHTML);</span></span><br><span class="line"><span class="regexp">  console.log("新的值:", newValue);</span></span><br><span class="line"><span class="regexp">  console.log("旧的值:", oldValue);</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过点击按钮更改 message 的值，从“李四”变为“张三”。但是发现在监听器的回调函数里面获取到的 DOM 元素还是“李四”，说明 DOM 还没有更新。</p>
+<p><strong>解决方法：</strong></p>
+<p>如果想要在回调函数里面获取更新后的 DOM，非常简单，只需要再给监听器多传递一个参数选项即可：flush: ‘post’。watch 和 watchEffect 同理。</p>
+<p><strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">watch(source, callback, &#123;</span><br><span class="line">  flush: <span class="string">'post'</span></span><br><span class="line">&#125;)</span><br><span class="line">watchEffect(callback, &#123;</span><br><span class="line">  flush: <span class="string">'post'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改后的代码：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">watch(</span><br><span class="line">  message,</span><br><span class="line">  (newValue, oldValue) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"DOM 节点"</span>, msgRef.value.innerHTML);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"新的值:"</span>, newValue);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"旧的值:"</span>, oldValue);</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    flush: <span class="string">"post"</span>,</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>这个时候在回调函数中获取到的已经是更新后的 DOM 节点了。</p>
+<p><strong>补充：</strong></p>
+<p>虽然 watch 和 watchEffect 都可以用上述方法解决 DOM 问题，但是 Vue3 单独给 watchEffect 提供了一个更方便的方法，也可以叫做 watchEffect 的别名，代码如下：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">watchPostEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">/* 在 Vue 更新后执行 */</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-手动停止监听器"><a href="#5-手动停止监听器" class="headerlink" title="5.手动停止监听器"></a>5.手动停止监听器</h2><p>通常来说，的一个组件被销毁或者卸载后，监听器也会跟着被停止，并不需要手动去关闭监听器。但是总是有一些特殊情况，即使组件卸载了，但是监听器依然存在，这个时候其实式需要手动关闭它的，否则容易造成内存泄漏。</p>
+<p>比如下面这中写法，就需要手动停止监听器：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; watchEffect &#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="comment">// 它会自动停止</span></span><br><span class="line">watchEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;)</span><br><span class="line"><span class="comment">// ...这个则不会！</span></span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  watchEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;)</span><br><span class="line">&#125;, <span class="number">100</span>)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上段代码中采用异步的方式创建了一个监听器，这个时候监听器没有与当前组件绑定，所以即使组件销毁了，监听器依然存在。</p>
+<p>关闭方法很简单，<strong>代码如下：</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> unwatch = watchEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;)</span><br><span class="line"><span class="comment">// ...当该侦听器不再需要时</span></span><br><span class="line">unwatch()</span><br></pre></td></tr></table></figure>
+
+<p>需要用一个变量接收监听器函数的返回值，其实就是返回的一个函数，然后调用该函数，即可关闭当前监听器。</p>
+
+        </div>
+
+        <!-- <blockquote class="post-copyright">
+    
+    <footer>
+        <a href="https://summxu.github.io">
+            <img src="/img/avatar.jpg" alt="summxu">
+            summxu
+        </a>
+    </footer>
+</blockquote>
+ -->
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue/">Vue</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-26 10:01:46
+ * @Description: 
+-->
+
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/&title=《Vue3中watch和watchEffect的用法和区别》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/&title=《Vue3中watch和watchEffect的用法和区别》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue3中watch和watchEffect的用法和区别》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/Vue3响应式属性Reactive和Ref/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Vue3响应式属性Reactive和Ref</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2022/深入了解useMemo和useCallback/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">深入了解useMemo和useCallback</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:30
+ * @LastEditTime: 2023-07-26 10:29:21
+ * @Description: 
+-->
+<footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by Hexo
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-07-20 15:44:31
+ * @LastEditTime: 2023-07-26 10:01:46
+ * @Description: 
+-->
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/&title=《Vue3中watch和watchEffect的用法和区别》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/&title=《Vue3中watch和watchEffect的用法和区别》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vue3中watch和watchEffect的用法和区别》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/Vue3中watch和watchEffect的用法和区别/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3a0WrDQAwEwPz/T6evgWJnJZ2oC+On0LTOjQt3ykqvV3y9f11XP/989/N3rl7f3/PqJ4cvPDw8vPHSc8b9R169my/3wHrw8PDw1nj3i7va7ufU5HOveNGn4OHh4T2GV0UmD6h6MODh4eH9F967deUldULCw8PDewIvCSPuF5cspUpKgt1jWQseHh5eJ3ctBAR/+3qlv4eHh4c37qpPNuskqqgeP+XV4uHh4S3w8g130uxPGlr3Ue9onXh4eHgLvLxtny+rB+4NEBTWg4eHhzfmTRr/1WGsUyV44djAw8PDW+D1DobJUFTv2JisEA8PD+8sr9pS6jX1q6T8WCp8P8DDw8M7xEsC0ISUP4jqGvImWRTg4uHh4S3wJkHDpDWV3ycvzfHw8PA2ePlX/bwszltlp8YCvsyU4eHh4R3lnY1cq8dJNeBoxsd4eHh4C7x8280PjHzgoBc9NP+HeHh4eId4efk7D3CrRXx1ZKGZT+Ph4eEVecnGnY9eJcV6cv/8IZapeHh4eAPefMB0Es5ONveokYaHh4e3wJuMBVTDi7z4vo8YygEuHh4e3lFeryk1P0ImgUXhmMHDw8Nb4+UhbC/t6B0h8/vj4eHhbfMmwUSvoVUdFKgOKODh4eFt8CbBRPXRVIvmpBxvdvnw8PDwxrxqUduLYpOl5PFxVFLj4eHhLfMm50leWPci416rDA8PD2+bF22yccnbO0JerevL+vHw8PCO8t7Fqxc9VIex5m02PDw8vD1er2fUu+k8ksgfMR4eHt42b34Y5EFDHr/2SvbL0Ss8PDy8Bd5kJGuy0GoIMspa8PDw8B7Ay5tneSSRN8Cish4PDw/vAbyz4wXJnXsjCHh4eHjbvOSPq4V1ssXnpfnoYMDDw8M7yjvwhb+1iPw4OdDBw8PDwzvD+wH2zuQpddOhawAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>
