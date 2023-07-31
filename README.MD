@@ -1,19 +1,19 @@
 <!--
  * @Author: Chenxu
  * @Date: 2023-07-26 08:59:01
- * @LastEditTime: 2023-07-26 09:14:27
+ * @LastEditTime: 2023-07-31 09:35:50
  * @Description: 
 -->
 vue
   vite
   vue2 响应式
-  Pinia
-  vue3 proxy
-  ref.value
+  Pinia 🆗
+  vue3 proxy 🆗
+  ref.value 🆗
   vuex
   router 组件name
-  useWatchEffect watch
-  composition
+  useWatchEffect watch 🆗
+  composition https://www.jianshu.com/p/2cac57888886
   useRequest
 
 js
@@ -30,13 +30,13 @@ ts
   ts配置
 
 react
-  fiber
-  响应式
+  fiber 🆗
+  响应式 🆗
   classComponent生命周期
-  hooks
+  hooks 
   hooks内置方法
   useEffect 次数
-  useMemo useCallback
+  useMemo useCallback 🆗
   taro框架，及生命周期
   redux redux saga
   redux 源码解析
