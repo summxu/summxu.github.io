@@ -16,7 +16,7 @@ menu:
     url: /archives
   star:
     text: 分类标签
-    url: /tags/CSS
+    url: /tags/JavaScript
   grav:
     text: 这是我
     url: /about
