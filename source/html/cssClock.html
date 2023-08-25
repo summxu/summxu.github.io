@@ -1,0 +1,193 @@
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-08-25 17:30:36
+ * @LastEditTime: 2023-08-25 17:30:50
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS钟表</title>
+  <style>
+    .clock {
+      --clock-width: clamp(5rem, 60vw, 20rem);
+      --face-width: 88cqi;
+      --radius: calc((var(--face-width) - var(--time-size)) / 2);
+      --time-size: 12cqi;
+
+      background: #222;
+      block-size: var(--clock-width);
+      border-radius: 1rem;
+      container-type: inline-size;
+      display: grid;
+      font-family: ui-sans-serif, system-ui, sans-serif;
+      inline-size: var(--clock-width);
+      margin-inline: auto;
+      place-content: center;
+    }
+
+    .clock-face {
+      aspect-ratio: 1;
+      background: #fff;
+      border-radius: 50%;
+      block-size: var(--face-width);
+      font-size: 6cqi;
+      font-weight: 700;
+      inline-size: var(--face-width);
+      position: relative;
+    }
+
+    .clock-face time {
+      --x: calc(var(--radius) + (var(--radius) * cos(var(--index) * 30deg)));
+      --y: calc(var(--radius) + (var(--radius) * sin(var(--index) * 30deg)));
+      display: grid;
+      height: var(--time-size);
+      left: var(--x);
+      place-content: center;
+      position: absolute;
+      top: var(--y);
+      width: var(--time-size);
+    }
+
+    .clock-face time:nth-child(1) {
+      --index: 9;
+    }
+
+    .clock-face time:nth-child(2) {
+      --index: 10;
+    }
+
+    .clock-face time:nth-child(3) {
+      --index: 11;
+    }
+
+    .clock-face time:nth-child(4) {
+      --index: 0;
+    }
+
+    .clock-face time:nth-child(5) {
+      --index: 1;
+    }
+
+    .clock-face time:nth-child(6) {
+      --index: 2;
+    }
+
+    .clock-face time:nth-child(7) {
+      --index: 3;
+    }
+
+    .clock-face time:nth-child(8) {
+      --index: 4;
+    }
+
+    .clock-face time:nth-child(9) {
+      --index: 5;
+    }
+
+    .clock-face time:nth-child(10) {
+      --index: 6;
+    }
+
+    .clock-face time:nth-child(11) {
+      --index: 7;
+    }
+
+    .clock-face time:nth-child(12) {
+      --index: 8;
+    }
+
+    .arm {
+      background-color: var(--_abg);
+      border-radius: calc(var(--_aw) * 2);
+      display: block;
+      height: var(--_ah);
+      left: calc((var(--face-width) - var(--_aw)) / 2);
+      position: absolute;
+      top: calc((var(--face-width) / 2) - var(--_ah));
+      transform: rotate(0deg);
+      transform-origin: bottom;
+      width: var(--_aw);
+    }
+
+    .seconds {
+      --_abg: rgb(255, 140, 5);
+      --_ah: 40cqi;
+      --_aw: 1cqi;
+      animation: turn 60s linear infinite;
+      animation-delay: var(--indexs, 0ms);
+    }
+
+    .minutes {
+      --_abg: #333;
+      --_ah: 35cqi;
+      --_aw: 2cqi;
+      animation: turn 3600s steps(60, end) infinite;
+      animation-delay: var(--minute, 0ms);
+    }
+
+    .hours {
+      --_abg: #333;
+      --_ah: 25cqi;
+      --_aw: 2.5cqi;
+      animation: turn 43200s linear infinite;
+      /* 60 * 60 * 12 */
+      animation-delay: var(--hour, 0ms);
+      position: relative;
+    }
+
+    .hours::before {
+      background-color: #fff;
+      border: 1cqi solid #333;
+      border-radius: 50%;
+      content: "";
+      display: block;
+      height: 4cqi;
+      position: absolute;
+      bottom: -3cqi;
+      left: -1.75cqi;
+      width: 4cqi;
+    }
+
+    @keyframes turn {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="clock">
+    <div class="clock-face" id="app">
+      <time datetime="12:00">12</time>
+      <time datetime="1:00">1</time>
+      <time datetime="2:00">2</time>
+      <time datetime="3:00">3</time>
+      <time datetime="4:00">4</time>
+      <time datetime="5:00">5</time>
+      <time datetime="6:00">6</time>
+      <time datetime="7:00">7</time>
+      <time datetime="8:00">8</time>
+      <time datetime="9:00">9</time>
+      <time datetime="10:00">10</time>
+      <time datetime="11:00">11</time>
+      <span class="arm seconds"></span>
+      <span class="arm minutes"></span>
+      <span class="arm hours"></span>
+    </div>
+  </div>
+
+  <script>
+    const time = new Date();
+    const hour = -3600 * (time.getHours() % 12);
+    const mins = -60 * time.getMinutes();
+    app.style.setProperty('--minute', `${mins}s`);
+    app.style.setProperty('--hour', `${(hour + mins)}s`);
+  </script>
+</body>
+
+</html>

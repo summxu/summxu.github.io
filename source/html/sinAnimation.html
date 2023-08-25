@@ -1,0 +1,64 @@
+<!--
+ * @Author: Chenxu
+ * @Date: 2023-08-25 15:16:11
+ * @LastEditTime: 2023-08-25 16:30:49
+ * @Description: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>余弦动画</title>
+  <style>
+    body,
+    html {
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @property --angle {
+      syntax: '<angle>';
+      inherits: false;
+      initial-value: 0deg;
+    }
+
+    @property --dis {
+      syntax: '<length>';
+      inherits: false;
+      initial-value: 0px;
+    }
+
+
+    .g-single {
+      background: #000;
+      margin: auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      animation: move 5s infinite ease-in-out;
+      transform: translate(calc(var(--dis) - 40vw),
+          calc(5 * sin(var(--angle)) * 1em));
+    }
+
+    @keyframes move {
+      0% {
+        --dis: 0px;
+        --angle: 0deg;
+      }
+
+      100% {
+        --dis: 80vw;
+        --angle: 1080deg;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="g-single"></div>
+</body>
+
+</html>
