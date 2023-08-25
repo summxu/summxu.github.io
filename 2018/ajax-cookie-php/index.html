@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="最近一个星期内，我一直在修改我的博客，直到今天，才算是基本完型。中间修改了很多地方，也学到了很多东西，在这篇博客里就一起回顾下这次博客修改遇到的各种问题吧！   因为中间隔得天数实在是太多，我也没有时间当时就去整理一番，现在再总结的话，中间肯定会有很多遗漏的地方， 所以说以后每天遇到的新的技术问题一定要及时记录下来。  Jekyll在一开始我先根据Jekyll的内部功能来添加日记，其中主要运用了">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-08-01T01:17:47.169Z">
+<meta property="og:updated_time" content="2023-08-25T10:01:39.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="博客大改之Ajax、Cookie、PHP">
 <meta name="twitter:description" content="最近一个星期内，我一直在修改我的博客，直到今天，才算是基本完型。中间修改了很多地方，也学到了很多东西，在这篇博客里就一起回顾下这次博客修改遇到的各种问题吧！   因为中间隔得天数实在是太多，我也没有时间当时就去整理一番，现在再总结的话，中间肯定会有很多遗漏的地方， 所以说以后每天遇到的新的技术问题一定要及时记录下来。  Jekyll在一开始我先根据Jekyll的内部功能来添加日记，其中主要运用了">
@@ -231,16 +231,6 @@
 2.就是跨域请求的header头。</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php  </span><br><span class="line">    // /*验密码码是否正确*/ </span><br><span class="line">    error_reporting(E_ERROR);</span><br><span class="line">    header(&apos;Access-Control-Allow-Origin:*&apos;);</span><br><span class="line">    $code = trim($_GET[&apos;pass&apos;]);//接收前端传来的数据</span><br><span class="line"></span><br><span class="line">    $raw_success = array(&apos;status&apos; =&gt; 1 , &apos;word&apos; =&gt; $code);  </span><br><span class="line">    $res_success = json_encode($raw_success);  </span><br><span class="line">    </span><br><span class="line">    $raw_fail = array(&apos;status&apos; =&gt; 0);</span><br><span class="line">    $res_fail = json_encode($raw_fail);  </span><br><span class="line">    </span><br><span class="line">    if ($code == &quot;想什么呢&quot;) &#123;  </span><br><span class="line">        echo $res_success;  </span><br><span class="line">    &#125; else &#123;  </span><br><span class="line">        echo $res_fail;  </span><br><span class="line">    &#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
         </div>
 
-        <!-- <blockquote class="post-copyright">
-    
-    <footer>
-        <a href="https://summxu.github.io">
-            <img src="/img/avatar.jpg" alt="summxu">
-            summxu
-        </a>
-    </footer>
-</blockquote>
- -->
         
 
 
@@ -251,13 +241,7 @@
 
             
 <div class="page-share-wrap">
-    <!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-26 10:01:46
- * @Description: 
--->
-
+    
 
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
@@ -356,13 +340,7 @@
 
 </div>
 
-        <!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:30
- * @LastEditTime: 2023-07-26 10:29:21
- * @Description: 
--->
-<footer class="footer">
+        <footer class="footer">
   <div class="top" style="display: none;">
     
 <p>
@@ -398,12 +376,6 @@
     <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-<!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-26 10:01:46
- * @Description: 
--->
 
 
 <div class="global-share" id="globalShare">

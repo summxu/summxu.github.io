@@ -25,11 +25,11 @@
 <meta name="keywords" content="JavaScript,HTML5,TypeScript,React,Angular,Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入了解useMemo和useCallback">
-<meta property="og:url" content="https://summxu.github.io/2022/深入了解useMemo和useCallback/index.html">
+<meta property="og:url" content="https://summxu.github.io/2021/深入了解useMemo和useCallback/index.html">
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="从 useMemo 开始。useMemo 的基本思想是它允许在渲染之间“记住”计算值。这个定义需要一些解释，先来解决这个问题。 React 做的主要事情是保持UI与应用程序状态同步。它用来做这件事的工具叫做“re-render”。基于当前应用程序状态，每次重新呈现都是应用程序UI在给定时刻应该是什么样子的快照。可以把它想象成一堆照片，每一张照片都记录了给定每个状态变量的特定值时事物的样子。 每次“">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-08-01T01:17:47.173Z">
+<meta property="og:updated_time" content="2023-08-25T10:01:39.586Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入了解useMemo和useCallback">
 <meta name="twitter:description" content="从 useMemo 开始。useMemo 的基本思想是它允许在渲染之间“记住”计算值。这个定义需要一些解释，先来解决这个问题。 React 做的主要事情是保持UI与应用程序状态同步。它用来做这件事的工具叫做“re-render”。基于当前应用程序状态，每次重新呈现都是应用程序UI在给定时刻应该是什么样子的快照。可以把它想象成一堆照片，每一张照片都记录了给定每个状态变量的特定值时事物的样子。 每次“">
@@ -152,8 +152,8 @@
         <h1 class="title">深入了解useMemo和useCallback</h1>
         <h5 class="subtitle">
             
-                <time datetime="2022-10-31T01:06:38.000Z" itemprop="datePublished" class="page-time">
-  2022-10-31
+                <time datetime="2021-10-31T01:06:38.000Z" itemprop="datePublished" class="page-time">
+  2021-10-31
 </time>
 
 
@@ -177,13 +177,13 @@
     </aside>
 
 
-<article id="post-2022/深入了解useMemo和useCallback"
+<article id="post-2021/深入了解useMemo和useCallback"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
         <h1 class="post-card-title">深入了解useMemo和useCallback</h1>
         <div class="post-meta">
-            <time class="post-time" title="2022-10-31 09:06:38" datetime="2022-10-31T01:06:38.000Z"  itemprop="datePublished">2022-10-31</time>
+            <time class="post-time" title="2021-10-31 09:06:38" datetime="2021-10-31T01:06:38.000Z"  itemprop="datePublished">2021-10-31</time>
 
             
 
@@ -347,16 +347,6 @@
 
         </div>
 
-        <!-- <blockquote class="post-copyright">
-    
-    <footer>
-        <a href="https://summxu.github.io">
-            <img src="/img/avatar.jpg" alt="summxu">
-            summxu
-        </a>
-    </footer>
-</blockquote>
- -->
         
 
 
@@ -365,18 +355,12 @@
 
             
 <div class="page-share-wrap">
-    <!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-26 10:01:46
- * @Description: 
--->
-
+    
 
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2022/深入了解useMemo和useCallback/&title=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2021/深入了解useMemo和useCallback/&title=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -386,22 +370,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2022/深入了解useMemo和useCallback/&title=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2021/深入了解useMemo和useCallback/&title=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2022/深入了解useMemo和useCallback/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2021/深入了解useMemo和useCallback/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&url=https://summxu.github.io/2022/深入了解useMemo和useCallback/&via=https://summxu.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&url=https://summxu.github.io/2021/深入了解useMemo和useCallback/&via=https://summxu.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2022/深入了解useMemo和useCallback/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2021/深入了解useMemo和useCallback/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -424,18 +408,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2023/Vue3中watch和watchEffect的用法和区别/" id="post-prev" class="post-nav-link">
+      <a href="/2022/Redux源码全面解析/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Vue3中watch和watchEffect的用法和区别</h4>
+        <h4 class="title">Redux源码全面解析</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2022/Redux源码全面解析/" id="post-next" class="post-nav-link">
+      <a href="/2021/Vue的响应式原理/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Redux源码全面解析</h4>
+        <h4 class="title">Vue的响应式原理</h4>
       </a>
     </div>
   
@@ -470,13 +454,7 @@
 
 </div>
 
-        <!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:30
- * @LastEditTime: 2023-07-26 10:29:21
- * @Description: 
--->
-<footer class="footer">
+        <footer class="footer">
   <div class="top" style="display: none;">
     
 <p>
@@ -512,18 +490,12 @@
     <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-<!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-26 10:01:46
- * @Description: 
--->
 
 
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2022/深入了解useMemo和useCallback/&title=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2021/深入了解useMemo和useCallback/&title=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -533,22 +505,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2022/深入了解useMemo和useCallback/&title=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2021/深入了解useMemo和useCallback/&title=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2022/深入了解useMemo和useCallback/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2021/深入了解useMemo和useCallback/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&url=https://summxu.github.io/2022/深入了解useMemo和useCallback/&via=https://summxu.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《深入了解useMemo和useCallback》 — 小兵旭旭的博客&url=https://summxu.github.io/2021/深入了解useMemo和useCallback/&via=https://summxu.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2022/深入了解useMemo和useCallback/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2021/深入了解useMemo和useCallback/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -559,7 +531,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtklEQVR42u3ay47bMBAEQP//TztATjlktd3DoTcBSifDD4lFAyLVM69XfLx/H3++fn7n+QztO8n5jw48PDy80dC/OpIL50P86juz8Tx/Bw8PD+82L1kMktt9vrS0VxmOBw8PD+9HefmwWkC7BcfDw8P7X3jt1vkkhjhZQvDw8PA+w5s9/LefnsQW17MWPDw8vJh3I0q4/fp6fQ8PDw9vVGpqj3ZA+cZ6Nlo8PDy8G7znLe8sZp01IuSFrrYRAQ8PD+/zvFkEsBsi5AHHX8B4eHh4q7zk5p4/77elqXbQbfSMh4eHd4OX32TzxeCkADZbVF7tP4CHh4d3zEuWhDyoTX6bT2hynigIxsPDw1vltbHpDNOWxJLlIfp78PDw8FZ5szig/c4s0m15C+kvHh4eXtcJULQItFFC3hDQbsHbseHh4eFt8fJAoY0D8g36LHqI/is8PDy8VV7bHrrVFnBSQlsII/Dw8PBOf1tHDLOJ2CqbtQU5PDw8vM/wtgr8s8Vja9OPh4eHd4M3CwuSYlV76599M3piwMPDw1vlteWo3UJ+OzWzchoeHh7eLi8fVr4MzLbms6eBb6YGDw8P7wLvPJJIlpMkzsgbVfMx4OHh4d3jtTFBuwlOBnfS5Bo1DeDh4eFd450U7JMhnrcC5I1ZeHh4ePd4eVtAe6J3cGxN5VF+jIeHh1fyTi45Cw7aBeOoyQAPDw/vI7y6+2BUlEq23a/zAw8PD2+V9y6PdiPelsHagtk3E4qHh4d3gdfeY9v7bX6vblsQhgEuHh4e3hJvtqVOBpSQ2qChDU3w8PDw7vHyQbe1tRw/iyGKpis8PDy8H+LNSlwnS8Ls/Hh4eHj/Ai+PUJPtb/tpAsPDw8P7JC+/8Cxgbafp+XZfbLvx8PDwLvDaAlgb7LYhxckUL9T38PDw8J4+/QXlHBbb88ZlZgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACqUlEQVR42u3awWodMQwF0Pz/T7fQVSHNm3sl+yWFM6sQnBkfBywh6eMjfn79ef7++fNv8je0v/n8xcMPHh4e3mjrXz3Jmtefzw8i5xV7wMPDw7vGa7eVX9MJ/nWwyUMRHh4e3k/jzVYmISfZCR4eHt7/zsvDRo5/vR4PDw/vp/Fm1/esPDFLpq/XWvDw8PAmXywaYN/78/X+Hh4eHt6oq942vdowkJceZrvFw8PDu8HLU9hZS2yP3xQy8PDw8N7Dyweh8jGpU8MB+dHj4eHh3eO15dpNYywH5P+Ah3fi4eHhXeYlr2hbXzfS6Hy0Cw8PD+/9vFOYvNiRkPI1eHh4ePd4bf89KRbMhk03qfZD6wsPDw/vKG+WyOapdj5AsPluEffw8PDw1rx8OLVtnu2HBhJ8PTSAh4eHt+DNNrFZkzfG8pGF6Lt4eHh4h3j5INTmms7Lwe1RfuR1FDw8PLxDvGKAqUyv82s9X//6yB52iIeHh3eIdyowtMl0XurNMQ9DV3h4eHiHeKdCQj5A0N7Ym/IEHh4e3g1ekmvvqW1dOcc8hCU8PDy8a7y8NNA+D8lu+bShAg8PD+8eb3+5t0lzHoqS90QpNR4eHt4h3uwVbSCZNc/yA6oTazw8PLwFLy+e5ulsm2q3pdu8fIyHh4d3g9eWa/PLfZYcJwEpPzI8PDy8G7x9EWE2ONUGmNkR4OHh4d3gbTYUzXMlo1HlYEEelvDw8PBu8GajAO2lfKqg0BZH8PDw8G7wbgw8tVs8G0iGSDw8PLySl5dHN6TNwa0CAx4eHt413tlBqFMljytDA3h4eHhv580S5WTlbDzrgYqHh4f3rby25NoGj30o+rIYgYeHh3eB117Z+6GodlQr/9t/BAY8PDy8o7xTDbB2XKBlbFJtPDw8vEO832DgkpcmE34fAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 

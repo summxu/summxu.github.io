@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>现代CSS解决方案：原生支持的三角函数</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CSS">
+    <meta name="description" content="CSS 三角函数语法介绍首先看看 CSS 三角函数的使用方式： 12345678910111213.box &amp;#123;  /* 设置元素的宽度为 sin(30deg) 的值 */  width: calc(sin(30deg) * 100px);  /* 反正弦 根据弧度值返回对应的角度值 */  transform: rotate(asin(-0.2));  /* 设置元素的高度为 cos(4">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="现代CSS解决方案：原生支持的三角函数">
+<meta property="og:url" content="https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="CSS 三角函数语法介绍首先看看 CSS 三角函数的使用方式： 12345678910111213.box &amp;#123;  /* 设置元素的宽度为 sin(30deg) 的值 */  width: calc(sin(30deg) * 100px);  /* 反正弦 根据弧度值返回对应的角度值 */  transform: rotate(asin(-0.2));  /* 设置元素的高度为 cos(4">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-08-25T10:01:39.586Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="现代CSS解决方案：原生支持的三角函数">
+<meta name="twitter:description" content="CSS 三角函数语法介绍首先看看 CSS 三角函数的使用方式： 12345678910111213.box &amp;#123;  /* 设置元素的宽度为 sin(30deg) 的值 */  width: calc(sin(30deg) * 100px);  /* 反正弦 根据弧度值返回对应的角度值 */  transform: rotate(asin(-0.2));  /* 设置元素的高度为 cos(4">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-align-right"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/JavaScript"  >
+                <i class="icon icon-lg icon-star"></i>
+                分类标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-grav"></i>
+                这是我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss-square"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">现代CSS解决方案：原生支持的三角函数</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">现代CSS解决方案：原生支持的三角函数</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-08-25T06:11:48.000Z" itemprop="datePublished" class="page-time">
+  2023-08-25
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CSS-三角函数语法介绍"><span class="post-toc-number">1.</span> <span class="post-toc-text">CSS 三角函数语法介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三角函数的运动轨迹"><span class="post-toc-number">2.</span> <span class="post-toc-text">三角函数的运动轨迹</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CSS-钟表"><span class="post-toc-number">3.</span> <span class="post-toc-text">CSS 钟表</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#CSS-数学函数"><span class="post-toc-number">4.</span> <span class="post-toc-text">CSS 数学函数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">5.</span> <span class="post-toc-text">总结</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023/现代CSS解决方案：原生支持的三角函数"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">现代CSS解决方案：原生支持的三角函数</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-08-25 14:11:48" datetime="2023-08-25T06:11:48.000Z"  itemprop="datePublished">2023-08-25</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="CSS-三角函数语法介绍"><a href="#CSS-三角函数语法介绍" class="headerlink" title="CSS 三角函数语法介绍"></a>CSS 三角函数语法介绍</h2><p>首先看看 CSS 三角函数的使用方式：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">  <span class="comment">/* 设置元素的宽度为 sin(30deg) 的值 */</span></span><br><span class="line">  <span class="attribute">width</span>: <span class="built_in">calc</span>(sin(30deg) * <span class="number">100px</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 反正弦 根据弧度值返回对应的角度值 */</span></span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">rotate</span>(asin(-0.2));</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 设置元素的高度为 cos(45deg) 的值 */</span></span><br><span class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(cos(45deg) * <span class="number">100%</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">/* 设置元素的透明度为 tan(60deg) 的值 */</span></span><br><span class="line">  <span class="attribute">opacity</span>: <span class="built_in">calc</span>(tan(60deg));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码中，使用了 calc() 函数进行了计算，然后通过 sin()、cos() 和 tan() 函数对计算结果进行了进一步的处理，从而实现了不同的效果。</p>
+<p>三角函数在 CSS3 中仅对弧度（radian）单位进行支持。如果想要在开发中使用三角函数，可以借助转换函数 deg() 和 rad() 将角度（degree）和弧度进行转换。</p>
+<p>CSS3 的这些函数使得开发者可以更加方便处理一些复杂的数学问题，增强了 CSS 的表现力。</p>
+<h2 id="三角函数的运动轨迹"><a href="#三角函数的运动轨迹" class="headerlink" title="三角函数的运动轨迹"></a>三角函数的运动轨迹</h2><p>三角函数的运用，可以体现在动画当中。以正弦、余弦函数为例，代码如下：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">property</span> --angle &#123;</span><br><span class="line">  syntax: '&lt;angle&gt;';</span><br><span class="line">  <span class="selector-tag">inherits</span>: <span class="selector-tag">false</span>;</span><br><span class="line">  <span class="selector-tag">initial-value</span>: 0<span class="selector-tag">deg</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">property</span> --dis &#123;</span><br><span class="line">  syntax: '&lt;length&gt;';</span><br><span class="line">  <span class="selector-tag">inherits</span>: <span class="selector-tag">false</span>;</span><br><span class="line">  <span class="selector-tag">initial-value</span>: 0<span class="selector-tag">px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.g-single</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#000</span>;</span><br><span class="line">  <span class="attribute">margin</span>: auto;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">20px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">animation</span>: move <span class="number">5s</span> infinite ease-in-out;</span><br><span class="line">  <span class="attribute">transform</span>: <span class="built_in">translate</span>(calc(var(--dis) - <span class="number">40vw</span>),</span><br><span class="line">      <span class="built_in">calc</span>(5 * sin(var(--angle)) * <span class="number">1em</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">keyframes</span> move &#123;</span><br><span class="line">  0% &#123;</span><br><span class="line">    <span class="attribute">--dis</span>: <span class="number">0px</span>;</span><br><span class="line">    <span class="attribute">--angle</span>: <span class="number">0deg</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  100% &#123;</span><br><span class="line">    <span class="attribute">--dis</span>: <span class="number">80vw</span>;</span><br><span class="line">    <span class="attribute">--angle</span>: <span class="number">1080deg</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述的核心在于这一段代码 <code>-- transform: translate(calc(var(--dis) - 40vw), calc(5 * sin(var(--angle)) * 1em))</code><br>内部使用了两个 CSS @property 变量：</p>
+<ol>
+<li>x 轴方向是 <code>0px</code> 到 <code>80vw</code> 的水平位移动画</li>
+<li>y 轴方向是 <code>5 * sin(0deg) * 1em</code> 到 <code>5 * sin(1080deg) * 1em</code> 的竖直动画</li>
+</ol>
+<p>通过动画，动态的修改这两个变量的值，就可以得到一个三角函数曲线动画图形：</p>
+<iframe src="../../html/sinAnimation.html" scrolling="no" width="100%" height="200px" frameborder="0"></iframe>
+
+<h2 id="CSS-钟表"><a href="#CSS-钟表" class="headerlink" title="CSS 钟表"></a>CSS 钟表</h2><p>钟表上1-12折12个数字按照圆形等间距排布，也是CSS三角函数的典型应用。</p>
+<p>排版定位的相关代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span> &#123;</span><br><span class="line">  <span class="attribute">--x</span>: <span class="built_in">calc</span>(var(--radius) + (<span class="built_in">var</span>(--radius) * <span class="built_in">cos</span>(var(--index) * <span class="number">30deg</span>)));</span><br><span class="line">  <span class="attribute">--y</span>: <span class="built_in">calc</span>(var(--radius) + (<span class="built_in">var</span>(--radius) * <span class="built_in">sin</span>(var(--index) * <span class="number">30deg</span>)));</span><br><span class="line">  <span class="attribute">display</span>: grid;</span><br><span class="line">  <span class="attribute">place-content</span>: center;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">2em</span>; <span class="attribute">width</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">left</span>: <span class="built_in">var</span>(--x);</span><br><span class="line">  <span class="attribute">top</span>: <span class="built_in">var</span>(--y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(1)</span> &#123; <span class="attribute">--index</span>: <span class="number">9</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(2)</span> &#123; <span class="attribute">--index</span>: <span class="number">10</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(3)</span> &#123; <span class="attribute">--index</span>: <span class="number">11</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(4)</span> &#123; <span class="attribute">--index</span>: <span class="number">0</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(5)</span> &#123; <span class="attribute">--index</span>: <span class="number">1</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(6)</span> &#123; <span class="attribute">--index</span>: <span class="number">2</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(7)</span> &#123; <span class="attribute">--index</span>: <span class="number">3</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(8)</span> &#123; <span class="attribute">--index</span>: <span class="number">4</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(9)</span> &#123; <span class="attribute">--index</span>: <span class="number">5</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(10)</span> &#123; <span class="attribute">--index</span>: <span class="number">6</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(11)</span> &#123; <span class="attribute">--index</span>: <span class="number">7</span>; &#125;</span><br><span class="line"><span class="selector-class">.clock-face</span> <span class="selector-tag">time</span><span class="selector-pseudo">:nth-child(12)</span> &#123; <span class="attribute">--index</span>: <span class="number">8</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现的效果（完整的代码可以查看一下iframe的源代码信息）：</p>
+<iframe src="../../html/cssClock.html" width="100%" height="340px" scrolling="no" frameborder="0"></iframe>
+
+<h2 id="CSS-数学函数"><a href="#CSS-数学函数" class="headerlink" title="CSS 数学函数"></a>CSS 数学函数</h2><ul>
+<li>sqrt() 求平方根</li>
+<li>pow() 幂指数</li>
+<li>exp() 自然常数e为底的指数函数</li>
+<li>log() 对数函数</li>
+<li>abs() 绝对值</li>
+<li>round() 四舍五入</li>
+<li>sign() 正负零判断</li>
+<li>….</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>CSS 原生支持的三角函数，给 CSS 打开了更多的可能性，这也导致 CSS 的复杂度也是愈来愈高，CSS 已经不再是非常纯粹的负责样式了，很多时候，很多计算也可以直接在 CSS 当中完成。至于好坏，或许已经成了一个哲学问题。</p>
+<p>记录两个css项目，最后一个相当炸裂：</p>
+<p><a href="https://css-doodle.com/" target="_blank" rel="noopener">css-doodle</a></p>
+<p><a href="https://keithclark.co.uk/labs/css-fps/" target="_blank" rel="noopener">css-fps-demo</a></p>
+
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/&title=《现代CSS解决方案：原生支持的三角函数》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/&title=《现代CSS解决方案：原生支持的三角函数》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《现代CSS解决方案：原生支持的三角函数》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/Pinia使用和源码解析/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Pinia使用和源码解析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by Hexo
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/&title=《现代CSS解决方案：原生支持的三角函数》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/&title=《现代CSS解决方案：原生支持的三角函数》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《现代CSS解决方案：原生支持的三角函数》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/现代CSS解决方案：原生支持的三角函数/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACxklEQVR42u3aS3LCQAwFQN//0mSbFNg8STOGVLVXFPgzPQtLSDqO+Hj8Oq6/Obv2+aqza5/v83z+4gMPDw9vsPTrx5895hEfZ+zkm+v1nG4BHh4e3jZe8kJPAkbyfTX8VNeDh4eH9528eXL85oUes/Hw8PD+Ly9Jx/PnVjcODw8P735essRkEXlZoVq22F5rwcPDw+vkrm+6SN/zeUt/Dw8PD2/cVa+mtnlBIb9zNZz8uQoPDw9vAy9/4ebDBNepbS9Zz9NlPDw8vDt5+Ys4GRHoFV7zEkbhPnh4eHgbeKuGpXphJt/QJCwd5biBh4eHN+X1mlv5az0vOiQJd7PUi4eHhzfg5X/4J+MF+QBBHqhGDTA8PDy8Rby1SW1eOEi2o7qGF/09PDw8vA28arlhcn51O/KteTMZgYeHh7eN12tc9dLratKcjxrg4eHh3cnbUditNtV6BZGjt394eHh4RV61sJuUMKohpNoSi87Hw8PD28Dr/e3Pf+0VF/LCR7MxhoeHhzfmVRtgkzZVNVGujhS8OB8PDw9vG68XBvLhg3IpoVVEfnFPPDw8vG286h/7JHjkoaV6beHOeHh4eBt41UVXF7qqtNHbbjw8PLz7efPWVF7qnZczmtMHeHh4eANerz2WjCD0RhOSEsZiGB4eHl6RN2lE5cNYUeOqNV7QTKnx8PDwxh2iyYhV8pquBoZRAo2Hh4e3jZePMVUfnyfEvW16g8fDw8PbzMvfsdV0vJnjzwMbHh4e3lLeo3hMHpkXIHph48WveHh4eBt41eX2hrEm41nVz82OHx4eHl6RN2nP98azJuwkzODh4eHdw1ub2lbvPIldUa0FDw8P76O8PCTkY1vVa5uTEXh4eHgf4vWCRDVpruJPn4WHh4e3jZc3+/ORgl6Q6BU+oskIPDw8vEW8BX/4L4NBtSCbJ9zHqgMPDw8v5f0ARxXkKdi1r0UAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>

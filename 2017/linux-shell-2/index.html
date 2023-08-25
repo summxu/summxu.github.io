@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="今天学习下Shell,发现非常简单，语法也很是随意，在此记录下学习过程。  echoecho 命令也很简单，在这里记下几个不常用到的。 显示命令执行结果1echo `date`  显示不换行123#!/bin/shecho -e &amp;quot;OK! \c&amp;quot; # -e 开启转义 \c 不换行echo &amp;quot;It is a test&amp;quot;  显示换行12echo -e &amp;quo">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-08-01T01:17:47.169Z">
+<meta property="og:updated_time" content="2023-08-25T10:01:39.582Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下Shell学习 --基础2">
 <meta name="twitter:description" content="今天学习下Shell,发现非常简单，语法也很是随意，在此记录下学习过程。  echoecho 命令也很简单，在这里记下几个不常用到的。 显示命令执行结果1echo `date`  显示不换行123#!/bin/shecho -e &amp;quot;OK! \c&amp;quot; # -e 开启转义 \c 不换行echo &amp;quot;It is a test&amp;quot;  显示换行12echo -e &amp;quo">
@@ -313,16 +313,6 @@
 <h1 id="求素数DEMO"><a href="#求素数DEMO" class="headerlink" title="求素数DEMO"></a>求素数DEMO</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">#求100以内的所有素数</span><br><span class="line"></span><br><span class="line">for((i=2;i&lt;100;i++))</span><br><span class="line">do</span><br><span class="line">    k=1</span><br><span class="line">    for((j=2;j&lt;i;j++))</span><br><span class="line">    do</span><br><span class="line">        if((`expr $i % $j` == 0))</span><br><span class="line">        then</span><br><span class="line">        k=0</span><br><span class="line">        break</span><br><span class="line">        fi</span><br><span class="line">    done</span><br><span class="line">    if [ $k == 1 ]</span><br><span class="line">    then</span><br><span class="line">    echo $i</span><br><span class="line">    fi</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
         </div>
 
-        <!-- <blockquote class="post-copyright">
-    
-    <footer>
-        <a href="https://summxu.github.io">
-            <img src="/img/avatar.jpg" alt="summxu">
-            summxu
-        </a>
-    </footer>
-</blockquote>
- -->
         
 
 
@@ -333,13 +323,7 @@
 
             
 <div class="page-share-wrap">
-    <!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-26 10:01:46
- * @Description: 
--->
-
+    
 
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
@@ -438,13 +422,7 @@
 
 </div>
 
-        <!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:30
- * @LastEditTime: 2023-07-26 10:29:21
- * @Description: 
--->
-<footer class="footer">
+        <footer class="footer">
   <div class="top" style="display: none;">
     
 <p>
@@ -480,12 +458,6 @@
     <div class="mask" id="mask"></div>
 <a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
 
-<!--
- * @Author: Chenxu
- * @Date: 2023-07-20 15:44:31
- * @LastEditTime: 2023-07-26 10:01:46
- * @Description: 
--->
 
 
 <div class="global-share" id="globalShare">
