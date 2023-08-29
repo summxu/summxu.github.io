@@ -16,9 +16,11 @@ reward: false       # 禁用打赏，可选，默认开启
   轻度强迫症，常年代码洁癖，会影响开发进度，不过还是想再慢一些。
 
   兴趣众多，然无一精通。正努力成为一个有趣的人。
+  
+  <img src="../images/lifePhoto.jpg" style="margin-bottom: 20px" />
+
 
   ```JavaScript
   console.log("👆以上是不完整的我")
   ```
-
 }

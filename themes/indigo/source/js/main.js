@@ -65,17 +65,24 @@
         if (w.innerWidth < 1241) {
           mask.classList.add('in');
           menu.classList.add('show');
-
-         
+          if (isWX) {
+            var top = rootScollTop();
+            main.classList.add('lock');
+            main.scrollTop = top;
+          } else {
             root.classList.add('lock');
+          }
         }
-
       } else {
         menu.classList.remove('show');
         mask.classList.remove('in');
-        
+        if (isWX) {
+          var top = main.scrollTop;
+          main.classList.remove('lock');
+          w.scrollTo(0, top);
+        } else {
           root.classList.remove('lock');
-
+        }
       }
     },
     fixedHeader: function (top) {
@@ -222,7 +229,7 @@
     search: function () {
       var searchWrap = $('#search-wrap');
 
-      function toggleSearch () {
+      function toggleSearch() {
         searchWrap.classList.toggle('in');
       }
 
@@ -285,7 +292,7 @@
     })(),
     lightbox: (function () {
 
-      function LightBox (element) {
+      function LightBox(element) {
         this.$img = element.querySelector('img');
         this.$overlay = element.querySelector('overlay');
         this.margin = 40;
@@ -333,31 +340,6 @@
         this.setTo = function () {
           this.setImgRect(this.calcRect());
         }
-
-        // this.updateSize = function () {
-        //     var sw = sh = 1;
-        //     if (docW !== body.clientWidth) {
-        //         sw = body.clientWidth / docW;
-        //     }
-
-        //     if (docH !== body.clientHeight) {
-        //         sh = body.clientHeight / docH;
-        //     }
-
-        //     docW = body.clientWidth;
-        //     docH = body.clientHeight;
-        //     var rect = this.$img.getBoundingClientRect();
-        //     var w = rect.width * sw;
-        //     var h = rect.height * sh;
-
-        //     this.$img.classList.remove('zoom-in');
-        //     this.setImgRect({
-        //         w: w,
-        //         h: h,
-        //         t: this.$img.offsetTop - (h - rect.height) / 2,
-        //         l: this.$img.offsetLeft - (w - rect.width) / 2
-        //     })
-        // }
 
         this.addTitle = function () {
           if (!this.title) {
@@ -467,12 +449,20 @@
   w.addEventListener('pageshow', function () {
     // fix OSX safari #162
     !Blog.page.visible && Blog.page.loaded();
+    // 修复微信头部一直存在
+    if (isWX) {
+      const header = $('#header')
+      const contentHeader = $('.content-header')
+      contentHeader.style.cssText = 'margin-top: -56px'
+      header.style.cssText = 'position: relative'
+    }
   });
 
   w.addEventListener('resize', function () {
     w.BLOG.even = even = 'ontouchstart' in w ? 'touchstart' : 'click';
-    Blog.toggleMenu();
     Blog.waterfall();
+    if (isWX) return
+    Blog.toggleMenu();
   });
 
   gotop.addEventListener(even, function () {
@@ -499,9 +489,10 @@
   d.addEventListener('scroll', function () {
     var top = rootScollTop();
     Blog.toggleGotop(top);
-    Blog.fixedHeader(top);
-    Blog.toc.fixed(top);
     Blog.toc.actived(top);
+    Blog.toc.fixed(top);
+    if (isWX) return
+    Blog.fixedHeader(top);
   }, false);
 
   if (w.BLOG.SHARE) {
