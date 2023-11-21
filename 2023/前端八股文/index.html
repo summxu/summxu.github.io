@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="传输协议&amp;amp;&amp;amp;浏览器https 协议的工作原理 客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。 web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。 客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。 客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-11-21T07:46:47.792Z">
+<meta property="og:updated_time" content="2023-11-21T09:44:42.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端八股文">
 <meta name="twitter:description" content="传输协议&amp;amp;&amp;amp;浏览器https 协议的工作原理 客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。 web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。 客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。 客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话">
@@ -209,6 +209,7 @@
 </ol>
 <h3 id="从输入URL到页面加载的全过程"><a href="#从输入URL到页面加载的全过程" class="headerlink" title="从输入URL到页面加载的全过程"></a>从输入URL到页面加载的全过程</h3><ul>
 <li>网络请求部分：<ol>
+<li>检查是否有浏览器缓存结果或缓存标识。</li>
 <li>DNS域名解析：浏览器向DNS服务器发起请求，解析该URL中的域名对应的IP地址。</li>
 <li>建立TCP连接：解析出IP地址后，根据IP地址和端口号，和服务器建立TCP连接。</li>
 <li>发起HTTP请求：浏览器发起读取文档的HTTP请求，通过TCP三次握手请求数据。</li>
@@ -242,7 +243,34 @@
 </ol>
 </li>
 </ul>
-<h3 id="浏览器的缓存机制-强制缓存-amp-amp-协商缓存"><a href="#浏览器的缓存机制-强制缓存-amp-amp-协商缓存" class="headerlink" title="浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存"></a>浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存</h3><h2 id="HTML-amp-amp-CSS"><a href="#HTML-amp-amp-CSS" class="headerlink" title="HTML&amp;&amp;CSS"></a>HTML&amp;&amp;CSS</h2><h3 id="script-标签中-defer-和-async的区别"><a href="#script-标签中-defer-和-async的区别" class="headerlink" title="script 标签中 defer 和 async的区别"></a>script 标签中 defer 和 async的区别</h3><ul>
+<h3 id="浏览器的缓存机制-强制缓存-amp-amp-协商缓存"><a href="#浏览器的缓存机制-强制缓存-amp-amp-协商缓存" class="headerlink" title="浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存"></a>浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存</h3><blockquote>
+<p>浏览器与服务器通信的方式为应答模式，浏览器发起HTTP请求 – 服务器响应该请求。那么浏览器<strong>第一次</strong>向服务器发起该请求后拿到请求结果，会根据响应报文中HTTP头的缓存标识，决定是否缓存结果，是则将请求结果和缓存标识存入浏览器缓存中。</p>
+</blockquote>
+<ul>
+<li><p>接下来浏览器每次发起请求，都会先在浏览器缓存中查找该请求的结果以及缓存标识</p>
+</li>
+<li><p>浏览器每次拿到返回的请求结果都会将该结果和缓存标识存入浏览器缓存中</p>
+<p>知道了缓存机制是怎么运作的时候，在进一步了解具体的缓存规则，可以将浏览器缓存的过程分为两个部分：</p>
+</li>
+<li><p>服务器会将缓存规则放入HTTP响应头中，控制强制缓存的字段分别是 Expires 和 Cache-Control。Cache-Control高于Expires，一般控制的是强制缓存在什么时间之后失效。</p>
+</li>
+<li><p>强制缓存判断过程：</p>
+<ol>
+<li>不存在该缓存结果和缓存标识，则直接向服务器发起请求（这也是第一次发起请求）</li>
+<li>存在该缓存结果和缓存标识，且结果尚未失效，直接返回缓存结果。</li>
+<li>存在该缓存结果和缓存标识，但该结果已失效，则使用协商缓存。</li>
+</ol>
+</li>
+<li><p>协商缓存在强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，控制协商缓存的字段分别有 Last-Modified 、Etag，其中Etag / If-None-Match的优先级比Last-Modified / If-Modified-Since高。</p>
+</li>
+<li><p>强制缓存判断结果：</p>
+<ol>
+<li>协商缓存生效，返回304</li>
+<li>协商缓存失效，返回200和请求结果</li>
+</ol>
+</li>
+</ul>
+<h2 id="HTML-amp-amp-CSS"><a href="#HTML-amp-amp-CSS" class="headerlink" title="HTML&amp;&amp;CSS"></a>HTML&amp;&amp;CSS</h2><h3 id="script-标签中-defer-和-async的区别"><a href="#script-标签中-defer-和-async的区别" class="headerlink" title="script 标签中 defer 和 async的区别"></a>script 标签中 defer 和 async的区别</h3><ul>
 <li>如果是<code>&lt;script defer&gt;</code>标签，那么就会js脚本与html文档并行加载，并在html文档加载完后再执行js脚本。</li>
 <li>如果是<code>&lt;script async&gt;</code>标签，那么js脚本与html文档并行加载，但是与前者不同的是，async在js脚本加载完后会立刻执行。（执行时不能加载html文档）</li>
 </ul>
