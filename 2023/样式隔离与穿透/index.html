@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>前端八股文</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="CSS">
+    <div style="display:none;"><img src="/img/avatar.jpg"></div>
+    <meta property="og:image" content="https://summxu.github.io/img/avatar.jpg">
+    <meta name="description" content="css没有作用域，在书写的时候容易照成classname相同，产生样式污染、css规则层叠，单页面应用，多组件开发模式更容易出现此类问题，这就需要采用一些方法实现样式隔离。  BEM规范主动约束  BEM 是 Block Element Modifiyer 的缩写，指块-元素-修饰符.blockname-elementname-modifier  Block 以元素本身所具备的功能为主  Ele">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端八股文">
+<meta property="og:url" content="https://summxu.github.io/2023/样式隔离与穿透/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="css没有作用域，在书写的时候容易照成classname相同，产生样式污染、css规则层叠，单页面应用，多组件开发模式更容易出现此类问题，这就需要采用一些方法实现样式隔离。  BEM规范主动约束  BEM 是 Block Element Modifiyer 的缩写，指块-元素-修饰符.blockname-elementname-modifier  Block 以元素本身所具备的功能为主  Ele">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-11-28T09:16:56.452Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端八股文">
+<meta name="twitter:description" content="css没有作用域，在书写的时候容易照成classname相同，产生样式污染、css规则层叠，单页面应用，多组件开发模式更容易出现此类问题，这就需要采用一些方法实现样式隔离。  BEM规范主动约束  BEM 是 Block Element Modifiyer 的缩写，指块-元素-修饰符.blockname-elementname-modifier  Block 以元素本身所具备的功能为主  Ele">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-align-right"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/JavaScript"  >
+                <i class="icon icon-lg icon-star"></i>
+                分类标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-grav"></i>
+                这是我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss-square"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">前端八股文</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">前端八股文</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-11-23T06:49:38.000Z" itemprop="datePublished" class="page-time">
+  2023-11-23
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BEM规范主动约束"><span class="post-toc-number">1.</span> <span class="post-toc-text">BEM规范主动约束</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS-Moudle"><span class="post-toc-number">2.</span> <span class="post-toc-text">CSS Moudle</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS-In-Js"><span class="post-toc-number">3.</span> <span class="post-toc-text">CSS In Js</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue-style-scoped"><span class="post-toc-number">4.</span> <span class="post-toc-text">Vue style scoped</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ShadowDOM"><span class="post-toc-number">5.</span> <span class="post-toc-text">ShadowDOM</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023/样式隔离与穿透"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">前端八股文</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-11-23 14:49:38" datetime="2023-11-23T06:49:38.000Z"  itemprop="datePublished">2023-11-23</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>css没有作用域，在书写的时候容易照成classname相同，产生样式污染、css规则层叠，单页面应用，多组件开发模式更容易出现此类问题，这就需要采用一些方法实现样式隔离。</p>
+</blockquote>
+<h3 id="BEM规范主动约束"><a href="#BEM规范主动约束" class="headerlink" title="BEM规范主动约束"></a>BEM规范主动约束</h3><p>  BEM 是 Block Element Modifiyer 的缩写，指块-元素-修饰符<code>.blockname-elementname-modifier</code></p>
+<ul>
+<li><p>Block 以元素本身所具备的功能为主</p>
+</li>
+<li><p>Element 以元素本身的位置、形状、描述为主</p>
+</li>
+<li><p>Modifier 以元素本身的状态、颜色为主</p>
+<p>例如ElementUI中采用的BEM示例：<code>el-cascader-nodelabel</code>、<code>el-date-table-celltext</code></p>
+<p>可以配合Less、Scss预处理器协同开发：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.selector</span> &#123;</span><br><span class="line">  &amp;-item &#123;</span><br><span class="line">    &amp;<span class="selector-tag">-foucs</span>&#123; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="CSS-Moudle"><a href="#CSS-Moudle" class="headerlink" title="CSS Moudle"></a>CSS Moudle</h3><p>  css Moudle 是一种编译时的webpack插件，可以像js一样引入css，并且每一个css都是一个独立的模块，可以在使用的时候以变量的形式引入。在构建的过程中，通过映射关系把className生成唯一的hash，一般采用的css module插件是css-loader。</p>
+<p>  在React中，css Module 默认（css-loader 文件名正则）需要对css文件命名做约束：以 <strong>.module.less/css/sass</strong> 结尾，不仅如此，css Module 还提供了一些特殊的伪类。</p>
+<ul>
+<li>:global，需要不对组件的类名进行哈希，保留原始类名，能起到样式覆盖的作用</li>
+<li>:local，默认启用的伪类，需要不对组件的类名进行哈希</li>
+</ul>
+<h3 id="CSS-In-Js"><a href="#CSS-In-Js" class="headerlink" title="CSS In Js"></a>CSS In Js</h3><p>  其核心思想是将css直接写入到组件中，并不是通过引入的方式，而是通过js的形式去写css，然后在jsx中使用变量，ReactNative 默认采用的此方案。</p>
+<h3 id="Vue-style-scoped"><a href="#Vue-style-scoped" class="headerlink" title="Vue style scoped"></a>Vue style scoped</h3><p>  使用 scoped 后，父组件的样式将不会渗透到子组件中。不过一个子组件的根节点会同时受其父组件的 scoped CSS 和子组件的 scoped CSS 的影响。这样设计是为了让父组件可以从布局的角度出发，调整其子组件根元素的样式。</p>
+<p>  如果你希望 scoped 样式中的一个选择器能够作用得“更深”，例如影响子组件，可以使用一下深度作用选择器：<code>&gt;&gt;&gt;</code> <code>::v-deep</code> <code>::depp</code> <code>/deep/</code></p>
+<h3 id="ShadowDOM"><a href="#ShadowDOM" class="headerlink" title="ShadowDOM"></a>ShadowDOM</h3><p>  ShandowDOM 是一组 JavaScript API ，用于封装影子DOM树附加到元素，与主文档分开呈现，并且能控制其关联的功能。这样可以保持元素的功能私有，也可以支持脚本化和样式化，不用担心与其他文档发生冲突，ShadowDOM可以用js创建：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const hostEle = document.querySelector(&quot;#host&quot;)</span><br><span class="line">const treeEle = document.createElement(&quot;span&quot;)</span><br><span class="line">treeEle.textContent = &quot;treeEle&quot;</span><br><span class="line">const rootEle = hostEle.attachShadow(&#123; mode: &apos;closed&apos; &#125;);// 不允许外部访问</span><br><span class="line">rootEle.appendChild(treeEle)</span><br></pre></td></tr></table></figure>
+
+<p>  ShadowDOM是WebComponents的重要组成部分。</p>
+
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/样式隔离与穿透/&title=《前端八股文》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/样式隔离与穿透/&title=《前端八股文》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/样式隔离与穿透/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端八股文》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/样式隔离与穿透/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/样式隔离与穿透/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/前端八股文/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">前端八股文</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by Hexo
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/样式隔离与穿透/&title=《前端八股文》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/样式隔离与穿透/&title=《前端八股文》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/样式隔离与穿透/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端八股文》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/样式隔离与穿透/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/样式隔离与穿透/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3aQXLCMAwFUO5/6XTdaRO+pNBO7OcVA8H2YyEsS69XPI4fY/Lk2afJ/KOBgYHxWMZxOc4WOHtdXeV6tmRvGBgY+zDOFr6eeh5wez8QBgYGRm+66qbvWhcDAwPj7Jn8YHedpv5zwMXAwHgUY3JcqyaxyZMfzMUxMDAeyMhv3f/+9UfqGxgYGI9iHMUxSV/vCrK/7AoDA2NpxqQAWQ2O1xvtsTEwMHZgJCE133ov4UwYb97BwMDYgJE0QCSTTi79q98tnysxMDAey+gd1PJCQrXYMCoAYGBgbMDIQ2p+sMt51eaMNwdEDAyMhRjVy/c8yexdt328hImBgfFYRlI9yI+A+VXdvDfkW8DFwMBYlDFvepgkw0nwTf4eMDAw9mHkG52ko3ljWf5ngIGBsTZjsvy9ATTZ+msyEQYGxkKM/Ip/0k5RTXejygYGBsaijF5TV94GcVeiWz4gYmBgLMSYlBJ7F2rVEmb0XQwMjKUZycFrcnE2SYCrGSsGBsbajOqF16RUmafE1UIFBgbGDozeVVoeXqsJcLnIioGBsRkjT2urV2YTTDngYmBgLME4iqMXEKttGUlR801lAwMDYyFG71hWTX2rRdC8dQMDA2MfRhIoe20QvTmrVAwMjH0Y1cBXbSPLj315Knta38DAwMCICwl3pbhJXMXAwMCYBNZ8lTzInpYwMTAwlmYkCWevkFANsnlYx8DA2IfRa3TISwijMHpT6ouBgfFYxhc9UkHPO+1aogAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>
