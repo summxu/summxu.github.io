@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>有意思的面试题</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="JavaScript">
+    <div style="display:none;"><img src="/img/avatar.jpg"></div>
+    <meta property="og:image" content="https://summxu.github.io/img/avatar.jpg">
+    <meta name="description" content="手写Promise（没有考虑链式调用）1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859// 创建MyPromise类 class MyPromise &amp;#123;  // 通过构造函数constructor，在执行这个类的时候需要">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="有意思的面试题">
+<meta property="og:url" content="https://summxu.github.io/2023/有意思的面试题/index.html">
+<meta property="og:site_name" content="小兵旭旭的博客">
+<meta property="og:description" content="手写Promise（没有考虑链式调用）1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859// 创建MyPromise类 class MyPromise &amp;#123;  // 通过构造函数constructor，在执行这个类的时候需要">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-12-01T09:51:37.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="有意思的面试题">
+<meta name="twitter:description" content="手写Promise（没有考虑链式调用）1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859// 创建MyPromise类 class MyPromise &amp;#123;  // 通过构造函数constructor，在执行这个类的时候需要">
+    
+        <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">summxu</h5>
+          <a href="mailto:chenxu4012@foxmail.com" title="chenxu4012@foxmail.com" class="mail">chenxu4012@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-align-right"></i>
+                时间线
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags/JavaScript"  >
+                <i class="icon icon-lg icon-star"></i>
+                分类标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-grav"></i>
+                这是我
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/summxu" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/1938786603" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/atom.xml" target="_blank" >
+                <i class="icon icon-lg icon-rss-square"></i>
+                Rss
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">有意思的面试题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">有意思的面试题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-12-01T09:49:38.000Z" itemprop="datePublished" class="page-time">
+  2023-12-01
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#手写Promise（没有考虑链式调用）"><span class="post-toc-number">1.</span> <span class="post-toc-text">手写Promise（没有考虑链式调用）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mini-Vue"><span class="post-toc-number">2.</span> <span class="post-toc-text">mini Vue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mini-React"><span class="post-toc-number">3.</span> <span class="post-toc-text">mini React</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-2023/有意思的面试题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">有意思的面试题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-12-01 17:49:38" datetime="2023-12-01T09:49:38.000Z"  itemprop="datePublished">2023-12-01</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="手写Promise（没有考虑链式调用）"><a href="#手写Promise（没有考虑链式调用）" class="headerlink" title="手写Promise（没有考虑链式调用）"></a>手写Promise（没有考虑链式调用）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建MyPromise类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPromise</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 通过构造函数constructor，在执行这个类的时候需要传递一个执行器进去并立即调用</span></span><br><span class="line">  <span class="keyword">constructor</span>(executor) &#123;</span><br><span class="line">    <span class="keyword">this</span>.status = <span class="string">'pending'</span></span><br><span class="line">    <span class="comment">// 定义 fulfilled 情况下的返回值</span></span><br><span class="line">    <span class="keyword">this</span>.result = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 定义 rejected 情况下的返回值</span></span><br><span class="line">    <span class="keyword">this</span>.reason = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 定义回调函数数组</span></span><br><span class="line">    <span class="keyword">this</span>.onFulfilledCallbacks = []</span><br><span class="line">    <span class="keyword">this</span>.onRejectedCallbacks = []</span><br><span class="line">    executor(<span class="keyword">this</span>.resolve, <span class="keyword">this</span>.reject)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 定义resolve函数，改变状态和调用回调</span></span><br><span class="line">  resolve = <span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status !== <span class="string">'pending'</span>) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">this</span>.result = result</span><br><span class="line">    <span class="keyword">this</span>.status = <span class="string">'fulfilled'</span></span><br><span class="line">    <span class="comment">// 执行数组里的 回调函数</span></span><br><span class="line">    <span class="keyword">this</span>.onFulfilledCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> callback(result))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 定义reject函数，改变状态和调用回调</span></span><br><span class="line">  reject = <span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status !== <span class="string">'pending'</span>) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">this</span>.reason = reason</span><br><span class="line">    <span class="keyword">this</span>.status = <span class="string">'rejected'</span></span><br><span class="line">    <span class="comment">// 执行数组里的 回调函数</span></span><br><span class="line">    <span class="keyword">this</span>.onFulfilledCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> callback(reason))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 定义then方法，接受两个回调函数</span></span><br><span class="line">  then = <span class="function">(<span class="params">onFulfilled, onRejected</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 判断接受的回调函数，并可以为空给默认值</span></span><br><span class="line">    onRejected = <span class="keyword">typeof</span> onRejected === <span class="string">'function'</span> ? onRejected : <span class="function"><span class="params">reason</span> =&gt;</span> &#123; <span class="keyword">throw</span> reason &#125;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">'function'</span> ? onFulfilled : <span class="function"><span class="params">result</span> =&gt;</span> result</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === <span class="string">'fulfilled'</span>) &#123;</span><br><span class="line">      <span class="comment">// fulfilled状态，调用第一个 fulfilled回调函数</span></span><br><span class="line">      <span class="comment">// 添加到宏任务，尽量晚于执行器后</span></span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; onFulfilled(<span class="keyword">this</span>.result) &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.status === <span class="string">'rejected'</span>) &#123;</span><br><span class="line">      <span class="comment">// rejected状态，调用第二个 rejected回调函数</span></span><br><span class="line">      <span class="comment">// 添加到宏任务，尽量晚于执行器后</span></span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; onRejected(<span class="keyword">this</span>.reason) &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.status === <span class="string">'pending'</span>) &#123;</span><br><span class="line">      <span class="comment">// 如果执行器中为异步（执行时机晚）不会立即改变状态，此时调用then一定是pending</span></span><br><span class="line">      <span class="comment">// 这个时候可以把回调函数保存到数组里，等待resolve/reject调用执行then</span></span><br><span class="line">      <span class="keyword">this</span>.onFulfilledCallbacks.push(onFulfilled)</span><br><span class="line">      <span class="keyword">this</span>.onRejectedCallbacks.push(onRejected)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">catch</span> = <span class="function">(<span class="params">onRejected</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; onRejected(<span class="keyword">this</span>.reason) &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> MyPromise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; resolve(<span class="string">'2秒之后执行then'</span>) &#125;, <span class="number">200</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123; <span class="built_in">console</span>.log(res) &#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="mini-Vue"><a href="#mini-Vue" class="headerlink" title="mini Vue"></a>mini Vue</h2><h2 id="mini-React"><a href="#mini-React" class="headerlink" title="mini React"></a>mini React</h2>
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/有意思的面试题/&title=《有意思的面试题》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/有意思的面试题/&title=《有意思的面试题》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/有意思的面试题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《有意思的面试题》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/有意思的面试题/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/有意思的面试题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2023/前端碎片知识/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">前端碎片知识</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/样式隔离与穿透/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">样式隔离与穿透</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+  <div class="top" style="display: none;">
+    
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+    <p>
+      <!-- 
+      <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i
+            class="icon icon-lg icon-rss"></i></a></span>
+       -->
+      <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+    </p>
+  </div>
+  <div class="bottom">
+    <p><span>summxu &copy;
+        2017 -
+        2023</span>
+      <span>
+        
+        Power by Hexo
+      </span>
+    </p>
+  </div>
+</footer>
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/有意思的面试题/&title=《有意思的面试题》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/有意思的面试题/&title=《有意思的面试题》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/有意思的面试题/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《有意思的面试题》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/有意思的面试题/&via=https://summxu.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/有意思的面试题/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3awW7rMAwEwP7/T+edizYKl9QrYGl8ChLD8uRAaEl9fZWv149rcuf6+/XzRxcGBsZjGa/l9W6Bd597q6yfvL4fAwPjHsa6LNaLYL3g1hmlko2BgYHx45718mlBT/8+DAwMjPRx9XJZwWNgYGBMQmy6TUxbaevwvC2LY2BgPJBRf4m///xf5hsYGBiPYrzCa9JW2/sm356MgYFxNGMygJyX7MqgNNhoYmBgXMCoRMdJ0Uwj67q59iGLY2BgHM3oFbveYbLK6kG4xcDAOJRRGQZMjnb17kkHCRgYGPcw0s3ZOpr2Np31wxlBfMXAwLiAUVls3m7bNsLEwMA4lNEbTM5jbVrW34IxMDCOZvTGlukxiF1htTeuwMDAOI/Ra/HX42ilvFbub846MDAwHstIl68nx3oZnayFgYFxNmP+iulRifmxjF9+xcDAuIbRG0Du6tgH2XpdcDEwMA5l1Ld09RD7YTcahttSfMXAwDiUkbbge9vBHiltxmFgYJzNSI9h9baM8wL94RsMDIwLGGmwrBffeiut1+bDwMC4h1EvqfVCnB7m6DXvMDAwzmb0wmr6or0jF8FQEwMD42hGL7hOBpN1WP0zBgbGDYy0yKYNtbRwp807DAyMexi9oxW7DpalB8KC+QYGBgZGGFbTkhoEVwwMDIxBYa2vMvoLMDAwLmBUAudkkFBp2FUCMwYGxp2MNDpWDkBsK6Oboi8GBsZjGf8Ah1OJh06zn90AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+</script>
+
+<script src="/js/main.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.js?v=1.7.2" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</body>
+</html>
