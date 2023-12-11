@@ -23,18 +23,18 @@
     <meta name="keywords" content="JavaScript">
     <div style="display:none;"><img src="/img/avatar.jpg"></div>
     <meta property="og:image" content="https://summxu.github.io/img/avatar.jpg">
-    <meta name="description" content="面试技巧 知识体系学习 书籍  博客  开源社区   反思复盘，整理零散知识点，完善知识体系">
+    <meta name="description" content="面试技巧 知识体系学习 书籍  博客  开源社区   反思复盘，整理零散知识点，完善知识体系 React组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端面试题">
-<meta property="og:url" content="https://summxu.github.io/2023/前端碎片知识/index.html">
+<meta property="og:url" content="https://summxu.github.io/2023/前端面试题/index.html">
 <meta property="og:site_name" content="小兵旭旭的博客">
-<meta property="og:description" content="面试技巧 知识体系学习 书籍  博客  开源社区   反思复盘，整理零散知识点，完善知识体系">
+<meta property="og:description" content="面试技巧 知识体系学习 书籍  博客  开源社区   反思复盘，整理零散知识点，完善知识体系 React组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-12-10T09:15:38.944Z">
+<meta property="og:updated_time" content="2023-12-11T09:53:16.952Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端面试题">
-<meta name="twitter:description" content="面试技巧 知识体系学习 书籍  博客  开源社区   反思复盘，整理零散知识点，完善知识体系">
+<meta name="twitter:description" content="面试技巧 知识体系学习 书籍  博客  开源社区   反思复盘，整理零散知识点，完善知识体系 React组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可">
     
         <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
     
@@ -175,12 +175,12 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面试技巧"><span class="post-toc-number">1.</span> <span class="post-toc-text">面试技巧</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知识体系学习"><span class="post-toc-number">2.</span> <span class="post-toc-text">知识体系学习</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面试技巧"><span class="post-toc-number">1.</span> <span class="post-toc-text">面试技巧</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知识体系学习"><span class="post-toc-number">2.</span> <span class="post-toc-text">知识体系学习</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#React组件为什么不能返回多个元素"><span class="post-toc-number">3.</span> <span class="post-toc-text">React组件为什么不能返回多个元素</span></a></li></ol>
         </nav>
     </aside>
 
 
-<article id="post-2023/前端碎片知识"
+<article id="post-2023/前端面试题"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
@@ -209,6 +209,18 @@
 </li>
 </ol>
 <p>反思复盘，整理零散知识点，完善知识体系</p>
+<h2 id="React组件为什么不能返回多个元素"><a href="#React组件为什么不能返回多个元素" class="headerlink" title="React组件为什么不能返回多个元素"></a>React组件为什么不能返回多个元素</h2><ol>
+<li>React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的</li>
+<li>react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新</li>
+</ol>
+<ul>
+<li>React组件怎样可以返回多个组件<ol>
+<li>使用HOC（高阶函数）</li>
+<li>使用React.Fragment，会创建一个虚拟节点，但不会渲染到真实DOM中</li>
+<li>使用数组返回</li>
+</ol>
+</li>
+</ul>
 
         </div>
 
@@ -227,7 +239,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/前端碎片知识/&title=《前端面试题》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/前端面试题/&title=《前端面试题》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -237,22 +249,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/前端碎片知识/&title=《前端面试题》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/前端面试题/&title=《前端面试题》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/前端碎片知识/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/前端面试题/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端面试题》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/前端碎片知识/&via=https://summxu.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端面试题》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/前端面试题/&via=https://summxu.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/前端碎片知识/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/前端面试题/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -355,7 +367,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/前端碎片知识/&title=《前端面试题》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2023/前端面试题/&title=《前端面试题》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -365,22 +377,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/前端碎片知识/&title=《前端面试题》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2023/前端面试题/&title=《前端面试题》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/前端碎片知识/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://summxu.github.io/2023/前端面试题/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端面试题》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/前端碎片知识/&via=https://summxu.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端面试题》 — 小兵旭旭的博客&url=https://summxu.github.io/2023/前端面试题/&via=https://summxu.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/前端碎片知识/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://summxu.github.io/2023/前端面试题/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -391,7 +403,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACHklEQVR42u3aS27DMAwFwNz/0ukBWtuPpF3A0mQVFG6s0YLg7/OJP9/x5/evnb/l88QHAwPjtYzk9XcdOn8mPxsGBsY+jKMIdvRMftzzS0kY52fDwMDAqH7P/9K7PgwMDIxqwM3LzrygxcDAwJgUsdWg2Uv4Hq/FMTAwXsjIu+7///2R+QYGBsarGL12/13p3V2DUgwMjLUZ+WvyFn9vbFBdtsDAwNiHUV2MqB7l/EB3XQoGBsZujAkgKX2rA4YoxcTAwNiYkQwv8yQyuY6kYP7j1zAwMDZg5AsNeeLYK4Cbi2IYGBhLM6qt+flSxTzI3jDUxMDAeBWjetx5s6w6Co2CLwYGxtKM6qPVxK4aXvPkMhp2YmBgLMGYrIJNStle8L1YCMPAwFiUUR0uzhv9kyu4ODMGBsbSjMlixGTxq5doFhYvMDAwlmNMFsLy53NGPhHAwMDYh9FriiVBsxo6q0EcAwNjB0ZSps53OnplcLPdhoGBsSijmuRV2/d3FcmHb8fAwNiYkSRqveZddQBwcYkYGBgbMPJytBeI5+nmRTjGwMBYlPEtfvJRYjXI9sYPGBgYOzDmzbIksasualQHEhgYGDswqkG2Wnzm1GgAcPS/GBgYGzB6ga9asiZXlrfkMDAwMKrrX/NGfy9kY2BgYFSTv2oZXB1tXsw3MDAwlmYkRWyCiV45TkMxMDB2Y4xKx8HkIU83e01ADAyMJRg/EVqyUIfq85gAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNElEQVR42u3aS27DMAxF0ex/0+60gOv4PlIpIvp6FOQj6zgAQZF8vfB1/LrO71998/wpWe3qVwsuGTJkbMs43l5kc+TGZOXzamRvMmTIeA7j6sZpYOUBlzPeryBDhgwZKakfamXIkCFjFaMfpr8i4MqQIWMrBjnEpgfXWint42dxGTJkbMjgm/j/1x/pb8iQIWMrxhFetaMmTyuLu5IhQ8ZoRq0BWQuRxc3xRFOGDBmjGWlxbcFgRBiOgyO0DBkyxjFqP1uVRKaP4OYfkCFDxlAGwZCBMDIc1hnIIEVAGTJkTGWQG/OC2trBL/QP8MgtQ4aMzRm1dK1T7k8T03iOQ4YMGYMYfGyLh1GSDqaH56AhIUOGjKEM3hLgx87aOvzx3XRiZciQMY7Rr66TiJ6mgKTMt7hJIEOGjK9k9Ev2KZunfUHKKEOGjNGMNNiloTBtPKRpYtxDkCFDxiAGL+inVb0jvOJ2pgwZMsYx0jGI2uAX31bahAh+IEOGjG0ZnfSuNsLVWT9uCciQIWMQgyR2vCjGP00Tx9awhQwZMoYy0vNuOi7WaSQEAVeGDBnjGLXSf1og483LgCpDhoyhjFqZnr/ujFwEx10ZMmSMZtRmFXg7If1+/yAtQ4aMqYw0yNbY/fTxJqmVIUPGAxhk6CE9XvKA2xnFkCFDhgzOqLUN+o9GhgwZMkgpbVWRjgfZPzAyZMh4AINsojYcVizih81UGTJkzGbUjo68oN9Zsz+iIUOGjM0ZP76mapi810yrAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
