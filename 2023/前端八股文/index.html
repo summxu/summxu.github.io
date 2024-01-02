@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="传输协议&amp;amp;&amp;amp;浏览器https 协议的工作原理 客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。 web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。 客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。 客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-12-25T09:35:30.926Z">
+<meta property="og:updated_time" content="2024-01-02T10:11:04.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端八股文">
 <meta name="twitter:description" content="传输协议&amp;amp;&amp;amp;浏览器https 协议的工作原理 客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。 web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。 客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。 客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话">
@@ -175,7 +175,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#传输协议-amp-amp-浏览器"><span class="post-toc-number">1.</span> <span class="post-toc-text">传输协议&amp;&amp;浏览器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#https-协议的工作原理"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">https 协议的工作原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从输入URL到页面加载的全过程"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">从输入URL到页面加载的全过程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#浏览器的重绘与重排"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">浏览器的重绘与重排</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#浏览器的缓存机制-强制缓存-amp-amp-协商缓存"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTML-amp-amp-CSS"><span class="post-toc-number">2.</span> <span class="post-toc-text">HTML&amp;&amp;CSS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#script-标签中-defer-和-async的区别"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">script 标签中 defer 和 async的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常见的-meta-标签有哪些？"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">常见的 meta 标签有哪些？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#什么是盒模型？"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">什么是盒模型？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文档定位方案"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">文档定位方案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#position-属性的值有哪些及其区别"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">position 属性的值有哪些及其区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#浮动的解决办法"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">浮动的解决办法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BFC-Block-Formatting-Context-：块级格式化上下文"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">BFC(Block Formatting Context)：块级格式化上下文</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS优先级"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">CSS优先级</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS继承"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">CSS继承</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隐藏元素的方法"><span class="post-toc-number">2.10.</span> <span class="post-toc-text">隐藏元素的方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS-单位"><span class="post-toc-number">2.11.</span> <span class="post-toc-text">CSS 单位</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#响应式布局方案"><span class="post-toc-number">2.12.</span> <span class="post-toc-text">响应式布局方案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用CSS实现三角符号"><span class="post-toc-number">2.13.</span> <span class="post-toc-text">用CSS实现三角符号</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JavaScript"><span class="post-toc-number">3.</span> <span class="post-toc-text">JavaScript</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类型判断"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">类型判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#作用域-amp-amp-闭包"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">作用域 &amp;&amp; 闭包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象-amp-amp-原型-amp-amp-原型链"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">对象 &amp;&amp; 原型 &amp;&amp; 原型链</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#new-的实现步骤"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">new 的实现步骤</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#this-amp-amp-apply-amp-amp-call-amp-amp-bind"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">this &amp;&amp; apply &amp;&amp; call &amp;&amp; bind</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件循环-EventLoop"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">事件循环 EventLoop</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Vue"><span class="post-toc-number">4.</span> <span class="post-toc-text">Vue</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue响应式原理"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Vue响应式原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue-diff-的详细过程"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">Vue diff 的详细过程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React-Vue-项目中-key-的作用"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">React/Vue 项目中 key 的作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nextTick的作用和实现原理"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">nextTick的作用和实现原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue3的新特性"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">Vue3的新特性</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#React"><span class="post-toc-number">5.</span> <span class="post-toc-text">React</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React18有哪些更新？"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">React18有哪些更新？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsx-转换过程"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">jsx 转换过程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#生命周期"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">生命周期</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React事件机制"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">React事件机制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数组件，hooks和类class"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">函数组件，hooks和类class</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组件的设计模式-https-juejin-cn-post-7007214462813863950"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">组件的设计模式 https://juejin.cn/post/7007214462813863950</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React渲染流程和fiber"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">React渲染流程和fiber</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#性能优化"><span class="post-toc-number">5.8.</span> <span class="post-toc-text">性能优化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TypeScript"><span class="post-toc-number">6.</span> <span class="post-toc-text">TypeScript</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#泛型"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">泛型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#联合类型和交叉类型"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">联合类型和交叉类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#type-amp-amp-interface"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">type&amp;&amp;interface</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#any-和-unknown-有什么区别"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">any 和 unknown 有什么区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#never和void的区别"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">never和void的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#断言和类型推断"><span class="post-toc-number">6.6.</span> <span class="post-toc-text">断言和类型推断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常用内置函数及手动实现"><span class="post-toc-number">6.7.</span> <span class="post-toc-text">常用内置函数及手动实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#装饰器"><span class="post-toc-number">6.8.</span> <span class="post-toc-text">装饰器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Other"><span class="post-toc-number">7.</span> <span class="post-toc-text">Other</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#微前端"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">微前端</span></a></li></ol></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#传输协议-amp-amp-浏览器"><span class="post-toc-number">1.</span> <span class="post-toc-text">传输协议&amp;&amp;浏览器</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#https-协议的工作原理"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">https 协议的工作原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#http2-的多路复用"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">http2 的多路复用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#从输入URL到页面加载的全过程"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">从输入URL到页面加载的全过程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#浏览器的重绘与重排"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">浏览器的重绘与重排</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#浏览器的缓存机制-强制缓存-amp-amp-协商缓存"><span class="post-toc-number">1.5.</span> <span class="post-toc-text">浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#HTML-amp-amp-CSS"><span class="post-toc-number">2.</span> <span class="post-toc-text">HTML&amp;&amp;CSS</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#script-标签中-defer-和-async的区别"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">script 标签中 defer 和 async的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#什么是盒模型？"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">什么是盒模型？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#文档定位方案"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">文档定位方案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#position-属性的值有哪些及其区别"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">position 属性的值有哪些及其区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#浮动的解决办法"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">浮动的解决办法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#BFC-Block-Formatting-Context-：块级格式化上下文"><span class="post-toc-number">2.6.</span> <span class="post-toc-text">BFC(Block Formatting Context)：块级格式化上下文</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS优先级"><span class="post-toc-number">2.7.</span> <span class="post-toc-text">CSS优先级</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#CSS继承"><span class="post-toc-number">2.8.</span> <span class="post-toc-text">CSS继承</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#隐藏元素的方法"><span class="post-toc-number">2.9.</span> <span class="post-toc-text">隐藏元素的方法</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#响应式布局方案"><span class="post-toc-number">2.10.</span> <span class="post-toc-text">响应式布局方案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#用CSS实现三角符号"><span class="post-toc-number">2.11.</span> <span class="post-toc-text">用CSS实现三角符号</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JavaScript"><span class="post-toc-number">3.</span> <span class="post-toc-text">JavaScript</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#类型判断"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">类型判断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#作用域-amp-amp-闭包"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">作用域 &amp;&amp; 闭包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#对象-amp-amp-原型-amp-amp-原型链"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">对象 &amp;&amp; 原型 &amp;&amp; 原型链</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#new-的实现步骤"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">new 的实现步骤</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#this-amp-amp-apply-amp-amp-call-amp-amp-bind"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">this &amp;&amp; apply &amp;&amp; call &amp;&amp; bind</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#事件循环-EventLoop"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">事件循环 EventLoop</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Vue"><span class="post-toc-number">4.</span> <span class="post-toc-text">Vue</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue响应式原理"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Vue响应式原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue-diff-的详细过程"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">Vue diff 的详细过程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React-Vue-项目中-key-的作用"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">React/Vue 项目中 key 的作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#nextTick的作用和实现原理"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">nextTick的作用和实现原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Vue3的新特性"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">Vue3的新特性</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#React"><span class="post-toc-number">5.</span> <span class="post-toc-text">React</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React18有哪些更新？"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">React18有哪些更新？</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#jsx-转换过程"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">jsx 转换过程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#生命周期"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">生命周期</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React事件机制"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">React事件机制</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#函数组件，hooks和类class"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">函数组件，hooks和类class</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#组件的设计模式-https-juejin-cn-post-7007214462813863950"><span class="post-toc-number">5.6.</span> <span class="post-toc-text">组件的设计模式 https://juejin.cn/post/7007214462813863950</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React渲染流程和fiber"><span class="post-toc-number">5.7.</span> <span class="post-toc-text">React渲染流程和fiber</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#TypeScript"><span class="post-toc-number">6.</span> <span class="post-toc-text">TypeScript</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#泛型"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">泛型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#联合类型和交叉类型"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">联合类型和交叉类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#type-amp-amp-interface"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">type&amp;&amp;interface</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#any-和-unknown-有什么区别"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">any 和 unknown 有什么区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#never和void的区别"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">never和void的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#断言和类型推断"><span class="post-toc-number">6.6.</span> <span class="post-toc-text">断言和类型推断</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#常用内置函数及手动实现"><span class="post-toc-number">6.7.</span> <span class="post-toc-text">常用内置函数及手动实现</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#装饰器"><span class="post-toc-number">6.8.</span> <span class="post-toc-text">装饰器</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Other"><span class="post-toc-number">7.</span> <span class="post-toc-text">Other</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#微前端"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">微前端</span></a></li></ol></li></ol>
         </nav>
     </aside>
 
@@ -207,6 +207,11 @@
 <li>web 服务器通过自己的私钥解密出会话密钥。</li>
 <li>web 服务器通过会话密钥加密与客户端之间的通信。</li>
 </ol>
+<h3 id="http2-的多路复用"><a href="#http2-的多路复用" class="headerlink" title="http2 的多路复用"></a>http2 的多路复用</h3><ul>
+<li>http1 中的每个请求都会建立一次单独tcp连接，而每次请求的数据又很小</li>
+<li>http1.1 中默认开启了keep-alive，解决了http1的问题，但是http是一问一答的形式，在keep-alive中，下次请求必须等待上次请求完成之后才能发起，存在请求阻塞问题。</li>
+<li>http2 的传输是以二进制帧为单位，每个tcp连接中承载了多个双向流通的流，流是由二进制帧组成的，二进制帧的头部信息会标识自己属于哪一个流，这些帧可以交错传输，在接收端组合成完整的数据。这样既解决了阻塞问题，又提高了网络利用率。</li>
+</ul>
 <h3 id="从输入URL到页面加载的全过程"><a href="#从输入URL到页面加载的全过程" class="headerlink" title="从输入URL到页面加载的全过程"></a>从输入URL到页面加载的全过程</h3><ul>
 <li>网络请求部分：<ol>
 <li>检查是否有浏览器缓存结果或缓存标识。</li>
@@ -274,14 +279,6 @@
 <ul>
 <li>如果是<code>&lt;script defer&gt;</code>标签，那么就会js脚本与html文档并行加载，并在html文档加载完后再执行js脚本。</li>
 <li>如果是<code>&lt;script async&gt;</code>标签，那么js脚本与html文档并行加载，但是与前者不同的是，async在js脚本加载完后会立刻执行。（执行时不能加载html文档）</li>
-</ul>
-<h3 id="常见的-meta-标签有哪些？"><a href="#常见的-meta-标签有哪些？" class="headerlink" title="常见的 meta 标签有哪些？"></a>常见的 meta 标签有哪些？</h3><ul>
-<li>charset 用来描述HTML文档的编码类型</li>
-<li>keywords 页面关键字</li>
-<li>description 页面描述</li>
-<li>refresh 页面重定向和刷新</li>
-<li>viewport 适配移动端，可以控制视口大小和比例</li>
-<li>robots 搜索引擎索引方式</li>
 </ul>
 <h3 id="什么是盒模型？"><a href="#什么是盒模型？" class="headerlink" title="什么是盒模型？"></a>什么是盒模型？</h3><ul>
 <li>在HTML中的所有的元素，都可以看作为一个盒子。</li>
@@ -374,18 +371,24 @@
 <li>opactiy: 0 设置元素完全透明，占据页面位置</li>
 <li>visibility: hidden 隐藏元素，占据页面位置</li>
 </ul>
-<h3 id="CSS-单位"><a href="#CSS-单位" class="headerlink" title="CSS 单位"></a>CSS 单位</h3><ul>
-<li>px 在屏幕上显示出的绝对像素</li>
-<li>em 相对与父级元素font-size比例的长度/大小（1em = 父级元素的font-size(px))</li>
-<li>rem 相对与HTML元素font-size比例的长度/大小（1em = HTML元素的font-size(px))</li>
-<li>% 相对于父级长度/大小的百分比</li>
-<li>vw 把屏幕的宽度切成100份，每一份就是1vw</li>
-<li>vh 把屏幕的高度切成100份，每一份就是1vh</li>
+<h3 id="响应式布局方案"><a href="#响应式布局方案" class="headerlink" title="响应式布局方案"></a>响应式布局方案</h3><blockquote>
+<p>使用一套代码对不同大小的屏幕尺寸进项相应的调整</p>
+</blockquote>
+<ul>
+<li>针对移动端适配的时候，要设置meta标签的viewport属性，这个属性的用意是把页面放到一个虚拟的窗口里面，如果没有针对移动端做适配的话，用户可以通过平移和缩放来看网页的不同部分。<ol>
+<li>width=device-width: 是自适应手机屏幕的尺寸宽度</li>
+<li>inital-scale:是缩放的初始化</li>
+<li>maximum-scale:是缩放比例的最大值</li>
+<li>user-scalable:是用户的可以缩放的操作</li>
+</ol>
+</li>
 </ul>
-<h3 id="响应式布局方案"><a href="#响应式布局方案" class="headerlink" title="响应式布局方案"></a>响应式布局方案</h3><ol>
+<ol>
 <li>媒体查询：一套代码针对电脑、pad和移动设备，屏幕宽度相差悬殊的时候，使用@media(min-width) and (max-width)方法划分区域，单独做适应不同屏幕宽度的样式适配。</li>
-<li>rem 计算屏幕宽度，动态设置html字体大小，等比缩放整体页面。</li>
-<li>postcss 通过设计稿比例，在编译过程中把px转换成 vm/rem 单位。</li>
+<li>通过百分比单位，可以使得浏览器中的组件的宽和高随着浏览器的变化而变化，百分比通常是相对父元素的比例来的，所以百分比会照成布局的复杂度.</li>
+<li>vw/vh适配，和百分比布局很相似，相对与视口宽高来动态调整。</li>
+<li>rem 计算屏幕宽度，可以使用js动态设置html字体大小，等比缩放整体页面。</li>
+<li>可以配合postcss，根据固定的设计稿比例，在编译过程中把px转换成 vw/rem 单位。</li>
 </ol>
 <h3 id="用CSS实现三角符号"><a href="#用CSS实现三角符号" class="headerlink" title="用CSS实现三角符号"></a>用CSS实现三角符号</h3>  <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 通过元素border的渲染机制实现的 */</span></span><br><span class="line"><span class="selector-tag">div</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line">  <span class="attribute">border-top</span>: <span class="number">100px</span> solid <span class="number">#ff0</span>;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">100px</span> solid transparent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -441,8 +444,8 @@
 <h3 id="new-的实现步骤"><a href="#new-的实现步骤" class="headerlink" title="new 的实现步骤"></a>new 的实现步骤</h3><ol>
 <li>创建一个新的空对象。</li>
 <li>把对象的原型<code>__proto__</code>指向传入的构造函数的原型链<code>prototype</code>.</li>
-<li>把构造函数的this，绑定到新对象上（对象添加了构造函数的新属性）。</li>
-<li>判断构造函数的返回值，如果是值类型则返回这个对象，如果是引用类型，就返回这个引用类型的对象。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newFun = <span class="function">(<span class="params">Fun, ...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> newObj = &#123;&#125;</span><br><span class="line">    newObj.__proto__ = Fun.prototype</span><br><span class="line">    <span class="keyword">const</span> result = Fun.apply(newObj, args)</span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : newObj</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<li>使this指向新创建的对象，并执行构造函数。</li>
+<li>判断构造函数的返回值，如果是值类型则就返回这个值。如果是引用类型，就返回这个引用类型的对象。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newFun = <span class="function">(<span class="params">Fun, ...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> newObj = &#123;&#125;</span><br><span class="line">    newObj.__proto__ = Fun.prototype</span><br><span class="line">    <span class="keyword">const</span> result = Fun.apply(newObj, args)</span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : newObj</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -497,29 +500,37 @@
 <h3 id="Vue-diff-的详细过程"><a href="#Vue-diff-的详细过程" class="headerlink" title="Vue diff 的详细过程"></a>Vue diff 的详细过程</h3><p>  diff 算法是一种树节点差异比对的高效算法,其有两个特点, 遍历的整体策略为：深度优先遍历，同层比较<br>  在vue中作用于<code>虚拟 dom 渲染成真实 dom 的新旧 VNode 节点比较</code>.</p>
 <ul>
 <li>vue中diff的步骤分析<ol>
-<li>在 update() 方法的内部,执行 ptach 方法<code>给真实的DOM打补丁</code>,接受两个参数,oldvnode和newvnode</li>
+<li>当数据发生改变时，订阅者watcher就会调用patch<code>给真实的DOM打补丁</code>,接受两个参数,oldvnode和newvnode</li>
 <li>如果节点是同类标签直接替换, 否则继续执行 patchVnode 方法</li>
 <li>如果oldVnode 没有子节点,newVnode有子节点,直接增加新的子节点.</li>
 <li>如果oldVnode 有子节点,newVnode没有子节点,直接删除旧的子节点.</li>
 <li>如果都有子节点调用 updateChild() 方法进行diff比对.</li>
 </ol>
 </li>
-<li><code>首位指针法</code>比对过程<ol>
+<li><code>首尾指针法</code>比对过程<ol>
 <li>依次比较(oldStart==newStart、oldStart==newEnd、oldEnd==newStart、oldEnd==newEnd)</li>
 <li><code>都比对成功后</code>以newVnode的渲染结果为准</li>
 <li><code>每次比对成功后</code>首节点和尾节点向中间移动靠拢</li>
 <li>当新节点中有一个首节点移动到尾节点的右侧时终止比较</li>
 </ol>
 </li>
-<li>首位指针法匹配失败,说明没有节点可以复用<ol>
-<li>比对节点的key值,如果相同则复用</li>
+<li>首尾指针法匹配失败，如果有key：<ol>
+<li>比对节点的key值,如果相同则复用，如果没找到就认为是一个新增节点。</li>
+<li>创建一个新的 dom 节点放到当前首节点的位置</li>
+</ol>
+</li>
+<li>首尾指针法匹配失败，如果没有key：<ol>
+<li>采用遍历查找的方式去找到对应的旧节点去复用，如果没找到就认为是一个新增节点。</li>
 <li>创建一个新的 dom 节点放到当前首节点的位置</li>
 </ol>
 </li>
 </ul>
-<h3 id="React-Vue-项目中-key-的作用"><a href="#React-Vue-项目中-key-的作用" class="headerlink" title="React/Vue 项目中 key 的作用"></a>React/Vue 项目中 key 的作用</h3><ol>
-<li>是为了在diff算法执行时更快的找到对应的节点，提高diff速度，更高效的更新虚拟DOM;在vue的diff函数中，会根据key去数组中对比新旧节点，而如果没有key，那么就会采用遍历查找的方式去找到对应的旧节点。一种一个map映射，另一种是遍历查找，map映射的速度更快。</li>
-<li>在v-for的时候，vue采用了“就地复用”的更新策略，如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是使用key作为索引来显示已被渲染过的每个元素，重复的key会造成渲染错误。</li>
+<h3 id="React-Vue-项目中-key-的作用"><a href="#React-Vue-项目中-key-的作用" class="headerlink" title="React/Vue 项目中 key 的作用"></a>React/Vue 项目中 key 的作用</h3><blockquote>
+<p>key是给每一个vnode的唯一id,可以依靠key,更准确, 更快的拿到旧虚拟dom上的节点。</p>
+</blockquote>
+<ol>
+<li>vue 在列表更新的时候采用了<strong>就地复用</strong>的更新策略，不需要多余的增删和排序操作。因为带key就不是就地复用了，这样在<strong>列表的操作中</strong>可以避免就地复用的情况，所以会更加准确。</li>
+<li>vue 在diff函数中，会根据key去数组中对比新旧节点，而如果没有key，那么就会采用遍历查找的方式去找到对应的旧节点。一种是map映射，另一种是遍历查找，map映射的速度更快。</li>
 </ol>
 <h3 id="nextTick的作用和实现原理"><a href="#nextTick的作用和实现原理" class="headerlink" title="nextTick的作用和实现原理"></a>nextTick的作用和实现原理</h3><p>  nextTick是解决vue在数据变化操作之后，立即获取DOM元素而取不到的问题。nextTick接受一个回调函数作为参数，同时在vue3中，nextTick会返回一个Promise。</p>
 <p>  Vue在更新DOM时是异步执行的，更改响应式状态时，Vue将开启一个缓存队列，<strong>同一事件循环</strong>如果一个watcher被多次触发，只会被推入到队列中一次，直到下一个“tick”才一起执行，这样避免不必要的计算。</p>
@@ -613,13 +624,33 @@
 </ol>
 </li>
 </ul>
-<h3 id="React事件机制"><a href="#React事件机制" class="headerlink" title="React事件机制"></a>React事件机制</h3><p>React基于浏览器的事件机制实现了一套自身的事件机制，它符合W3C规范，包括事件触发、事件冒泡、事件捕获、事件合成和事件派发等<br>这么设计的目的：</p>
-<ol>
-<li>在底层磨平不同浏览器的差异，React实现了统一的事件机制，我们不再需要处理浏览器事件机制方面的兼容问题</li>
-<li>React把握了事件机制的主动权，实现了对所有事件的中心化管控</li>
-<li>React引入事件池避免垃圾回收，在事件池中获取或释放事件对象，避免频繁的创建和销毁</li>
-</ol>
+<h3 id="React事件机制"><a href="#React事件机制" class="headerlink" title="React事件机制"></a>React事件机制</h3><p>React基于浏览器的事件机制实现了一套自身的事件机制</p>
 <ul>
+<li>这么设计的目的：<ol>
+<li>在底层磨平不同浏览器的差异，React实现了统一的事件机制</li>
+<li>React把握了事件机制的主动权，实现了对所有事件的中心化管控</li>
+<li>React引入事件池，在事件池中获取或释放事件对象，避免频繁的创建和销毁</li>
+</ol>
+</li>
+<li>React实现事件的过程，两个阶段<ol>
+<li>事件绑定，建立合成事件与原生事件的对应关系，并记录之间的映射，react把所有的事件都绑定到 document 身上</li>
+<li>事件派发，针对同一个事件，即使可能存在多次回调，document（container）也只需要注册一次监听<ul>
+<li>事件触发，冒泡至document(container)</li>
+<li>执行dispatchEvent</li>
+<li>创建事件对应的合成事件对象（SyntheticEvent）</li>
+<li>收集事件在<strong>捕获阶段</strong>所波及的<strong>回调函数</strong>和<strong>节点实例</strong></li>
+<li>收集事件在<strong>冒泡阶段</strong>所波及的<strong>回调函数</strong>和<strong>节点实例</strong></li>
+<li>将<strong>前两步收集来的回调</strong>按顺序执行，执行时（SyntheticEvent）会作为参数传进去。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>React怎么阻止事件冒泡<ol>
+<li>阻止合成事件间的冒泡，用e.stopPropagation()</li>
+<li>阻止合成事件与最外层 document 上的事件间的冒泡，用e.nativeEvent.stopImmediatePropagation()</li>
+<li>阻止合成事件与除最外层document上的原生事件上的冒泡，通过判断e.target来避免</li>
+</ol>
+</li>
 <li>DOM事件流<br>事件在目标元素和祖先元素间的触发顺序。</li>
 </ul>
 <ol>
@@ -634,48 +665,6 @@
 </ul>
 </li>
 </ol>
-<ul>
-<li><p>React实现事件的过程</p>
-<ol>
-<li><p>绑定（建立合成事件与原生事件的对应关系）</p>
-<ul>
-<li><p><strong>registrationNameModule</strong>, 它建立了React事件到plugin的映射，它包含React支持的所有事件的类型，用于判断一个组件的prop是否是事件类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  onBlur:SimpleEventPlugin,</span><br><span class="line">  onClick:SimpleEventPlugin,</span><br><span class="line">  onClickCapture:SimpleEventPlugin,</span><br><span class="line">  onChange:ChangeEventPlugin,</span><br><span class="line">  onChangeCapture:ChangeEventPlugin,</span><br><span class="line">  onMouseEnter:EnterLeaveEventPlugin,</span><br><span class="line">  onMouseLeave:EnterLeaveEventPlugin,</span><br><span class="line">  ...  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>registrationNameDependencies</strong>， 这个对象记录了React事件到原生事件的映射</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  onBlur: [&apos;blur&apos;],</span><br><span class="line">  onClick: [&apos;click&apos;],</span><br><span class="line">  onClickCapture: [&apos;click&apos;],</span><br><span class="line">  onChange: [&apos;blur&apos;, &apos;change&apos;, &apos;click&apos;, &apos;focus&apos;, &apos;input&apos;, &apos;keydown&apos;, &apos;keyup&apos;, &apos;selectionchange&apos;],</span><br><span class="line">  onMouseEnter: [&apos;mouseout&apos;, &apos;mouseover&apos;],</span><br><span class="line">  onMouseLeave: [&apos;mouseout&apos;, &apos;mouseover&apos;],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>plugins对象, 记录了所有注册的插件列表</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins = [LegacySimpleEventPlugin, LegacyEnterLeaveEventPlugin, ...]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>派发(针对同一个事件，即使可能存在多次回调，document（container）也只需要注册一次监听)</p>
-<ul>
-<li>React注册到document(container)上的并不是一个某个DOM节点具体的回调逻辑，而是一个统一的事件分发函数dispatchEvent - &gt; 事件委托思想</li>
-<li>事件触发的本质是对dispatchEvent函数的调用</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>事件工作流程</p>
-<ol>
-<li>事件触发，冒泡至document(container)</li>
-<li>执行dispatchEvent</li>
-<li>创建事件对应的合成事件对象（SyntheticEvent）</li>
-<li>收集事件在<strong>捕获阶段</strong>所波及的<strong>回调函数</strong>和<strong>节点实例</strong></li>
-<li>收集事件在<strong>冒泡阶段</strong>所波及的<strong>回调函数</strong>和<strong>节点实例</strong></li>
-<li>将<strong>前两步收集来的回调</strong>按顺序执行，执行时（SyntheticEvent）会作为参数传进去。</li>
-</ol>
-</li>
-<li><p>React怎么阻止事件冒泡</p>
-<ol>
-<li>阻止合成事件间的冒泡，用e.stopPropagation()</li>
-<li>阻止合成事件与最外层 document 上的事件间的冒泡，用e.nativeEvent.stopImmediatePropagation()</li>
-<li>阻止合成事件与除最外层document上的原生事件上的冒泡，通过判断e.target来避免</li>
-</ol>
-</li>
-</ul>
 <h3 id="函数组件，hooks和类class"><a href="#函数组件，hooks和类class" class="headerlink" title="函数组件，hooks和类class"></a>函数组件，hooks和类class</h3><ol>
 <li>类组件需要声明constructor，函数组件不需要</li>
 <li>类组件需要手动绑定this，函数组件不需要</li>
@@ -726,16 +715,7 @@
 <li><p>类组件继承<br>继承模式的应用前提是，你需要知道被继承的组件是什么，内部都有什么状态和方法，对继承的组件内部的运转是透明的。接下来用一幅图表示继承模式原理。</p>
 </li>
 </ul>
-<h3 id="React渲染流程和fiber"><a href="#React渲染流程和fiber" class="headerlink" title="React渲染流程和fiber"></a>React渲染流程和fiber</h3><h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ol>
-<li>shouldComponentUpdate、pureComponent</li>
-<li>useMemo useCallback</li>
-<li>getDerviedStateFromProps</li>
-<li>使用Fragment</li>
-<li>v-for/map使用正确的key</li>
-<li>拆分尽可能小的可复用组件，ErrorBoundary</li>
-<li>使用React.lazy和React.Suspense延迟加载不需要立马使用的组件</li>
-</ol>
-<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>  Typescript是js的超集，为js提供了静态类型检查，在js的基础上引入了面向对象的一些概念：类、接口、继承、范型。ts提供了类型注解、类型推断，在编译时就能保证类型的正确。</p>
+<h3 id="React渲染流程和fiber"><a href="#React渲染流程和fiber" class="headerlink" title="React渲染流程和fiber"></a>React渲染流程和fiber</h3><h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p>  Typescript是js的超集，为js提供了静态类型检查，在js的基础上引入了面向对象的一些概念：类、接口、继承、范型。ts提供了类型注解、类型推断，在编译时就能保证类型的正确。</p>
 <h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><p>  泛型是提供创建可重用组件的方法的工具，使用传参的形式将类型传递给函数或者接口，并在使用时指定具体的类型。</p>
 <h3 id="联合类型和交叉类型"><a href="#联合类型和交叉类型" class="headerlink" title="联合类型和交叉类型"></a>联合类型和交叉类型</h3><ul>
 <li>交叉类型：将多个类型合并成一个类型，新类型将具有多个类型的所有特性。&amp;</li>
@@ -951,7 +931,7 @@
   <div class="bottom">
     <p><span>summxu &copy;
         2017 -
-        2023</span>
+        2024</span>
       <span>
         
         Power by Hexo
