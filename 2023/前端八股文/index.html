@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="传输协议&amp;amp;&amp;amp;浏览器https 协议的工作原理 客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。 web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。 客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。 客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-01-02T10:11:04.052Z">
+<meta property="og:updated_time" content="2024-01-06T14:20:46.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端八股文">
 <meta name="twitter:description" content="传输协议&amp;amp;&amp;amp;浏览器https 协议的工作原理 客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。 web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。 客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。 客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话">
@@ -406,7 +406,7 @@
 </li>
 <li>变量提升<ol>
 <li>var 的变量声明会提升到<strong>当前作用域（无视块级作用域）</strong>最顶部在进行赋值。</li>
-<li>function的声明会提升到<strong>当前作用域（无视块级作用域）</strong>最顶部，function 的提升优先级大于 var。</li>
+<li>function的声明会提升到<strong>当前作用域（无视块级作用域）</strong>最顶部，函数声明优先于变量声明。</li>
 <li>const 和 let 不会提升，并且之在块级作用域生效，他们在作用域内只能被声明一次</li>
 <li>const 声明的时候必须赋值，let 可以只声明不赋值，默认是 undefind</li>
 <li>const 的值不可修改，但引用类型的赋值，可以修改其属性。</li>
@@ -793,6 +793,8 @@
 <li>iframe</li>
 <li>webpack5 moudle-federation</li>
 </ol>
+</li>
+<li><p>乾坤的实现</p>
 </li>
 </ul>
 

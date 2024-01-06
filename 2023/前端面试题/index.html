@@ -23,18 +23,18 @@
     <meta name="keywords" content="JavaScript">
     <div style="display:none;"><img src="/img/avatar.jpg"></div>
     <meta property="og:image" content="https://summxu.github.io/img/avatar.jpg">
-    <meta name="description" content="React组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可以返回多个组件 使用HOC（高阶函数） 使用React.Fragment，会创建一个虚拟节点，">
+    <meta name="description" content="ReactReact组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可以返回多个组件 使用HOC（高阶函数） 使用React.Fragment，会创建一个">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="前端面试题">
 <meta property="og:url" content="https://summxu.github.io/2023/前端面试题/index.html">
 <meta property="og:site_name" content="小兵旭旭的博客">
-<meta property="og:description" content="React组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可以返回多个组件 使用HOC（高阶函数） 使用React.Fragment，会创建一个虚拟节点，">
+<meta property="og:description" content="ReactReact组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可以返回多个组件 使用HOC（高阶函数） 使用React.Fragment，会创建一个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-01-02T10:11:04.052Z">
+<meta property="og:updated_time" content="2024-01-06T14:20:46.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端面试题">
-<meta name="twitter:description" content="React组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可以返回多个组件 使用HOC（高阶函数） 使用React.Fragment，会创建一个虚拟节点，">
+<meta name="twitter:description" content="ReactReact组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可以返回多个组件 使用HOC（高阶函数） 使用React.Fragment，会创建一个">
     
         <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
     
@@ -175,7 +175,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#React组件为什么不能返回多个元素"><span class="post-toc-number">1.</span> <span class="post-toc-text">React组件为什么不能返回多个元素</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#模块化"><span class="post-toc-number">2.</span> <span class="post-toc-text">模块化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#首屏优化策略"><span class="post-toc-number">3.</span> <span class="post-toc-text">首屏优化策略</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#错误捕获"><span class="post-toc-number">4.</span> <span class="post-toc-text">错误捕获</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Vue"><span class="post-toc-number">5.</span> <span class="post-toc-text">Vue</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#v-show和v-if有什么区别"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">v-show和v-if有什么区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#有用过keep-alive吗？它有什么作用"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">有用过keep-alive吗？它有什么作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么data属性是一个函数而不是一个对象"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">为什么data属性是一个函数而不是一个对象</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Set-amp-amp-Map"><span class="post-toc-number">6.</span> <span class="post-toc-text">Set &amp;&amp; Map</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#性能优化"><span class="post-toc-number">7.</span> <span class="post-toc-text">性能优化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#webpack"><span class="post-toc-number">8.</span> <span class="post-toc-text">webpack</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单说一下-webpack-的构建流程"><span class="post-toc-number">8.1.</span> <span class="post-toc-text">简单说一下 webpack 的构建流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Loader-和-Plugin-的区别"><span class="post-toc-number">8.2.</span> <span class="post-toc-text">Loader 和 Plugin 的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tree-shaking-原理是什么"><span class="post-toc-number">8.3.</span> <span class="post-toc-text">tree shaking 原理是什么</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#说一下-Babel-原理"><span class="post-toc-number">8.4.</span> <span class="post-toc-text">说一下 Babel 原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#webpack-优化前端代码"><span class="post-toc-number">8.5.</span> <span class="post-toc-text">webpack 优化前端代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReactNative"><span class="post-toc-number">9.</span> <span class="post-toc-text">ReactNative</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Electron"><span class="post-toc-number">10.</span> <span class="post-toc-text">Electron</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx-amp-amp-Linux"><span class="post-toc-number">11.</span> <span class="post-toc-text">Nginx &amp;&amp; Linux</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mini-Vue"><span class="post-toc-number">12.</span> <span class="post-toc-text">mini Vue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mini-React"><span class="post-toc-number">13.</span> <span class="post-toc-text">mini React</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#手写节流，防抖"><span class="post-toc-number">14.</span> <span class="post-toc-text">手写节流，防抖</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#手写Promise（没有考虑链式调用）"><span class="post-toc-number">15.</span> <span class="post-toc-text">手写Promise（没有考虑链式调用）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#冷知识"><span class="post-toc-number">16.</span> <span class="post-toc-text">冷知识</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面试技巧"><span class="post-toc-number">17.</span> <span class="post-toc-text">面试技巧</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知识体系学习"><span class="post-toc-number">18.</span> <span class="post-toc-text">知识体系学习</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#React"><span class="post-toc-number">1.</span> <span class="post-toc-text">React</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#React组件为什么不能返回多个元素"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">React组件为什么不能返回多个元素</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Redux-设计思想"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">Redux 设计思想</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useEffect-useMemo-原理"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">useEffect useMemo 原理</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#优化"><span class="post-toc-number">2.</span> <span class="post-toc-text">优化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#首屏优化策略"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">首屏优化策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#性能优化"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">性能优化</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#错误捕获"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">错误捕获</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Vue"><span class="post-toc-number">3.</span> <span class="post-toc-text">Vue</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#v-show和v-if有什么区别"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">v-show和v-if有什么区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#有用过keep-alive吗？它有什么作用"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">有用过keep-alive吗？它有什么作用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#为什么data属性是一个函数而不是一个对象"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">为什么data属性是一个函数而不是一个对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vue3做了哪些优化（性能方面）"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">vue3做了哪些优化（性能方面）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JavaScript"><span class="post-toc-number">4.</span> <span class="post-toc-text">JavaScript</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Set-amp-amp-Map"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Set &amp;&amp; Map</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#模块化"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">模块化</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小程序"><span class="post-toc-number">5.</span> <span class="post-toc-text">小程序</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#小程序和h5的区别"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">小程序和h5的区别</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#webpack"><span class="post-toc-number">6.</span> <span class="post-toc-text">webpack</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#vite-和-webpack"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">vite 和 webpack</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单说一下-webpack-的构建流程"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">简单说一下 webpack 的构建流程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Loader-和-Plugin-的区别"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">Loader 和 Plugin 的区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#tree-shaking-原理是什么"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">tree shaking 原理是什么</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#说一下-Babel-原理"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">说一下 Babel 原理</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#webpack-优化前端代码"><span class="post-toc-number">6.6.</span> <span class="post-toc-text">webpack 优化前端代码</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#在-Vue-中，子组件为何不可以修改父组件传递的-Prop"><span class="post-toc-number">7.</span> <span class="post-toc-text">在 Vue 中，子组件为何不可以修改父组件传递的 Prop</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#ReactNative"><span class="post-toc-number">8.</span> <span class="post-toc-text">ReactNative</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Electron"><span class="post-toc-number">9.</span> <span class="post-toc-text">Electron</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Nginx-amp-amp-Linux"><span class="post-toc-number">10.</span> <span class="post-toc-text">Nginx &amp;&amp; Linux</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mini-Vue"><span class="post-toc-number">11.</span> <span class="post-toc-text">mini Vue</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#mini-React"><span class="post-toc-number">12.</span> <span class="post-toc-text">mini React</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#冷知识"><span class="post-toc-number">13.</span> <span class="post-toc-text">冷知识</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#面试技巧"><span class="post-toc-number">14.</span> <span class="post-toc-text">面试技巧</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#知识体系学习"><span class="post-toc-number">15.</span> <span class="post-toc-text">知识体系学习</span></a></li></ol>
         </nav>
     </aside>
 
@@ -199,7 +199,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="React组件为什么不能返回多个元素"><a href="#React组件为什么不能返回多个元素" class="headerlink" title="React组件为什么不能返回多个元素"></a>React组件为什么不能返回多个元素</h2><ol>
+            <h2 id="React"><a href="#React" class="headerlink" title="React"></a>React</h2><h3 id="React组件为什么不能返回多个元素"><a href="#React组件为什么不能返回多个元素" class="headerlink" title="React组件为什么不能返回多个元素"></a>React组件为什么不能返回多个元素</h3><ol>
 <li>React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的</li>
 <li>react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新</li>
 </ol>
@@ -211,24 +211,40 @@
 </ol>
 </li>
 </ul>
-<h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><ul>
-<li>amd<br>浏览器的一种模块引用方式，define 定义模块（放大），使用 require 引入模块。</li>
-<li>esm<br>esm 是 es6 的模块，通过 export、export default 导入，通过 import 引入</li>
-<li>CommonJS<br>服务端（nodejs）中的引入方式，module.exports 导出 require 引入</li>
-<li>umd<br>umd 是 amd 与 CommonJS 两种格式的兼容。既可以跑在浏览器，又可以跑在 Node 中</li>
+<h3 id="Redux-设计思想"><a href="#Redux-设计思想" class="headerlink" title="Redux 设计思想"></a>Redux 设计思想</h3><ol>
+<li>单一数据源，也就是state</li>
+<li>state 是只读，Redux并没有暴露出直接修改state的接口，必须通过action来触发修改</li>
+<li>使用纯函数来修改state，reducer必须是纯函数，纯函数是没有副作用的。</li>
+<li>reducer接受state，返回的也是state，所以不能使用异步，需要用中间件实现副作用</li>
+<li>把reducer设计成纯函数，可以实现时间旅行，记录/回放或者热加载</li>
+</ol>
+<h3 id="useEffect-useMemo-原理"><a href="#useEffect-useMemo-原理" class="headerlink" title="useEffect useMemo 原理"></a>useEffect useMemo 原理</h3><ul>
+<li>useEffect 在 render 的时候异步执行 useEffect 里的回调，在render之后才会起作用。</li>
+<li>useLayoutEffect 和 useEffect 的执行时机一直，只不过是同步执行回调，会阻塞页面渲染，也走批处理。</li>
+<li>useMemo缓存一个依赖项，如果这次更新的数据没有发生改变，就不更新。</li>
 </ul>
-<h2 id="首屏优化策略"><a href="#首屏优化策略" class="headerlink" title="首屏优化策略"></a>首屏优化策略</h2><ul>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="首屏优化策略"><a href="#首屏优化策略" class="headerlink" title="首屏优化策略"></a>首屏优化策略</h3><ul>
 <li>减小入口文件积:<ol>
 <li>webpack 开启压缩js 压缩css 压缩image 分离样式</li>
 <li>路由组件动态加载</li>
 </ol>
 </li>
+<li>vue 异步组件加载 resolve =&gt; require()</li>
 <li>静态资源http本地缓存,设置缓存响应头.</li>
 <li>UI框架按需加载, 使用 import </li>
 <li>开启GZip压缩</li>
 <li>使用服务端渲染</li>
 </ul>
-<h2 id="错误捕获"><a href="#错误捕获" class="headerlink" title="错误捕获"></a>错误捕获</h2><ul>
+<h3 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h3><ol>
+<li>shouldComponentUpdate、pureComponent</li>
+<li>useMemo useCallback</li>
+<li>getDerviedStateFromProps</li>
+<li>使用Fragment</li>
+<li>v-for/map使用正确的key</li>
+<li>拆分尽可能小的可复用组件，ErrorBoundary</li>
+<li>使用React.lazy和React.Suspense延迟加载不需要立马使用的组件</li>
+</ol>
+<h3 id="错误捕获"><a href="#错误捕获" class="headerlink" title="错误捕获"></a>错误捕获</h3><ul>
 <li>后端接口错误: 通过代码拦截接口,错误码判断</li>
 <li>使用 try catch 捕获错误</li>
 <li><code>Vue.config.errorHandler</code> 函数全局捕获错误</li>
@@ -236,26 +252,19 @@
 <li>getDerivedStateFromError 渲染备用UI, componentDidCatch 打印错误</li>
 </ul>
 <h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><h3 id="v-show和v-if有什么区别"><a href="#v-show和v-if有什么区别" class="headerlink" title="v-show和v-if有什么区别"></a>v-show和v-if有什么区别</h3><ol>
-<li><p>v-show 和 v-if 在效果上是一样的功能，都是使元素在页面上可见或者不可见。</p>
-</li>
-<li><p>v-show 单纯的是修改css display:noe 实现的，v-if 则是在dom上添加或者删除元素。</p>
-</li>
-<li><p>v-if 切换有一个局部编译/卸载的过程，包括怎么合适的重建事件监听和销毁子组件。</p>
-</li>
-<li><p>v-if 切换会重新触发组件的生命周期。</p>
-<h3 id="有用过keep-alive吗？它有什么作用"><a href="#有用过keep-alive吗？它有什么作用" class="headerlink" title="有用过keep-alive吗？它有什么作用"></a>有用过keep-alive吗？它有什么作用</h3></li>
-<li><p>keep-alive 是一个内置组件，被他包裹的组件起到一个缓存作用，一般用到路由切换上面，不会被销毁。</p>
-</li>
-<li><p>include 属性可以是一个正则表达式，也可以是一个数组，匹配哪些被他包裹的组件被缓存。</p>
-</li>
-<li><p>max 属性表示最多可以缓存多少个组件。</p>
-</li>
-<li><p>被缓存的组件多了两个生命周期 actived 和 deactivated。</p>
-</li>
-<li><p>includes 匹配的是组件的 name 选项。</p>
-<h3 id="为什么data属性是一个函数而不是一个对象"><a href="#为什么data属性是一个函数而不是一个对象" class="headerlink" title="为什么data属性是一个函数而不是一个对象"></a>为什么data属性是一个函数而不是一个对象</h3></li>
+<li>v-show 和 v-if 在效果上是一样的功能，都是使元素在页面上可见或者不可见。</li>
+<li>v-show 单纯的是修改css display:noe 实现的，v-if 则是在dom上添加或者删除元素。</li>
+<li>v-if 切换有一个局部编译/卸载的过程，包括怎么合适的重建事件监听和销毁子组件。</li>
+<li>v-if 切换会重新触发组件的生命周期。</li>
 </ol>
-<ul>
+<h3 id="有用过keep-alive吗？它有什么作用"><a href="#有用过keep-alive吗？它有什么作用" class="headerlink" title="有用过keep-alive吗？它有什么作用"></a>有用过keep-alive吗？它有什么作用</h3><ol>
+<li>keep-alive 是一个内置组件，被他包裹的组件起到一个缓存作用，一般用到路由切换上面，不会被销毁。</li>
+<li>include 属性可以是一个正则表达式，也可以是一个数组，匹配哪些被他包裹的组件被缓存。</li>
+<li>max 属性表示最多可以缓存多少个组件。</li>
+<li>被缓存的组件多了两个生命周期 actived 和 deactivated。</li>
+<li>includes 匹配的是组件的 name 选项。</li>
+</ol>
+<h3 id="为什么data属性是一个函数而不是一个对象"><a href="#为什么data属性是一个函数而不是一个对象" class="headerlink" title="为什么data属性是一个函数而不是一个对象"></a>为什么data属性是一个函数而不是一个对象</h3><ul>
 <li>组件中的data必须是一个函数，组件是用来复用的，为了防止data复用，将其定义为函数。<ol>
 <li>创建组件的时候是用同一个构造函数创建的，如果data是对象，就会让所有的组件实例共用了这一个data</li>
 <li>而函数返回的内存地址是独立的，不会出现复用。</li>
@@ -263,7 +272,13 @@
 </li>
 <li>new Vue 实例中的data可以是一个对象，这是因为new Vue只会存在一个。</li>
 </ul>
-<h2 id="Set-amp-amp-Map"><a href="#Set-amp-amp-Map" class="headerlink" title="Set &amp;&amp; Map"></a>Set &amp;&amp; Map</h2><ul>
+<h3 id="vue3做了哪些优化（性能方面）"><a href="#vue3做了哪些优化（性能方面）" class="headerlink" title="vue3做了哪些优化（性能方面）"></a>vue3做了哪些优化（性能方面）</h3><ol>
+<li>tree-shaking，vue3将全局api分块导出，不是像vue2那样只能引入一整个对象。</li>
+<li>diff算法优化，为不参与更新的静态元素增加标记，不需要diff比对。</li>
+<li>静态提升，不参与更新的静态元素只会被创建一次，然后做静态提升，不会被再次render。</li>
+<li>proxy带来的性能提升。</li>
+</ol>
+<h2 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h2><h3 id="Set-amp-amp-Map"><a href="#Set-amp-amp-Map" class="headerlink" title="Set &amp;&amp; Map"></a>Set &amp;&amp; Map</h3><ul>
 <li>Set是一个类数组的数据结构，他的特点是无序且不重复的，我们称之为集合，它提供了 <code>add</code> <code>has</code> <code>delete</code> <code>clear</code> 等方法<ol>
 <li>可以利用set的无序性给对象排序</li>
 </ol>
@@ -276,16 +291,33 @@
 </li>
 <li>WeakMap 没有遍历方法，没有clear方法，只接受对象作为键名，WeakMap的键名所指向的对象，一旦不再需要，里面的键名对象和所对应的键值对会自动消失</li>
 </ul>
-<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><ol>
-<li>shouldComponentUpdate、pureComponent</li>
-<li>useMemo useCallback</li>
-<li>getDerviedStateFromProps</li>
-<li>使用Fragment</li>
-<li>v-for/map使用正确的key</li>
-<li>拆分尽可能小的可复用组件，ErrorBoundary</li>
-<li>使用React.lazy和React.Suspense延迟加载不需要立马使用的组件</li>
+<h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><ul>
+<li>amd<br>浏览器的一种模块引用方式，define 定义模块（放大），使用 require 引入模块。</li>
+<li>esm<br>esm 是 es6 的模块，通过 export、export default 导入，通过 import 引入</li>
+<li>CommonJS<br>服务端（nodejs）中的引入方式，module.exports 导出 require 引入</li>
+<li>umd<br>umd 是 amd 与 CommonJS 两种格式的兼容。既可以跑在浏览器，又可以跑在 Node 中</li>
+</ul>
+<h2 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h2><h3 id="小程序和h5的区别"><a href="#小程序和h5的区别" class="headerlink" title="小程序和h5的区别"></a>小程序和h5的区别</h3><ol>
+<li>渲染方式<ul>
+<li>h5是一个完整的浏览器环境，通过解析html文档、生成dom/css树等流程渲染。</li>
+<li>小程序采用了双线程模型，渲染线程使用类浏览器的webview渲染，逻辑层作为独立的线程，使用客户端提供的js引擎。<br>逻辑线程只是提供js的能力，没有window和document，没有dom和bom相关的api，不能直接操作ui，只能够通过 setData 更新数据异步更新 UI。</li>
+</ul>
+</li>
+<li>运行机制<ul>
+<li>小程序依附于平台，从启动到销毁有一套完整的生命周期，h5没有这些概念</li>
+</ul>
+</li>
+<li>系统权限<ul>
+<li>JsBridge在小程序中扮演逻辑层中js与native沟通的桥梁，通过这个可以让js代码调用原生功能，能让小程序获得很多系统级别的权限，比如发起请求、缓存操作、硬件能力。</li>
+</ul>
+</li>
 </ol>
-<h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><h3 id="简单说一下-webpack-的构建流程"><a href="#简单说一下-webpack-的构建流程" class="headerlink" title="简单说一下 webpack 的构建流程"></a>简单说一下 webpack 的构建流程</h3><blockquote>
+<h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><h3 id="vite-和-webpack"><a href="#vite-和-webpack" class="headerlink" title="vite 和 webpack"></a>vite 和 webpack</h3><p>vite做的主要是开发环境下的一些工作，vite在启动的时候，是直接启动开发服务器，不打包，而是利用了浏览器原生支持的esmodule，浏览器执行到哪里就自动加载哪些模块<br>在热更新的的时候，vite监听改变的文件，通过web socket发给前端，让浏览器使用 esmoudle 的方式重新加载这个模块。<br>在浏览器自动加载模块之前，vite还使用了esbuild（用golang写的一个打包工具）进行预构建操作：</p>
+<ol>
+<li>把一些commonjs、umd的引入方式转换成esmoudle</li>
+<li>合并多个esmodule的引用，避免浏览器发送多个http请求</li>
+</ol>
+<h3 id="简单说一下-webpack-的构建流程"><a href="#简单说一下-webpack-的构建流程" class="headerlink" title="简单说一下 webpack 的构建流程"></a>简单说一下 webpack 的构建流程</h3><blockquote>
 <p>webpack 从启动到结束会依次执行以下流程：</p>
 </blockquote>
 <ol>
@@ -351,20 +383,16 @@
 </ol>
 </li>
 </ul>
-<h2 id="ReactNative"><a href="#ReactNative" class="headerlink" title="ReactNative"></a>ReactNative</h2><h2 id="Electron"><a href="#Electron" class="headerlink" title="Electron"></a>Electron</h2><h2 id="Nginx-amp-amp-Linux"><a href="#Nginx-amp-amp-Linux" class="headerlink" title="Nginx &amp;&amp; Linux"></a>Nginx &amp;&amp; Linux</h2><h2 id="mini-Vue"><a href="#mini-Vue" class="headerlink" title="mini Vue"></a>mini Vue</h2><h2 id="mini-React"><a href="#mini-React" class="headerlink" title="mini React"></a>mini React</h2><p>反思复盘，整理零散知识点，完善知识体系</p>
-<h2 id="手写节流，防抖"><a href="#手写节流，防抖" class="headerlink" title="手写节流，防抖"></a>手写节流，防抖</h2><ul>
-<li><p>节流</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> canRun = <span class="literal">true</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(canRun === <span class="literal">false</span>) <span class="keyword">return</span></span><br><span class="line">    canRun = <span class="literal">false</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">      canRun = <span class="literal">true</span></span><br><span class="line">    &#125;, <span class="number">500</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>防抖</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> timer = <span class="literal">null</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    clearTimeout(timer)</span><br><span class="line">    timer = setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      fn.apply(<span class="keyword">this</span>, <span class="built_in">arguments</span>)</span><br><span class="line">    &#125;, <span class="number">500</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
+<h2 id="在-Vue-中，子组件为何不可以修改父组件传递的-Prop"><a href="#在-Vue-中，子组件为何不可以修改父组件传递的-Prop" class="headerlink" title="在 Vue 中，子组件为何不可以修改父组件传递的 Prop"></a>在 Vue 中，子组件为何不可以修改父组件传递的 Prop</h2><ul>
+<li>单向数据流，易于监测数据的流动，出现了错误可以更加迅速的定位到错误发生的位置。</li>
+<li>会在触发set的时候判断是否此key是否处于updatingChildren中被修改，如果不是，说明此修改来自子组件，触发warning提示。</li>
+<li>props 是基本数据类型的时候，因为是值拷贝，子组件修改props父组件是不会变化的，如果是引用类型，虽然有会警告，当时会修改。</li>
 </ul>
-<h2 id="手写Promise（没有考虑链式调用）"><a href="#手写Promise（没有考虑链式调用）" class="headerlink" title="手写Promise（没有考虑链式调用）"></a>手写Promise（没有考虑链式调用）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建MyPromise类 </span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyPromise</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 通过构造函数constructor，在执行这个类的时候需要传递一个执行器进去并立即调用</span></span><br><span class="line">  <span class="keyword">constructor</span>(executor) &#123;</span><br><span class="line">    <span class="keyword">this</span>.status = <span class="string">'pending'</span></span><br><span class="line">    <span class="comment">// 定义 fulfilled 情况下的返回值</span></span><br><span class="line">    <span class="keyword">this</span>.result = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 定义 rejected 情况下的返回值</span></span><br><span class="line">    <span class="keyword">this</span>.reason = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 定义回调函数数组</span></span><br><span class="line">    <span class="keyword">this</span>.onFulfilledCallbacks = []</span><br><span class="line">    <span class="keyword">this</span>.onRejectedCallbacks = []</span><br><span class="line">    executor(<span class="keyword">this</span>.resolve, <span class="keyword">this</span>.reject)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 定义resolve函数，改变状态和调用回调</span></span><br><span class="line">  resolve = <span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status !== <span class="string">'pending'</span>) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">this</span>.result = result</span><br><span class="line">    <span class="keyword">this</span>.status = <span class="string">'fulfilled'</span></span><br><span class="line">    <span class="comment">// 执行数组里的 回调函数</span></span><br><span class="line">    <span class="keyword">this</span>.onFulfilledCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> callback(result))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 定义reject函数，改变状态和调用回调</span></span><br><span class="line">  reject = <span class="function"><span class="params">reason</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status !== <span class="string">'pending'</span>) <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">this</span>.reason = reason</span><br><span class="line">    <span class="keyword">this</span>.status = <span class="string">'rejected'</span></span><br><span class="line">    <span class="comment">// 执行数组里的 回调函数</span></span><br><span class="line">    <span class="keyword">this</span>.onFulfilledCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> callback(reason))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 定义then方法，接受两个回调函数</span></span><br><span class="line">  then = <span class="function">(<span class="params">onFulfilled, onRejected</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 判断接受的回调函数，并可以为空给默认值</span></span><br><span class="line">    onRejected = <span class="keyword">typeof</span> onRejected === <span class="string">'function'</span> ? onRejected : <span class="function"><span class="params">reason</span> =&gt;</span> &#123; <span class="keyword">throw</span> reason &#125;</span><br><span class="line">    onFulfilled = <span class="keyword">typeof</span> onFulfilled === <span class="string">'function'</span> ? onFulfilled : <span class="function"><span class="params">result</span> =&gt;</span> result</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.status === <span class="string">'fulfilled'</span>) &#123;</span><br><span class="line">      <span class="comment">// fulfilled状态，调用第一个 fulfilled回调函数</span></span><br><span class="line">      <span class="comment">// 添加到宏任务，尽量晚于执行器后</span></span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; onFulfilled(<span class="keyword">this</span>.result) &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.status === <span class="string">'rejected'</span>) &#123;</span><br><span class="line">      <span class="comment">// rejected状态，调用第二个 rejected回调函数</span></span><br><span class="line">      <span class="comment">// 添加到宏任务，尽量晚于执行器后</span></span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; onRejected(<span class="keyword">this</span>.reason) &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.status === <span class="string">'pending'</span>) &#123;</span><br><span class="line">      <span class="comment">// 如果执行器中为异步（执行时机晚）不会立即改变状态，此时调用then一定是pending</span></span><br><span class="line">      <span class="comment">// 这个时候可以把回调函数保存到数组里，等待resolve/reject调用执行then</span></span><br><span class="line">      <span class="keyword">this</span>.onFulfilledCallbacks.push(onFulfilled)</span><br><span class="line">      <span class="keyword">this</span>.onRejectedCallbacks.push(onRejected)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">catch</span> = <span class="function">(<span class="params">onRejected</span>) =&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; onRejected(<span class="keyword">this</span>.reason) &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> MyPromise(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123; resolve(<span class="string">'2秒之后执行then'</span>) &#125;, <span class="number">200</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123; <span class="built_in">console</span>.log(res) &#125;)</span><br></pre></td></tr></table></figure>
-
+<h2 id="ReactNative"><a href="#ReactNative" class="headerlink" title="ReactNative"></a>ReactNative</h2><h2 id="Electron"><a href="#Electron" class="headerlink" title="Electron"></a>Electron</h2><h2 id="Nginx-amp-amp-Linux"><a href="#Nginx-amp-amp-Linux" class="headerlink" title="Nginx &amp;&amp; Linux"></a>Nginx &amp;&amp; Linux</h2><h2 id="mini-Vue"><a href="#mini-Vue" class="headerlink" title="mini Vue"></a>mini Vue</h2><h2 id="mini-React"><a href="#mini-React" class="headerlink" title="mini React"></a>mini React</h2><p>反思复盘，整理零散知识点，完善知识体系</p>
 <h2 id="冷知识"><a href="#冷知识" class="headerlink" title="冷知识"></a>冷知识</h2><ul>
 <li>valueOf 返回对象本身</li>
+<li>toString 是对象的自带方法</li>
+<li>隐式类型转换调用的是对象本身的tostring 或者 valueof方法</li>
 </ul>
 <h2 id="面试技巧"><a href="#面试技巧" class="headerlink" title="面试技巧"></a>面试技巧</h2><ol>
 <li>在日常的开发中，我对vue的使用更加频繁，但当有新需求给我的时候，我会考虑用更合适的技术方案去实现它，比如有时候可能会用react、甚至使用存js。我认为自己在技术上还是有一定的追求和理解，也经常关注一些前沿的解决方案。</li>
@@ -437,7 +465,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2024/手写coding题/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">手写coding题</h4>
+      </a>
+    </div>
   
 
   
