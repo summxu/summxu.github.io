@@ -185,7 +185,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2024/多端框架原理分析/">前端面试题</a>
+      <a class="post-title-link" href="/2024/多端框架原理分析/">多端框架原理分析</a>
     </h3>
   
 
@@ -195,7 +195,14 @@
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        
+        原生小程序
+小程序采用了双线程模型，分为渲染线程和逻辑线程。渲染线程使用webview渲染，逻辑线层使用js引擎。逻辑线程不能直接操作渲染线程，需要通过native来转发，设计模式采用数据驱动视图，渲染线程事件驱动数据。
+
+
+所有应用都有逻辑层和渲染层的概念，跨平台框架的区别就是这两个线程通信的区别。
+
+uni-app 小程序
+uni-app是比较优秀的小程序跨平台解决方案，采用vue技术栈...
     
 
         <a href="/2024/多端框架原理分析/" class="post-more waves-effect waves-button">

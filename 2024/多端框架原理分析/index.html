@@ -14,7 +14,7 @@
     
     
     
-    <title>前端面试题</title>
+    <title>多端框架原理分析</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -23,18 +23,18 @@
     <meta name="keywords" content="JavaScript">
     <div style="display:none;"><img src="/img/avatar.jpg"></div>
     <meta property="og:image" content="https://summxu.github.io/img/avatar.jpg">
-    <meta name="description" content="小兵旭旭">
+    <meta name="description" content="原生小程序 小程序采用了双线程模型，分为渲染线程和逻辑线程。渲染线程使用webview渲染，逻辑线层使用js引擎。逻辑线程不能直接操作渲染线程，需要通过native来转发，设计模式采用数据驱动视图，渲染线程事件驱动数据。   所有应用都有逻辑层和渲染层的概念，跨平台框架的区别就是这两个线程通信的区别。  uni-app 小程序 uni-app是比较优秀的小程序跨平台解决方案，采用vue技术栈做为开">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="前端面试题">
+<meta property="og:title" content="多端框架原理分析">
 <meta property="og:url" content="https://summxu.github.io/2024/多端框架原理分析/index.html">
 <meta property="og:site_name" content="小兵旭旭的博客">
-<meta property="og:description" content="小兵旭旭">
+<meta property="og:description" content="原生小程序 小程序采用了双线程模型，分为渲染线程和逻辑线程。渲染线程使用webview渲染，逻辑线层使用js引擎。逻辑线程不能直接操作渲染线程，需要通过native来转发，设计模式采用数据驱动视图，渲染线程事件驱动数据。   所有应用都有逻辑层和渲染层的概念，跨平台框架的区别就是这两个线程通信的区别。  uni-app 小程序 uni-app是比较优秀的小程序跨平台解决方案，采用vue技术栈做为开">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-01-06T14:20:46.954Z">
+<meta property="og:updated_time" content="2024-01-07T14:06:29.642Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端面试题">
-<meta name="twitter:description" content="小兵旭旭">
+<meta name="twitter:title" content="多端框架原理分析">
+<meta name="twitter:description" content="原生小程序 小程序采用了双线程模型，分为渲染线程和逻辑线程。渲染线程使用webview渲染，逻辑线层使用js引擎。逻辑线程不能直接操作渲染线程，需要通过native来转发，设计模式采用数据驱动视图，渲染线程事件驱动数据。   所有应用都有逻辑层和渲染层的概念，跨平台框架的区别就是这两个线程通信的区别。  uni-app 小程序 uni-app是比较优秀的小程序跨平台解决方案，采用vue技术栈做为开">
     
         <link rel="alternate" type="application/atom+xml" title="小兵旭旭的博客" href="/atom.xml">
     
@@ -130,7 +130,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">前端面试题</div>
+        <div class="flex-col header-title ellipsis">多端框架原理分析</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -152,7 +152,7 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">前端面试题</h1>
+        <h1 class="title">多端框架原理分析</h1>
         <h5 class="subtitle">
             
                 <time datetime="2024-01-06T01:49:38.000Z" itemprop="datePublished" class="page-time">
@@ -172,12 +172,19 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#原生小程序"><span class="post-toc-number">1.</span> <span class="post-toc-text">原生小程序</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#uni-app-小程序"><span class="post-toc-number">2.</span> <span class="post-toc-text">uni-app 小程序</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#taro小程序"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">taro小程序</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#uni-app-app"><span class="post-toc-number">3.</span> <span class="post-toc-text">uni-app app</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#taro-app"><span class="post-toc-number">4.</span> <span class="post-toc-text">taro-app</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#react-native"><span class="post-toc-number">5.</span> <span class="post-toc-text">react-native</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#flutter"><span class="post-toc-number">6.</span> <span class="post-toc-text">flutter</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#小程序skyline-amp-amp-arkui"><span class="post-toc-number">7.</span> <span class="post-toc-text">小程序skyline &amp;&amp; arkui</span></a></li></ol>
+        </nav>
+    </aside>
+
 
 <article id="post-2024/多端框架原理分析"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">前端面试题</h1>
+        <h1 class="post-card-title">多端框架原理分析</h1>
         <div class="post-meta">
             <time class="post-time" title="2024-01-06 09:49:38" datetime="2024-01-06T01:49:38.000Z"  itemprop="datePublished">2024-01-06</time>
 
@@ -192,7 +199,47 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <h2 id="原生小程序"><a href="#原生小程序" class="headerlink" title="原生小程序"></a>原生小程序</h2><ul>
+<li>小程序采用了双线程模型，分为渲染线程和逻辑线程。渲染线程使用webview渲染，逻辑线层使用js引擎。<br>逻辑线程不能直接操作渲染线程，需要通过native来转发，设计模式采用数据驱动视图，渲染线程事件驱动数据。</li>
+</ul>
+<blockquote>
+<p>所有应用都有逻辑层和渲染层的概念，跨平台框架的区别就是这两个线程通信的区别。</p>
+</blockquote>
+<h2 id="uni-app-小程序"><a href="#uni-app-小程序" class="headerlink" title="uni-app 小程序"></a>uni-app 小程序</h2><ul>
+<li>uni-app是比较优秀的小程序跨平台解决方案，采用vue技术栈做为开发dsl，抹平了不同小程序框架和h5之间的环境差异。</li>
+<li>他的实现原理主要依靠 编译器 和 运行时：<ol>
+<li>编译器是把vue代码通过ast语法转换，拆分成对wxml、wxss、js等，编译器支持不同平台的条件编译。</li>
+<li>运行时是一个vue runtime，对vue本身的语法、数据驱动、dom操作等转义成小程序原生的方法。</li>
+<li>运行时同时还加了一些路由什么的组件，和各个平台的api。</li>
+</ol>
+</li>
+</ul>
+<h3 id="taro小程序"><a href="#taro小程序" class="headerlink" title="taro小程序"></a>taro小程序</h3><ul>
+<li>taro的小程序解决方案和uni-app类似，也是编译器和运行时的组合，只不过dsl是react。</li>
+<li>runtime 模拟 DOM API，将这些创建视图的方法转换为维护一棵 VDOM 树，再将其转换成对应 setData 的数据，最后通过预置好的模板递归渲染出实际视图。</li>
+</ul>
+<h2 id="uni-app-app"><a href="#uni-app-app" class="headerlink" title="uni-app app"></a>uni-app app</h2><ul>
+<li>uni-app在app上分为webview渲染和nvue渲染，nvue渲染用的采用的是weex的渲染原理，生态太小，导致uni-app在app的表现，大多数都是webview。</li>
+<li>webview的性能在app上体验太差，启动慢、渲染慢、内存占用高。</li>
+</ul>
+<h2 id="taro-app"><a href="#taro-app" class="headerlink" title="taro-app"></a>taro-app</h2><ul>
+<li>taro 的app 端产出的是reactnative，在reactnative也实现了一套运行时，jdReactNative</li>
+</ul>
+<h2 id="react-native"><a href="#react-native" class="headerlink" title="react-native"></a>react-native</h2><ul>
+<li>react native、weex等抛弃webview，改由原生控件渲染的跨平台方案，这比使用webview渲染的体验大大提高。</li>
+<li>但是这么做依然有一些缺陷，其中一点是JS是解释性引擎，启动速度和运行速度都弱于原生。</li>
+<li>reactnative 通过jsBridge，即要和原生渲染层通信，和原生API通信，这中间不同语言通信的性能折损很高。</li>
+<li>reactnative 在 0.70 之后采用Hermes引擎，将js编译为字节码，启动速度和打包体积有了一定优化，可优化的幅度有限，还是需要一个运行时来跑，无法深入底层。</li>
+<li>reactnative 支持热更新。</li>
+</ul>
+<h2 id="flutter"><a href="#flutter" class="headerlink" title="flutter"></a>flutter</h2><ul>
+<li>flutter是使用由dart驱动的自绘渲染引擎，这样逻辑层的dart代码操作UI时，再也没有延时了，并且dart作为强类型，编译优化很好做，启动速度和运行速度都胜过js。</li>
+<li>flutter虽然在逻辑层和渲染层都是dart，但要调用原生API时，还是要通信。</li>
+<li>flutter的自绘渲染引擎，和原生的控件渲染，存在生态上的兼容问题，当一个原生sdk没有flutter版本的时候，使用混合集成模式渲染，可能会导致字体不一致、暗黑主题不一致、键盘交互等问题。</li>
+<li>flutter 不支持热更新</li>
+</ul>
+<h2 id="小程序skyline-amp-amp-arkui"><a href="#小程序skyline-amp-amp-arkui" class="headerlink" title="小程序skyline &amp;&amp; arkui"></a>小程序skyline &amp;&amp; arkui</h2><p>arkui = arkts + flutter</p>
+
         </div>
 
         
@@ -210,7 +257,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2024/多端框架原理分析/&title=《前端面试题》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2024/多端框架原理分析/&title=《多端框架原理分析》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -220,7 +267,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2024/多端框架原理分析/&title=《前端面试题》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2024/多端框架原理分析/&title=《多端框架原理分析》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -230,7 +277,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端面试题》 — 小兵旭旭的博客&url=https://summxu.github.io/2024/多端框架原理分析/&via=https://summxu.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《多端框架原理分析》 — 小兵旭旭的博客&url=https://summxu.github.io/2024/多端框架原理分析/&via=https://summxu.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
@@ -338,7 +385,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2024/多端框架原理分析/&title=《前端面试题》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://summxu.github.io/2024/多端框架原理分析/&title=《多端框架原理分析》 — 小兵旭旭的博客&pic=https://summxu.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -348,7 +395,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2024/多端框架原理分析/&title=《前端面试题》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://summxu.github.io/2024/多端框架原理分析/&title=《多端框架原理分析》 — 小兵旭旭的博客&source=小兵旭旭" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -358,7 +405,7 @@
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《前端面试题》 — 小兵旭旭的博客&url=https://summxu.github.io/2024/多端框架原理分析/&via=https://summxu.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《多端框架原理分析》 — 小兵旭旭的博客&url=https://summxu.github.io/2024/多端框架原理分析/&via=https://summxu.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
