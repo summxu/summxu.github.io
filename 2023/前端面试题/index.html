@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="ReactReact组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可以返回多个组件 使用HOC（高阶函数） 使用React.Fragment，会创建一个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-01-08T04:11:51.424Z">
+<meta property="og:updated_time" content="2024-01-08T04:29:19.651Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端面试题">
 <meta name="twitter:description" content="ReactReact组件为什么不能返回多个元素 React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的 react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新   React组件怎样可以返回多个组件 使用HOC（高阶函数） 使用React.Fragment，会创建一个">
@@ -382,21 +382,19 @@
 </ol>
 </li>
 </ul>
-<h3 id="tree-shaking-原理是什么"><a href="#tree-shaking-原理是什么" class="headerlink" title="tree shaking 原理是什么"></a>tree shaking 原理是什么</h3><blockquote>
-<p>ES Module的静态语法分析更好优化, umd 引入更难优化</p>
-</blockquote>
-<ul>
-<li>先标记(添加注释)出模块导出值中哪些没有被动用过, .</li>
-<li>使用 terser 删除掉这些没被用到的Dead Code。</li>
-<li>package.json sideEffects 就是告知webpack可以安全的删除未用到的exports</li>
+<h3 id="tree-shaking-原理是什么"><a href="#tree-shaking-原理是什么" class="headerlink" title="tree shaking 原理是什么"></a>tree shaking 原理是什么</h3><ul>
+<li>收集各个模块导出变量并记录模块的依赖关系</li>
+<li>再编译流程中标记出各个模块哪些导出值有被其它模块用到，哪些没有用到。</li>
+<li>得到这些没被使用的模块之后，将由 terser 这些 dec 的工具，摇掉这些Dead Code。</li>
+<li>使用ES Module的导入导出，静态语法分析更好优化, umd 引入更难优化</li>
 </ul>
 <h3 id="说一下-Babel-原理"><a href="#说一下-Babel-原理" class="headerlink" title="说一下 Babel 原理"></a>说一下 Babel 原理</h3><blockquote>
 <p>babel 是一个代码转换工具, 在webpack中以loader 的形式存在, jsx es6 转 es5</p>
 </blockquote>
 <ul>
-<li>解析：将代码转换成 AST</li>
+<li>解析：将代码转换成 AST，AST是一个抽象语法树</li>
 <li>转换：访问 AST 的节点进行变换操作生产新的 AST</li>
-<li>生成：以新的 AST 为基础生成代码 详细参考 深入理解babel</li>
+<li>生成：以新的 AST 为基础生成其他类型的代码</li>
 </ul>
 <h2 id="在-Vue-中，子组件为何不可以修改父组件传递的-Prop"><a href="#在-Vue-中，子组件为何不可以修改父组件传递的-Prop" class="headerlink" title="在 Vue 中，子组件为何不可以修改父组件传递的 Prop"></a>在 Vue 中，子组件为何不可以修改父组件传递的 Prop</h2><ul>
 <li>单向数据流，易于监测数据的流动，出现了错误可以更加迅速的定位到错误发生的位置。</li>
