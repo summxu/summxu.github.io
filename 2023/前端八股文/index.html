@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="小兵旭旭的博客">
 <meta property="og:description" content="传输协议&amp;amp;&amp;amp;浏览器https 协议的工作原理 客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。 web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。 客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。 客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-01-07T14:06:29.642Z">
+<meta property="og:updated_time" content="2024-01-08T04:11:51.424Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="前端八股文">
 <meta name="twitter:description" content="传输协议&amp;amp;&amp;amp;浏览器https 协议的工作原理 客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。 web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。 客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。 客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话">
@@ -443,8 +443,8 @@
 </ul>
 <h3 id="new-的实现步骤"><a href="#new-的实现步骤" class="headerlink" title="new 的实现步骤"></a>new 的实现步骤</h3><ol>
 <li>创建一个新的空对象。</li>
-<li>把对象的原型<code>__proto__</code>指向传入的构造函数的原型链<code>prototype</code>.</li>
-<li>使this指向新创建的对象，并执行构造函数。</li>
+<li>把对象的原型链<code>__proto__</code>指向传入的构造函数的原型<code>prototype</code>.</li>
+<li>执行构造函数，并使其this指向新创建的对象。</li>
 <li>判断构造函数的返回值，如果是值类型则就返回这个值。如果是引用类型，就返回这个引用类型的对象。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> newFun = <span class="function">(<span class="params">Fun, ...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> newObj = &#123;&#125;</span><br><span class="line">    newObj.__proto__ = Fun.prototype</span><br><span class="line">    <span class="keyword">const</span> result = Fun.apply(newObj, args)</span><br><span class="line">    <span class="keyword">return</span> result <span class="keyword">instanceof</span> <span class="built_in">Object</span> ? result : newObj</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
 </li>
