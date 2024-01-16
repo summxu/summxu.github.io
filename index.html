@@ -292,14 +292,15 @@ uni-app是比较优秀的小程序跨平台解决方案，采用vue技术栈...
     <div class="post-content" id="post-content" itemprop="postContent">
 
     
-        ReactReact组件为什么不能返回多个元素
-React组件最后会编译为render函数，函数的返回值只能是1个，如果不用单独的根节点包裹，就会并列返回多个值，这在js中是不允许的
-react的虚拟DOM是一个树状结构，树的根节点只能是1个，如果有多个根节点，无法确认是在哪棵树上进行更新
+        ReactsetState 发生了什么setState是触发react渲染更新流程的开关。
 
+将传递给setState的对象和当前组件的state进行合并，触发调和过程。
+然后生成新的DOM树并和旧的DOM树使用Diff算法对比
+根据对比差异对界面进行最小化重渲染。
 
-React组件怎样可以返回多个组件
-使用HOC（高阶函数）
-使用React.Fragment，会创...
+setState异步和批量更新
+setState这个方法在调用的时候是同步的，但是引起React的状态更新是异步的。
+set...
     
 
         <a href="/2023/前端面试题/" class="post-more waves-effect waves-button">
